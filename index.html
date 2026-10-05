@@ -568,6 +568,84 @@
     .search kbd { display: none; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+
+  /* ---------- ESTUDIO CON IA ---------- */
+  .ai-hero { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:16px; align-items:stretch; }
+  .ai-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); padding:18px; }
+  .ai-card h3 { margin:0 0 6px; font-size:1.05rem; }
+  .ai-card p { margin:0 0 12px; color:var(--muted); font-size:.86rem; }
+  .ai-query { display:flex; gap:8px; align-items:stretch; }
+  .ai-query textarea { flex:1; min-height:76px; resize:vertical; border:1px solid var(--border); border-radius:12px; padding:11px 12px; background:var(--surface-2); color:var(--text); font:inherit; }
+  .ai-query .btn { align-self:stretch; min-width:112px; }
+  .ai-tools { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .ai-tools select { flex:1 1 190px; min-width:0; border:1px solid var(--border); border-radius:10px; padding:8px 10px; background:var(--surface); color:var(--text); font:inherit; }
+  .prompt-chips { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
+  .prompt-chip { cursor:pointer; border:1px solid var(--border); background:var(--surface-2); color:var(--text); border-radius:999px; padding:6px 10px; font-size:.76rem; }
+  .prompt-chip:hover { border-color:var(--brand); color:var(--brand); }
+  .ai-answer { margin-top:12px; padding:13px; border-radius:12px; background:var(--brand-soft); border:1px solid color-mix(in srgb,var(--brand) 20%,var(--border)); min-height:48px; white-space:pre-wrap; font-size:.9rem; }
+  .ai-answer:empty { display:none; }
+  .ai-answer .source { display:block; margin-top:8px; color:var(--muted); font-size:.76rem; }
+  .status-line { display:flex; gap:8px; align-items:center; font-size:.82rem; margin:12px 0 0; color:var(--muted); }
+  .status-dot { width:9px; height:9px; border-radius:50%; background:var(--c-amber); flex-shrink:0; }
+  .status-dot.ok { background:var(--c-green); }
+  .status-dot.bad { background:var(--c-rose); }
+  .notebook-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin-top:10px; }
+  .notebook-link { display:flex; align-items:center; gap:9px; text-decoration:none; padding:10px; border:1px solid var(--border); border-radius:12px; background:var(--surface-2); font-size:.82rem; font-weight:700; }
+  .notebook-link:hover { border-color:var(--brand); color:var(--brand); }
+  .notebook-link .nb-icon { width:28px; height:28px; border-radius:8px; display:grid; place-items:center; background:var(--c-violet-bg); color:var(--c-violet); flex-shrink:0; }
+  .library { margin-top:16px; }
+  .library-head { display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; }
+  .library-head h3 { margin:0; }
+  .file-input { display:none; }
+  .material-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:8px; margin-top:10px; }
+  .material-item { display:flex; gap:8px; align-items:center; padding:9px 10px; border:1px solid var(--border); border-radius:10px; font-size:.8rem; min-width:0; }
+  .material-item span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .empty-material { color:var(--muted); font-size:.82rem; padding:10px 0; }
+  .architecture { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px; }
+  .arch-step { padding:11px; border-radius:12px; background:var(--surface-2); border:1px solid var(--border); font-size:.78rem; }
+  .arch-step b { display:block; margin-bottom:3px; color:var(--brand); }
+  .ai-note { font-size:.75rem !important; line-height:1.45; margin-top:10px !important; }
+  @media (max-width:800px) { .ai-hero { grid-template-columns:1fr; } .ai-query { flex-direction:column; } .ai-query .btn { min-height:44px; } .architecture { grid-template-columns:1fr; } }
+
+
+  /* ---------- AJUSTES DE DISEÑO PÚBLICO ---------- */
+  .hero { padding-bottom:52px; }
+  .hero-inner { display:grid; grid-template-columns:minmax(0,1fr) minmax(420px,.95fr); gap:22px 42px; align-items:center; }
+  .hero-main { min-width:0; grid-column:1; }
+  .hero-inner > .eyebrow, .hero-inner > h1, .hero-inner > .lead { grid-column:1; }
+  .hero-ess { grid-column:2; grid-row:1 / span 4; }
+  .hero .search { max-width:none; width:100%; }
+  .hero-ai-btn { border:0; cursor:pointer; border-radius:9px; padding:8px 12px; background:#e2f2ec; color:#00533e; font-weight:800; }
+  .hero-ai-btn:hover { background:#c9eadc; }
+  .hero-ess { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; align-items:stretch; }
+  .hero-ess .ecard { min-height:176px; padding:15px; border-radius:15px; gap:8px; }
+  .hero-ess .ecard .ic { width:38px; height:38px; border-radius:11px; }
+  .hero-ess .ecard .ic svg.i { width:21px; height:21px; }
+  .hero-ess .ecard strong { font-size:1rem; }
+  .hero-ess .ecard .d { font-size:.73rem; line-height:1.3; }
+  .hero-ess .ecard .cta { font-size:.72rem; }
+  .hero-anchor { display:none !important; }
+  .cal-head-row { grid-template-columns:minmax(0,300px) minmax(0,1fr); }
+  .cal-head-row .countdown { min-height:100%; }
+  .cal-layout { grid-template-columns:minmax(0,1fr) minmax(280px,32%); }
+  .calendar-actions { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:0; }
+  .calendar-actions .note { margin:0; }
+  .calendar-actions .actions { display:flex; flex-wrap:wrap; gap:8px; }
+  .cal-lower { display:grid; grid-template-columns:minmax(0,7fr) minmax(280px,3fr); gap:12px; align-items:start; }
+  .cal-lower .panel { margin-bottom:0; min-width:0; }
+  .cal-lower .tut-panel { order:1; }
+  .cal-lower .exams-panel { order:2; }
+  .cal-lower .tt { overflow-x:auto; }
+  .ai-hero { grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr); }
+  .notebooks-primary { order:0; }
+  .local-ai { order:1; }
+  .library-actions { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .library-actions .btn { white-space:nowrap; }
+  .material-item { position:relative; padding-right:34px; }
+  .material-remove { margin-left:auto; border:0; background:transparent; color:var(--c-rose); cursor:pointer; font-weight:800; position:absolute; right:8px; }
+  @media (max-width:1000px) { .hero-inner { grid-template-columns:1fr; } .hero-inner > .eyebrow, .hero-inner > h1, .hero-inner > .lead, .hero-main, .hero-ess { grid-column:1; grid-row:auto; } .hero-ess { max-width:760px; } .cal-lower { grid-template-columns:1fr; } }
+  @media (max-width:800px) { .hero-ess { grid-template-columns:1fr; } .hero-ess .ecard { min-height:120px; } .calendar-actions { align-items:flex-start; flex-direction:column; } }
+
 </style>
 </head>
 <body>
@@ -577,11 +655,15 @@
     <span class="eyebrow"><span class="dot"></span>Curso 2026/2027 · Código 7103 · UNED Plasencia · Aula de Cáceres</span>
     <h1>Grado en Ingeniería en <span>Inteligencia Artificial</span></h1>
     <p class="lead">Accesos de la UNED, tu calendario de exámenes y entregas, y el plan de estudios completo en un solo sitio.</p>
-    <label class="search" for="q">
-      <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Buscar enlace o asignatura… (ej. matrícula, aprendizaje)" autocomplete="off">
-      <kbd>/</kbd>
-    </label>
+    <div class="hero-main">
+      <div class="search">
+        <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Buscar enlaces, asignaturas o preguntar a la IA local…" autocomplete="off">
+        <kbd>/</kbd>
+        <button class="hero-ai-btn" id="topAsk" type="button" title="Consultar la IA local opcional">IA</button>
+      </div>
+    </div>
+    <div class="hero-ess" id="heroEss" aria-label="Accesos esenciales"></div>
   </div>
 </header>
 
@@ -615,13 +697,7 @@
   <div class="content">
 
   <!-- ESENCIALES -->
-  <section id="esenciales">
-    <div class="sec-head">
-      <div class="sec-icon" style="background:var(--c-green-bg);color:var(--c-green)" id="essIcon"></div>
-      <div><h2>Esenciales</h2><p>Las tres plataformas que vas a usar a diario</p></div>
-    </div>
-    <div class="ess" id="ess"></div>
-  </section>
+  <section id="esenciales" class="hero-anchor" aria-hidden="true"></section>
 
   <!-- CALENDARIO -->
   <section id="calendario">
@@ -637,16 +713,7 @@
       </div>
       <div class="wk-list" id="wkList"></div>
     </div>
-      <div class="panel">
-        <div class="actions">
-          <button class="btn primary" id="btnAdd"></button>
-          <button class="btn" id="btnIcs" title="Descargar .ics para Google Calendar, Outlook o el móvil"></button>
-          <button class="btn" id="btnBackup" title="Guardar copia de tus eventos"></button>
-          <button class="btn" id="btnRestore" title="Cargar una copia guardada" style="grid-column:span 2"></button>
-          <input type="file" id="restoreFile" accept="application/json,.json" hidden>
-        </div>
-        <p class="note" id="storeNote">Tus eventos se guardan en este navegador. Haz una copia de vez en cuando o expórtalos a tu calendario.</p>
-      </div>
+
     </div>
     <div class="cal-layout">
       <div class="panel">
@@ -669,7 +736,18 @@
         </div></div>
       </aside>
     </div>
+    <div class="calendar-actions panel">
+      <div class="actions">
+        <button class="btn primary" id="btnAdd"></button>
+        <button class="btn" id="btnIcs" title="Descargar .ics para Google Calendar, Outlook o el móvil"></button>
+        <button class="btn" id="btnBackup" title="Guardar copia de tus eventos"></button>
+        <button class="btn" id="btnRestore" title="Cargar una copia guardada"></button>
+        <input type="file" id="restoreFile" accept="application/json,.json" hidden>
+      </div>
+      <p class="note" id="storeNote">Tus eventos se guardan en este navegador. Haz una copia de vez en cuando o expórtalos a tu calendario.</p>
+    </div>
 
+    <div class="cal-lower">
     <div class="panel exams-panel" id="examenes">
       <div class="ex-head">
         <div>
@@ -696,8 +774,65 @@
       <div class="tt" id="tutGrid"></div>
       <p class="note">Aparecen en el calendario cada semana del 5 de octubre al 22 de enero, sin festivos ni vacaciones de Navidad. Si marcas una asignatura como convalidada, su tutoría aparece tachada y deja de contar. Revisa en Akademos si alguna sesión cambia o se cancela.</p>
     </div>
+    </div>
   </section>
 
+
+
+
+  <!-- ESTUDIO CON IA -->
+  <section id="estudio-ia">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:var(--c-violet-bg);color:var(--c-violet)">✦</div>
+      <div><h2>Estudio con IA y tus materiales</h2><p>NotebookLM como acceso rápido y RAG local con Ollama para preguntar sobre tus propios documentos</p></div>
+    </div>
+    <div class="ai-hero">
+      <div class="ai-card notebooks-primary">
+        <h3>Tus notebooks de Gemini</h3>
+        <p>Accesos públicos que ya tienes preparados con el temario. Se abren en NotebookLM/Gemini y son la opción principal para estudiar online.</p>
+        <div class="notebook-grid" id="notebookGrid"></div>
+        <p class="ai-note">Puedes cambiar el nombre de cada notebook editando el array <code>NOTEBOOKS</code> al final de este archivo.</p>
+      </div>
+      <div class="ai-card local-ai">
+        <h3>IA local opcional</h3>
+        <p>Cuando tengas iniciado el proyecto <b>uned-estudio</b>, esta caja consultará su API RAG en <code>localhost:8000</code>. Si no está iniciado, te mostrará cómo ponerlo en marcha.</p>
+        <div class="ai-query">
+          <textarea id="ragQuestion" placeholder="Ej.: ¿Qué tema debo estudiar esta semana en Álgebra? ¿Cuándo es la próxima tutoría?"></textarea>
+          <button class="btn primary" id="ragAsk">Preguntar</button>
+        </div>
+        <div class="ai-tools">
+          <select id="ragSubject" aria-label="Limitar pregunta a una asignatura"><option value="">Todas las asignaturas</option></select>
+          <button class="btn" id="ragOpen" type="button">Abrir motor local</button>
+        </div>
+        <div class="prompt-chips">
+          <button class="prompt-chip" data-prompt="Resume el tema de esta semana y dime qué conceptos debo dominar.">Resumen de esta semana</button>
+          <button class="prompt-chip" data-prompt="¿Qué fechas de tutorías, PEC o exámenes tengo próximas? Cita la fuente.">Próximas fechas</button>
+          <button class="prompt-chip" data-prompt="Explícame este concepto como si estuviera empezando y ponme un ejemplo.">Explicación sencilla</button>
+        </div>
+        <div class="ai-answer" id="ragAnswer" aria-live="polite"></div>
+        <div class="status-line"><span class="status-dot" id="ragDot"></span><span id="ragStatus">Comprobando motor local…</span></div>
+      </div>
+
+    </div>
+    <div class="ai-card library">
+      <div class="library-head">
+        <div><h3>Biblioteca local de materiales</h3><p>Registra aquí PDFs, apuntes o documentos que quieras incorporar al proyecto RAG.</p></div>
+        <div class="library-actions">
+          <label class="btn primary" for="materialFiles">Añadir<input class="file-input" id="materialFiles" type="file" multiple accept=".pdf,.txt,.md,.docx,.html"></label>
+          <button class="btn" id="materialIndex" type="button">Indexar en local</button>
+          <button class="btn" id="materialAsk" type="button">Preguntar</button>
+          <button class="btn danger" id="materialClear" type="button">Eliminar todos</button>
+        </div>
+      </div>
+      <div class="material-list" id="materialList"></div>
+      <div class="architecture">
+        <div class="arch-step"><b>1 · Añadir</b>Guarda los documentos en <code>docs/asignaturas/&lt;codigo&gt;-&lt;nombre&gt;/</code>.</div>
+        <div class="arch-step"><b>2 · Indexar</b>El proyecto usa ChromaDB + <code>nomic-embed-text</code> para crear el índice semántico.</div>
+        <div class="arch-step"><b>3 · Preguntar</b>Ollama responde con <code>qwen2.5:7b-instruct</code> y cita los fragmentos recuperados.</div>
+      </div>
+      <p class="ai-note">La selección de archivos de este HTML es una ayuda visual y se conserva en este navegador. Para que el RAG los use de verdad, cópialos a la carpeta <code>docs/</code> del repositorio y vuelve a indexar.</p>
+    </div>
+  </section>
 
   <!-- ASIGNATURAS -->
   <section id="asignaturas">
@@ -955,7 +1090,6 @@ const guideURL = code => `https://www.uned.es/universidad/inicio/estudios/grados
 const state = { q:'', course:-1, types:new Set(Object.keys(TYPES)) };
 
 /* ================= Iconos estáticos ================= */
-document.getElementById('essIcon').innerHTML = ic('star');
 document.getElementById('calIcon').innerHTML = ic('cal');
 document.getElementById('subjIcon').innerHTML = ic('cap');
 document.getElementById('calPrev').innerHTML = ic('left');
@@ -973,14 +1107,15 @@ document.getElementById('secnav').innerHTML =
   `<a href="#calendario">${ic('cal')}Mi calendario</a>` +
   `<a href="#examenes">${ic('clock')}Exámenes</a>` +
   `<a href="#tutorias">${ic('users')}Tutorías</a>` +
-  `<a href="#asignaturas">${ic('cap')}Asignaturas</a>`;
+  `<a href="#asignaturas">${ic('cap')}Asignaturas</a>` +
+  `<a href="#estudio-ia">✦ Estudio con IA</a>`;
 
 /* ================= Render enlaces ================= */
 function renderLinks() {
   const q = state.q;
   const ess = ESSENTIALS.filter(l => !q || norm(l.t + ' ' + l.d).includes(q));
-  document.getElementById('esenciales').style.display = ess.length ? '' : 'none';
-  document.getElementById('ess').innerHTML = ess.map(l => `
+  document.getElementById('esenciales').style.display = 'none';
+  document.getElementById('heroEss').innerHTML = ess.map(l => `
     <a class="ecard" style="--g1:${l.g1};--g2:${l.g2}" href="${l.u}" target="_blank" rel="noopener">
       <span class="ic">${ic(l.i)}</span>
       <strong>${hl(l.t,q)}</strong>
@@ -1999,6 +2134,53 @@ document.addEventListener('keydown', e => {
 /* ================= Inicio ================= */
 updateStoreNote();
 renderLinks(); renderLegend(); renderCalendar(); renderExams(); renderTutorias(); renderWeek(); renderProgress(); renderTabs(); renderChips(); renderSubjects();
+
+
+/* ================= Estudio con IA / biblioteca local ================= */
+const NOTEBOOKS = [
+  { name:'Notebook de asignatura 1', url:'https://notebook.google.com/notebook/1658e8a0-bbf5-4092-bd74-732e4595c302' },
+  { name:'Notebook de asignatura 2', url:'https://notebook.google.com/notebook/fea81c7b-3c54-4109-b91d-f8a3f445dc25' },
+  { name:'Notebook de asignatura 3', url:'https://notebook.google.com/notebook/731728f3-983d-48eb-93ab-3ae2009ecc7d' },
+  { name:'Notebook de asignatura 4', url:'https://notebook.google.com/notebook/ad30fa02-ddbe-401e-8a55-26c8ffb53b25' },
+  { name:'Notebook de asignatura 5', url:'https://notebook.google.com/notebook/8a45708d-c336-4b48-871c-499838509921' }
+];
+const nbGrid = document.getElementById('notebookGrid');
+if (nbGrid) nbGrid.innerHTML = NOTEBOOKS.map((n,i) => `<a class="notebook-link" href="${n.url}" target="_blank" rel="noopener"><span class="nb-icon">${i+1}</span><span>${esc(n.name)}</span></a>`).join('');
+const ragSubject = document.getElementById('ragSubject');
+if (ragSubject) S.forEach(x => { const o=document.createElement('option'); o.value=x.code; o.textContent=x.n; ragSubject.appendChild(o); });
+const ragAnswer = document.getElementById('ragAnswer'), ragStatus = document.getElementById('ragStatus'), ragDot = document.getElementById('ragDot');
+function setRagStatus(text, kind='') { if(ragStatus) ragStatus.textContent=text; if(ragDot) ragDot.className='status-dot '+kind; }
+async function checkRag() {
+  try { const r=await fetch('http://localhost:8000/api/health',{method:'GET'}); if(!r.ok) throw new Error(); setRagStatus('Motor local conectado en localhost:8000','ok'); }
+  catch(e) { setRagStatus('Motor local apagado · abre el proyecto uned-estudio para activarlo','bad'); }
+}
+checkRag();
+document.getElementById('ragOpen')?.addEventListener('click',()=>window.open('http://localhost:8000','_blank'));
+document.querySelectorAll('.prompt-chip').forEach(b=>b.addEventListener('click',()=>{ document.getElementById('ragQuestion').value=b.dataset.prompt; document.getElementById('ragQuestion').focus(); }));
+document.getElementById('ragAsk')?.addEventListener('click', async ()=>{
+  const q=document.getElementById('ragQuestion').value.trim(); if(!q) return;
+  ragAnswer.textContent='Consultando documentos…';
+  const subject=ragSubject?.value || '';
+  try {
+    const url='http://localhost:8000/api/rag/query?q='+encodeURIComponent(q)+(subject?'&subject='+encodeURIComponent(subject):'');
+    const r=await fetch(url); const data=await r.json(); if(!r.ok) throw new Error(data.detail||'Error del motor');
+    const answer=data.answer || data.response || data.text || JSON.stringify(data,null,2);
+    ragAnswer.textContent=answer;
+    if(Array.isArray(data.sources) && data.sources.length) { const src=document.createElement('span'); src.className='source'; src.textContent='Fuentes: '+data.sources.map(x=>typeof x==='string'?x:(x.path||x.source||x.file||'documento')).join(' · '); ragAnswer.appendChild(src); }
+    setRagStatus('Respuesta obtenida del RAG local','ok');
+  } catch(e) { ragAnswer.textContent='No se ha podido consultar el RAG local.\n\nActiva el repositorio con Iniciar.bat (Windows) o iniciar.sh (Mac/Linux), espera a que arranque el servidor y vuelve a intentarlo.\n\nDetalle: '+e.message; setRagStatus('No hay respuesta del motor local','bad'); }
+});
+const MATERIAL_KEY='uned-materiales-v2';
+function materialNames(){ try{return JSON.parse(localStorage.getItem(MATERIAL_KEY)||'[]')}catch(e){return[]} }
+function saveMaterialNames(a){ localStorage.setItem(MATERIAL_KEY,JSON.stringify(a)); }
+function renderMaterials(){ const box=document.getElementById('materialList'); if(!box)return; const a=materialNames(); box.innerHTML=a.length?a.map((n,i)=>`<div class="material-item">${ic('file')}<span title="${esc(n)}">${esc(n)}</span><button class="material-remove" type="button" data-material-index="${i}" title="Eliminar material">×</button></div>`).join(''):'<div class="empty-material">Todavía no has registrado materiales en este navegador.</div>'; }
+renderMaterials();
+document.getElementById('materialFiles')?.addEventListener('change',e=>{ const old=materialNames(); [...e.target.files].forEach(f=>{if(!old.includes(f.name))old.push(f.name)}); saveMaterialNames(old); renderMaterials(); e.target.value=''; });
+document.getElementById('materialList')?.addEventListener('click',e=>{ const b=e.target.closest('[data-material-index]'); if(!b)return; const a=materialNames(); a.splice(+b.dataset.materialIndex,1); saveMaterialNames(a); renderMaterials(); });
+document.getElementById('materialClear')?.addEventListener('click',()=>{ if(materialNames().length && confirm('¿Eliminar todos los materiales registrados en este navegador?')){saveMaterialNames([]);renderMaterials();} });
+document.getElementById('materialAsk')?.addEventListener('click',()=>{ document.getElementById('ragQuestion').focus(); document.getElementById('ragQuestion').scrollIntoView({behavior:'smooth',block:'center'}); });
+document.getElementById('materialIndex')?.addEventListener('click',async()=>{ const ans=document.getElementById('ragAnswer'); ans.textContent='Intentando indexar en el motor local…'; try{ const r=await fetch('http://localhost:8000/api/rag/ingest',{method:'POST'}); if(!r.ok)throw new Error('El endpoint de indexación no está disponible'); ans.textContent='Indexación solicitada. Si estás usando uned-estudio, espera a que termine y vuelve a preguntar.'; setRagStatus('Indexación local solicitada','ok'); }catch(e){ans.textContent='La indexación solo está disponible cuando ejecutas uned-estudio en local.\n\nCopia los documentos a la carpeta docs/ y ejecuta el indexador del proyecto.';setRagStatus('Motor local no disponible','bad');} });
+document.getElementById('topAsk')?.addEventListener('click',()=>{ const q=document.getElementById('q').value.trim(); if(q)document.getElementById('ragQuestion').value=q; document.getElementById('estudio-ia').scrollIntoView({behavior:'smooth',block:'start'}); setTimeout(()=>document.getElementById('ragAsk')?.click(),350); });
 </script>
 </body>
 </html>
