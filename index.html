@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNED · Panel del Grado en IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f5f4; --surface: #ffffff; --surface-2: #f6f8f7;
+    --text: #15201c; --muted: #5d6b66; --border: #e1e7e4;
+    --brand: #00533e; --brand-soft: #e2f2ec; --on-brand: #fff;
+    --shadow: 0 1px 2px rgba(16,40,32,.06), 0 8px 24px rgba(16,40,32,.06);
+    --shadow-hover: 0 2px 4px rgba(16,40,32,.08), 0 16px 40px rgba(16,40,32,.12);
+    --c-green: #0a8f6a;  --c-green-bg: #e0f4ec;
+    --c-blue: #2563eb;   --c-blue-bg: #e3ebfd;
+    --c-violet: #7c3aed; --c-violet-bg: #efe7fd;
+    --c-amber: #c27803;  --c-amber-bg: #fdf1dc;
+    --c-rose: #db2777;   --c-rose-bg: #fce4ef;
+    --c-cyan: #0891b2;   --c-cyan-bg: #dcf3f8;
+    --fb: #2563eb; --ob: #0a8f6a; --op: #c27803; --tfg: #db2777;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1412; --surface: #161e1b; --surface-2: #1b2521;
+      --text: #e7eeeb; --muted: #94a39d; --border: #26322e;
+      --brand: #3fcf9e; --brand-soft: #173029; --on-brand: #0e1412;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
+      --shadow-hover: 0 2px 4px rgba(0,0,0,.4), 0 16px 40px rgba(0,0,0,.4);
+      --c-green: #3fcf9e;  --c-green-bg: #163128;
+      --c-blue: #7aa5ff;   --c-blue-bg: #19243d;
+      --c-violet: #b394ff; --c-violet-bg: #251b3d;
+      --c-amber: #f0b44c;  --c-amber-bg: #33270f;
+      --c-rose: #f585b5;   --c-rose-bg: #3a1a29;
+      --c-cyan: #4fd0e8;   --c-cyan-bg: #12303a;
+      --fb: #7aa5ff; --ob: #3fcf9e; --op: #f0b44c; --tfg: #f585b5;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  button { font: inherit; }
+  svg.i { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative; overflow: hidden; color: #fff;
+    background:
+      radial-gradient(1200px 400px at 85% -10%, rgba(255,255,255,.18), transparent 60%),
+      radial-gradient(800px 300px at -10% 110%, rgba(63,207,158,.35), transparent 60%),
+      linear-gradient(135deg, #003a2b 0%, #00533e 45%, #0a8f6a 100%);
+    padding: 22px 16px 78px;
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .12;
+    background-image: radial-gradient(rgba(255,255,255,.9) 1px, transparent 1px);
+    background-size: 22px 22px;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 90%);
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 90%);
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22);
+    padding: 5px 12px; border-radius: 999px; font-size: .78rem; font-weight: 600; letter-spacing: .03em;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: #7cf5c8; box-shadow: 0 0 0 4px rgba(124,245,200,.25); }
+  .hero h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); line-height: 1.1; margin: 16px 0 10px; font-weight: 800; letter-spacing: -.02em; }
+  .hero h1 span { color: #9ff3d2; }
+  .hero p.lead { margin: 0; max-width: 620px; font-size: 1.02rem; color: rgba(255,255,255,.85); }
+  .search {
+    margin-top: 26px; max-width: 560px; display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,.96); color: #15201c; border-radius: 14px; padding: 6px 6px 6px 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  }
+  .search svg { color: #5d6b66; }
+  .search input { flex: 1; border: 0; outline: 0; background: transparent; font: inherit; font-size: 1rem; padding: 10px 0; color: inherit; min-width: 0; }
+  .search kbd { font-family: "JetBrains Mono", monospace; font-size: .72rem; color: #5d6b66; border: 1px solid #dfe5e2; border-bottom-width: 2px; border-radius: 6px; padding: 3px 7px; background: #f6f8f7; }
+
+  /* ---------- STATS ---------- */
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+  .stats { position: relative; z-index: 2; margin-top: -56px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 14px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 18px 20px; box-shadow: var(--shadow); }
+  .stat .k { font-size: .76rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+  .stat .v { font-size: 2rem; font-weight: 800; letter-spacing: -.02em; line-height: 1.15; margin-top: 2px; }
+  .stat .v small { font-size: .9rem; font-weight: 600; color: var(--muted); margin-left: 4px; }
+  .dist { display: flex; height: 12px; border-radius: 999px; overflow: hidden; margin: 12px 0 10px; background: var(--surface-2); }
+  .dist span { display: block; height: 100%; }
+  .dist-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .78rem; color: var(--muted); }
+  .dist-legend b { color: var(--text); font-weight: 700; }
+  .sw { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 6px; vertical-align: middle; }
+
+  /* ---------- NAV ---------- */
+  .secnav {
+    position: sticky; top: 0; z-index: 10; margin: 26px -16px 0; padding: 10px 16px;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+  }
+  .secnav::-webkit-scrollbar { display: none; }
+  .secnav a {
+    flex-shrink: 0; text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+    padding: 8px 14px; border-radius: 999px; font-size: .86rem; font-weight: 600;
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    transition: border-color .15s, color .15s;
+  }
+  .secnav a:hover { border-color: var(--brand); color: var(--brand); }
+  .secnav a svg.i { width: 16px; height: 16px; }
+
+  :root { --gut: clamp(16px, 2.5vw, 56px); }
+  .hero { padding-left: var(--gut) !important; padding-right: var(--gut) !important; }
+  .hero-inner, .wrap { max-width: 2200px; }
+  .wrap { padding: 0 var(--gut); }
+  .secnav { flex-wrap: wrap; overflow: visible; margin-left: calc(-1 * var(--gut)); margin-right: calc(-1 * var(--gut)); padding-left: var(--gut); padding-right: var(--gut); }
+  .layout { display: grid; grid-template-columns: 255px minmax(0,1fr); gap: 18px; align-items: start; }
+  .sidemenu { position: sticky; top: 64px; margin-top: 18px; max-height: calc(100vh - 80px); overflow: auto; display: grid; gap: 8px; scrollbar-width: thin; }
+  .sm { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; scroll-margin-top: 70px; }
+  .sm > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 10px 12px; font-weight: 700; font-size: .88rem; }
+  .sm > summary::-webkit-details-marker { display: none; }
+  .sm > summary .ic { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; flex-shrink: 0; }
+  .sm > summary small { margin-left: auto; color: var(--muted); font-weight: 600; }
+  .sm > summary::after { content: "▾"; color: var(--muted); transition: transform .15s; }
+  .sm[open] > summary::after { transform: rotate(180deg); }
+  .sml { display: flex; align-items: center; gap: 8px; padding: 7px 12px 7px 14px; font-size: .82rem; text-decoration: none; color: var(--text); border-top: 1px solid var(--border); }
+  .sml:hover { background: var(--surface-2); color: var(--brand); }
+  .sml svg.i { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; }
+  .panel[id] { scroll-margin-top: 70px; }
+  .di[data-info], .tt-i[data-code], .plan-li[data-k] { cursor: pointer; }
+  .tt-i[data-code]:hover, .plan-li[data-k]:hover { border-color: var(--brand); }
+  .info-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .info-links .btn { text-decoration: none; }
+  .tt-i .tt-go { display: inline-flex; gap: 4px; align-items: center; margin-top: 4px; font-size: .72rem; font-weight: 700; color: var(--brand); text-decoration: none; }
+  #infoDlg { width: min(620px, calc(100vw - 24px)); }
+  #infoDlg .dlg-body { max-height: calc(92vh - 170px); overflow: auto; }
+  @media (max-width: 1000px) { .layout { grid-template-columns: 1fr; } .sidemenu { position: static; max-height: none; margin-top: 20px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
+  section { padding-top: 18px; scroll-margin-top: 64px; }
+  .sec-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .sec-icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; }
+  .sec-head h2 { margin: 0; font-size: 1.3rem; font-weight: 800; letter-spacing: -.01em; }
+  .sec-head p { margin: 0; color: var(--muted); font-size: .88rem; }
+
+  /* ---------- ESENCIALES ---------- */
+  .ess { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+  .ecard {
+    position: relative; display: flex; flex-direction: column; gap: 12px; padding: 22px;
+    border-radius: 20px; text-decoration: none; color: #fff; overflow: hidden; min-height: 150px;
+    background: linear-gradient(140deg, var(--g1), var(--g2)); box-shadow: var(--shadow);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .ecard::after { content: ""; position: absolute; right: -50px; top: -50px; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,.09); }
+  .ecard::before { content: ""; position: absolute; right: 30px; bottom: -70px; width: 140px; height: 140px; border-radius: 50%; background: rgba(255,255,255,.06); }
+  .ecard:hover, .ecard:focus-visible { transform: translateY(-4px); box-shadow: var(--shadow-hover); outline: none; }
+  .ecard .ic { width: 54px; height: 54px; border-radius: 15px; background: rgba(255,255,255,.18); display: grid; place-items: center; position: relative; z-index: 1; }
+  .ecard .ic svg.i { width: 28px; height: 28px; }
+  .ecard strong { font-size: 1.4rem; font-weight: 800; letter-spacing: -.01em; position: relative; z-index: 1; }
+  .ecard .d { color: rgba(255,255,255,.86); font-size: .9rem; line-height: 1.45; position: relative; z-index: 1; }
+  .ecard .cta { margin-top: auto; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: .86rem; position: relative; z-index: 1; }
+  .ecard .cta svg.i { width: 16px; height: 16px; transition: transform .2s; }
+  .ecard:hover .cta svg.i { transform: translate(3px,-3px); }
+
+  /* ---------- LINK CARDS ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+  .lcard {
+    position: relative; display: flex; gap: 14px; align-items: flex-start; text-decoration: none;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px;
+    box-shadow: var(--shadow); transition: transform .18s ease, box-shadow .18s ease, border-color .18s; overflow: hidden;
+  }
+  .lcard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; background: var(--accent); opacity: 0; transition: opacity .18s; }
+  .lcard:hover, .lcard:focus-visible { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); outline: none; }
+  .lcard:hover::before, .lcard:focus-visible::before { opacity: 1; }
+  .lcard .ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: var(--accent-bg); color: var(--accent); flex-shrink: 0; }
+  .lcard .tx { min-width: 0; flex: 1; }
+  .lcard strong { display: block; font-size: .98rem; font-weight: 700; margin-bottom: 2px; }
+  .lcard .d { color: var(--muted); font-size: .84rem; line-height: 1.4; }
+  .lcard .go { color: var(--muted); opacity: .5; transition: transform .18s, opacity .18s, color .18s; margin-top: 2px; }
+  .lcard:hover .go { transform: translate(2px,-2px); opacity: 1; color: var(--accent); }
+  .lcard .go svg.i { width: 18px; height: 18px; }
+
+  /* ---------- BUTTONS ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: .86rem;
+    transition: border-color .15s, background .15s, color .15s;
+  }
+  .btn:hover { border-color: var(--brand); color: var(--brand); }
+  .btn svg.i { width: 17px; height: 17px; }
+  .btn.primary { background: var(--brand); border-color: var(--brand); color: var(--on-brand); }
+  .btn.primary:hover { filter: brightness(1.08); color: var(--on-brand); }
+  .btn.danger { color: var(--c-rose); }
+  .btn.danger:hover { border-color: var(--c-rose); }
+  .btn.icon { padding: 8px; }
+
+  /* ---------- CALENDAR ---------- */
+  .cal-layout { display: grid; grid-template-columns: minmax(0,1fr) 380px; gap: 12px; align-items: stretch; margin-bottom: 12px; }
+  .cal-head-row { display: grid; grid-template-columns: minmax(230px,290px) minmax(0,1fr) minmax(230px,290px); gap: 12px; align-items: stretch; margin-bottom: 12px; }
+  .cal-head-row > .panel { margin-bottom: 0; }
+  .cal-head-row .week-panel { margin-bottom: 0; }
+  .up-panel { position: relative; min-height: 300px; margin-bottom: 0; padding: 0 !important; }
+  .up-in { position: absolute; inset: 0; padding: 16px; display: flex; flex-direction: column; }
+  .up-in .up-list { flex: 1; min-height: 0; overflow: auto; align-content: start; }
+  @media (max-width: 1100px) { .cal-head-row { grid-template-columns: 1fr; } .cal-layout { grid-template-columns: 1fr; } .up-panel { min-height: 280px; } }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 12px 14px; margin-bottom: 12px; }
+  .cal-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+  .cal-title { font-size: 1.25rem; font-weight: 800; letter-spacing: -.01em; text-transform: capitalize; margin: 0; }
+  .cal-title small { color: var(--muted); font-weight: 600; font-size: .95rem; margin-left: 6px; }
+  .cal-nav { display: flex; gap: 6px; }
+  .dow, .days { display: grid; grid-template-columns: repeat(7, minmax(0,1fr)); gap: 5px; }
+  .dow div { text-align: center; font-size: .72rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding-bottom: 6px; }
+  .day {
+    min-height: 76px; border-radius: 10px; background: var(--surface-2); border: 1px solid transparent;
+    padding: 5px; cursor: pointer; display: flex; flex-direction: column; gap: 3px; overflow: hidden; position: relative;
+    transition: border-color .15s, transform .15s;
+  }
+  .day:hover, .day:focus-visible { border-color: var(--brand); outline: none; }
+  .day:hover .add { opacity: 1; }
+  .day .add { position: absolute; right: 5px; top: 5px; opacity: 0; color: var(--brand); transition: opacity .15s; }
+  .day .add svg.i { width: 15px; height: 15px; }
+  .day.out { opacity: .38; }
+  .day.weekend { background: color-mix(in srgb, var(--surface-2) 60%, var(--bg)); }
+  .day.exam { background: color-mix(in srgb, var(--c-rose) 12%, var(--surface)); border-color: color-mix(in srgb, var(--c-rose) 25%, transparent); }
+  .day.off { background: repeating-linear-gradient(135deg, var(--surface-2) 0 7px, color-mix(in srgb, var(--muted) 12%, var(--surface-2)) 7px 14px); }
+  .num { font-size: .8rem; font-weight: 700; width: 25px; height: 25px; display: grid; place-items: center; border-radius: 999px; flex-shrink: 0; }
+  .day.today .num { background: var(--brand); color: var(--on-brand); }
+  .evs { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .ev {
+    display: block; font-size: .7rem; font-weight: 600; line-height: 1.3; padding: 2px 6px; border-radius: 6px;
+    background: color-mix(in srgb, var(--ec) 16%, var(--surface)); color: var(--text);
+    border-left: 3px solid var(--ec); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .ev.user { cursor: pointer; }
+  .ev.user:hover { background: color-mix(in srgb, var(--ec) 28%, var(--surface)); }
+  .ev.official { background: var(--ec); color: #fff; border-left-color: transparent; font-weight: 700; }
+  @media (prefers-color-scheme: dark) { .ev.official { color: #0e1412; } .seg button[aria-pressed="true"] { color: #0e1412; } }
+  .ev .tm { font-family: "JetBrains Mono", monospace; font-size: .64rem; opacity: .75; margin-right: 3px; }
+  .more { font-size: .68rem; color: var(--muted); font-weight: 600; padding-left: 4px; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); font-size: .78rem; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+
+  .side { display: grid; gap: 16px; }
+  .countdown {
+    border-radius: 18px; padding: 18px; color: #fff; position: relative; overflow: hidden;
+    background: linear-gradient(140deg, #9d174d, #db2777);
+    box-shadow: var(--shadow);
+  }
+  .countdown::after { content: ""; position: absolute; right: -40px; top: -40px; width: 140px; height: 140px; border-radius: 50%; background: rgba(255,255,255,.1); }
+  .countdown .k { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; opacity: .85; }
+  .countdown .big { font-size: 2.6rem; font-weight: 800; line-height: 1; margin: 8px 0 4px; letter-spacing: -.02em; }
+  .countdown .big small { font-size: 1rem; font-weight: 700; margin-left: 4px; }
+  .countdown .what { font-weight: 700; font-size: .95rem; }
+  .countdown .when { font-size: .82rem; opacity: .85; }
+  .side h3 { margin: 0 0 12px; font-size: .95rem; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+  .up-list { display: grid; gap: 8px; }
+  .up {
+    display: grid; grid-template-columns: 46px 1fr; gap: 10px; align-items: center; padding: 8px; border-radius: 12px;
+    border: 1px solid var(--border); background: var(--surface-2); cursor: pointer; text-align: left; color: inherit; width: 100%;
+  }
+  .up:hover { border-color: var(--ec); }
+  .up .date { border-radius: 10px; text-align: center; padding: 5px 0; background: color-mix(in srgb, var(--ec) 16%, var(--surface)); color: var(--ec); }
+  .up .date b { display: block; font-size: 1.15rem; font-weight: 800; line-height: 1; }
+  .up .date span { font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
+  .up .t { font-weight: 700; font-size: .86rem; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .up .s { font-size: .74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .up .s b { color: var(--ec); font-weight: 700; }
+  .hint { font-size: .84rem; color: var(--muted); background: var(--surface-2); border: 1px dashed var(--border); border-radius: 12px; padding: 12px; }
+  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .actions .btn.primary { grid-column: span 2; }
+  .note { font-size: .74rem; color: var(--muted); margin-top: 10px; line-height: 1.4; }
+  .warn { color: var(--c-amber); font-weight: 600; }
+
+  /* ---------- DIALOG ---------- */
+  dialog {
+    border: 0; border-radius: 20px; padding: 0; width: min(480px, calc(100vw - 24px));
+    background: var(--surface); color: var(--text); box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  }
+  dialog::backdrop { background: rgba(5,15,12,.5); backdrop-filter: blur(3px); }
+  .dlg-head { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px 6px; }
+  .dlg-head h3 { margin: 0; font-size: 1.15rem; font-weight: 800; }
+  .dlg-body { padding: 10px 20px 4px; display: grid; gap: 14px; }
+  .field label, .field .lbl { display: block; font-size: .76rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+  .field input, .field select, .field textarea {
+    width: 100%; font: inherit; font-size: .95rem; color: var(--text); background: var(--surface-2);
+    border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; outline: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--brand); box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand) 20%, transparent); }
+  .field textarea { resize: vertical; min-height: 64px; }
+  .row2 { display: grid; grid-template-columns: 1.4fr 1fr; gap: 12px; }
+  .types { display: flex; flex-wrap: wrap; gap: 6px; }
+  .types input { position: absolute; opacity: 0; pointer-events: none; }
+  .types label {
+    display: inline-flex; align-items: center; gap: 6px; cursor: pointer; margin: 0;
+    text-transform: none; letter-spacing: 0; font-size: .84rem; font-weight: 700; color: var(--text);
+    padding: 7px 12px; border-radius: 999px; border: 1.5px solid var(--border); background: var(--surface);
+    transition: border-color .15s, background .15s;
+  }
+  .types label i { width: 10px; height: 10px; border-radius: 50%; background: var(--ec); }
+  .types input:checked + label { border-color: var(--ec); background: color-mix(in srgb, var(--ec) 15%, var(--surface)); }
+  .types input:focus-visible + label { box-shadow: 0 0 0 3px color-mix(in srgb, var(--ec) 30%, transparent); }
+  .dlg-foot { display: flex; justify-content: space-between; gap: 8px; padding: 16px 20px 20px; }
+  .dlg-foot .r { display: flex; gap: 8px; margin-left: auto; }
+
+  /* ---------- SUBJECTS ---------- */
+  .toolbar { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .tabs { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 4px; gap: 2px; box-shadow: var(--shadow); flex-wrap: wrap; }
+  .tabs button { border: 0; background: transparent; font-weight: 700; font-size: .88rem; color: var(--muted); padding: 8px 14px; border-radius: 10px; cursor: pointer; transition: background .15s, color .15s; }
+  .tabs button:hover { color: var(--text); }
+  .tabs button[aria-selected="true"] { background: var(--brand); color: var(--on-brand); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--border); background: var(--surface); font-size: .8rem; font-weight: 600; padding: 6px 12px; border-radius: 999px; cursor: pointer; color: var(--text); display: inline-flex; align-items: center; gap: 6px; transition: border-color .15s, background .15s; }
+  .chip .sw { margin: 0; }
+  .chip[aria-pressed="true"] { border-color: var(--cc); background: color-mix(in srgb, var(--cc) 14%, var(--surface)); }
+  .chip[aria-pressed="false"] { opacity: .55; }
+  .course { margin-bottom: 26px; }
+  .course-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 18px; border-radius: 16px; margin-bottom: 14px; background: linear-gradient(120deg, var(--brand-soft), transparent 80%); border: 1px solid var(--border); }
+  .course-head h3 { margin: 0; font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+  .course-num { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--brand); color: var(--on-brand); font-weight: 800; font-size: 1rem; }
+  .course-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { font-size: .78rem; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+  .sems { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sems.single { grid-template-columns: 1fr; }
+  .sem { background: var(--surface-2); border: 1px dashed var(--border); border-radius: 16px; padding: 14px; }
+  .sem-title { display: flex; justify-content: space-between; align-items: center; font-size: .8rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin: 2px 4px 12px; }
+  .sem-list { display: grid; gap: 10px; }
+  .scard { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; text-decoration: none; background: var(--surface); border: 1px solid var(--border); border-radius: 13px; padding: 12px 14px 12px 18px; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; }
+  .scard::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--tc); }
+  .scard:hover, .scard:focus-visible { transform: translateX(3px); box-shadow: var(--shadow-hover); border-color: color-mix(in srgb, var(--tc) 50%, var(--border)); outline: none; }
+  .scard .nm { font-weight: 700; font-size: .93rem; line-height: 1.3; }
+  .scard .sub { grid-column: 1; display: flex; gap: 8px; align-items: center; font-size: .74rem; color: var(--muted); }
+  .scard .code { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .72rem; }
+  .scard .tag { font-weight: 800; font-size: .68rem; color: var(--tc); background: color-mix(in srgb, var(--tc) 13%, transparent); padding: 1px 7px; border-radius: 6px; letter-spacing: .03em; }
+  .scard .ects { grid-row: 1 / span 2; grid-column: 2; text-align: center; min-width: 50px; border-radius: 10px; padding: 6px 8px; background: var(--surface-2); border: 1px solid var(--border); }
+  .scard .ects b { display: block; font-size: 1.05rem; font-weight: 800; line-height: 1; }
+  .scard .ects span { font-size: .62rem; font-weight: 700; color: var(--muted); letter-spacing: .06em; }
+  .empty { text-align: center; color: var(--muted); padding: 40px 16px; border: 1px dashed var(--border); border-radius: 16px; background: var(--surface); }
+  mark { background: color-mix(in srgb, var(--c-amber) 30%, transparent); color: inherit; border-radius: 3px; padding: 0 1px; }
+
+  footer { margin: 24px 0 0; padding: 26px 0 40px; border-top: 1px solid var(--border); color: var(--muted); font-size: .82rem; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+  @media (max-width: 980px) {
+    .cal-layout { grid-template-columns: 1fr; }
+    .side { grid-template-columns: 1fr 1fr; }
+    .side > :last-child { grid-column: span 2; }
+  }
+  /* Exámenes de tarde */
+  .ev.wk { background: transparent; border: 1px dashed var(--c-rose); color: var(--c-rose); font-weight: 700; }
+  .countdown .first { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.25); font-size: .82rem; font-weight: 600; position: relative; z-index: 1; }
+  .countdown .first b { font-family: "JetBrains Mono", monospace; }
+  .exams-panel { margin-top: 16px; }
+  .ex-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+  .ex-head h3 { margin: 0; font-size: 1.05rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+  .ex-head h3 svg.i { color: var(--c-rose); }
+  .ex-head p { margin: 2px 0 0; color: var(--muted); font-size: .84rem; }
+  .draft { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; color: var(--c-amber); background: var(--c-amber-bg); padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+  .ex-weeks { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 12px; align-items: start; }
+  summary.ex-wh { cursor: pointer; list-style: none; gap: 10px; }
+  summary.ex-wh::-webkit-details-marker { display: none; }
+  summary.ex-wh::after { content: "▾"; color: var(--muted); }
+  details.ex-week[open] > summary.ex-wh::after { transform: rotate(180deg); display: inline-block; }
+  .ex-week { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .ex-wh { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: color-mix(in srgb, var(--c-rose) 10%, var(--surface)); font-size: .85rem; }
+  .ex-wh b { font-weight: 800; }
+  .ex-wh span { color: var(--muted); font-weight: 600; }
+  .ex-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 12px; align-items: center; width: 100%; padding: 10px 14px; border: 0; border-top: 1px solid var(--border); background: var(--surface); color: inherit; text-align: left; cursor: pointer; transition: background .15s; }
+  .ex-row:hover { background: var(--surface-2); }
+  .ex-row .date { text-align: center; border-radius: 10px; padding: 4px 0; background: var(--c-rose-bg); color: var(--c-rose); }
+  .ex-row .date b { display: block; font-size: 1.1rem; font-weight: 800; line-height: 1; }
+  .ex-row .date span { font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+  .ex-row .nm { display: block; font-weight: 700; font-size: .88rem; line-height: 1.3; }
+  .ex-row .s { font-size: .72rem; font-weight: 700; color: var(--cc); }
+  .ex-row .time { font-family: "JetBrains Mono", monospace; font-size: .82rem; font-weight: 600; padding: 4px 8px; border-radius: 8px; background: var(--surface-2); border: 1px solid var(--border); }
+  .ex-row.past { opacity: .5; }
+
+  /* Interruptor */
+  .switch { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; font-weight: 700; cursor: pointer; color: var(--text); position: relative; }
+  .switch input { position: absolute; opacity: 0; pointer-events: none; }
+  .switch span { width: 34px; height: 20px; border-radius: 999px; background: var(--border); position: relative; transition: background .15s; flex-shrink: 0; }
+  .switch span::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .15s; box-shadow: 0 1px 2px rgba(0,0,0,.25); }
+  .switch input:checked + span { background: var(--brand); }
+  .switch input:checked + span::after { transform: translateX(14px); }
+  .switch input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .ex-tools { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+
+  /* Casilla de hecho */
+  .ck { display: inline-grid; place-items: center; cursor: pointer; position: relative; flex-shrink: 0; }
+  .ck input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .ck span { width: 22px; height: 22px; border-radius: 7px; border: 2px solid var(--ec, var(--brand)); display: grid; place-items: center; background: var(--surface); transition: background .15s; }
+  .ck input:checked + span { background: var(--ec, var(--brand)); }
+  .ck input:checked + span::after { content: ""; width: 5px; height: 10px; border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translate(-1px, -1px); }
+  .ck input:focus-visible + span { box-shadow: 0 0 0 3px color-mix(in srgb, var(--ec, var(--brand)) 30%, transparent); }
+  .ev.done { opacity: .5; text-decoration: line-through; }
+  .ev.late { box-shadow: inset 0 0 0 1.5px var(--c-rose); }
+
+  /* Esta semana */
+  .week-panel { margin-bottom: 16px; }
+  .wk-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+  .wk {
+    display: grid; grid-template-columns: auto minmax(0,1fr); gap: 12px; align-items: center; padding: 11px 12px;
+    border-radius: 14px; border: 1px solid var(--border); border-left: 4px solid var(--ec); background: var(--surface-2); cursor: pointer;
+    transition: border-color .15s;
+  }
+  .wk:hover, .wk:focus-visible { border-color: var(--ec); outline: none; }
+  .wk .when { font-size: .7rem; font-weight: 800; color: var(--ec); text-transform: uppercase; letter-spacing: .03em; }
+  .wk .ti { font-weight: 700; font-size: .9rem; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wk .ti.done { text-decoration: line-through; opacity: .55; }
+  .wk .su { font-size: .74rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wk .ico { width: 22px; height: 22px; display: grid; place-items: center; color: var(--ec); }
+  .wk .ico svg.i { width: 19px; height: 19px; }
+  .wk.late { background: color-mix(in srgb, var(--c-rose) 9%, var(--surface)); border-color: color-mix(in srgb, var(--c-rose) 40%, var(--border)); border-left-color: var(--c-rose); }
+  .wk.late .when { color: var(--c-rose); }
+  .wk-empty { color: var(--muted); font-size: .88rem; padding: 14px; border: 1px dashed var(--border); border-radius: 12px; text-align: center; }
+
+  /* Progreso */
+  .prog { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 24px; align-items: center; margin-bottom: 18px; }
+  .ring {
+    width: 136px; height: 136px; border-radius: 50%; display: grid; place-items: center; position: relative;
+    background: conic-gradient(var(--c-green) 0 var(--a), var(--c-violet) var(--a) var(--b), var(--c-blue) var(--b) var(--c), var(--surface-2) var(--c) 100%);
+  }
+  .ring::before { content: ""; position: absolute; inset: 14px; border-radius: 50%; background: var(--surface); }
+  .ring b { position: relative; font-size: 1.7rem; font-weight: 800; line-height: 1; text-align: center; }
+  .ring small { display: block; font-size: .66rem; color: var(--muted); font-weight: 700; margin-top: 4px; }
+  .prog-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+  .ps { border: 1px solid var(--border); border-top: 3px solid var(--sc); border-radius: 12px; padding: 10px 12px; background: var(--surface-2); }
+  .ps .k { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--sc); }
+  .ps .v { font-size: 1.4rem; font-weight: 800; line-height: 1.2; }
+  .ps .v small { font-size: .72rem; color: var(--muted); font-weight: 600; margin-left: 3px; }
+  .stb { font-size: .66rem; font-weight: 800; padding: 1px 7px; border-radius: 6px; color: var(--sc); background: color-mix(in srgb, var(--sc) 14%, transparent); white-space: nowrap; }
+  .scard .gl { grid-column: 1 / -1; display: grid; gap: 3px; font-size: .74rem; color: var(--muted); line-height: 1.3; border-top: 1px dashed var(--border); padding-top: 8px; margin-top: 6px; }
+  .scard .gl b { color: var(--text); font-weight: 700; margin-right: 4px; }
+  button.scard { font: inherit; color: inherit; text-align: left; width: 100%; cursor: pointer; }
+  .scard.passed { background: color-mix(in srgb, var(--c-green) 6%, var(--surface)); }
+  .scard .sub { flex-wrap: wrap; }
+
+  /* Ficha de asignatura */
+  #subjDlg { width: min(660px, calc(100vw - 24px)); }
+  #subjDlg .dlg-body { max-height: calc(92vh - 170px); overflow: auto; gap: 18px; }
+  .sj-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .seg { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }
+  .seg button { border: 0; background: transparent; border-radius: 9px; padding: 8px 6px; font-weight: 700; font-size: .8rem; color: var(--muted); cursor: pointer; transition: background .15s, color .15s; }
+  .seg button:hover { color: var(--text); }
+  .seg button[aria-pressed="true"] { background: var(--sc); color: #fff; }
+  .grade-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: .85rem; font-weight: 700; }
+  .grade-row input { width: 90px; }
+  .links-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .links-row a { text-decoration: none; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .info { border: 1px solid var(--border); border-left: 4px solid var(--ec); border-radius: 12px; padding: 10px 12px; background: var(--surface-2); }
+  .info .k { font-size: .66rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--ec); }
+  .info .v { font-weight: 700; font-size: .88rem; }
+  .info .s { font-size: .74rem; color: var(--muted); }
+  .sj-h { font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .sj-tasks { display: grid; gap: 8px; }
+  .calc { display: grid; gap: 6px; }
+  .crow { display: grid; grid-template-columns: minmax(0,1fr) 72px 72px 58px 34px; gap: 6px; align-items: center; }
+  .crow.head { font-size: .66rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .crow.head span:nth-child(n+2) { text-align: center; }
+  .crow input[type=text], .crow input[type=number], .calc-tools input {
+    width: 100%; font: inherit; font-size: .88rem; padding: 7px 8px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); outline: none;
+  }
+  .crow input:focus, .calc-tools input:focus { border-color: var(--brand); }
+  .crow .exr { display: flex; justify-content: center; }
+  .crow .exr input { width: 18px; height: 18px; accent-color: var(--c-rose); }
+  .calc-tools { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+  .calc-tools label { display: inline-flex; align-items: center; gap: 8px; font-size: .8rem; font-weight: 700; color: var(--muted); }
+  .calc-tools input { width: 74px; }
+  .calc-res { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+  .cr { border-radius: 12px; padding: 10px 6px; text-align: center; background: color-mix(in srgb, var(--rc) 11%, var(--surface)); border: 1px solid color-mix(in srgb, var(--rc) 30%, transparent); }
+  .cr .k { font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--rc); }
+  .cr .v { font-size: 1.35rem; font-weight: 800; line-height: 1.2; }
+  .cr .s { font-size: .68rem; color: var(--muted); }
+  .calc-warn { font-size: .8rem; color: var(--c-amber); font-weight: 600; margin: 8px 0 0; }
+
+  /* Vista de día */
+  #dayDlg { width: min(560px, calc(100vw - 24px)); }
+  .day-sub { margin: 2px 0 0; color: var(--muted); font-size: .85rem; }
+  .day-list { display: grid; gap: 8px; max-height: min(55vh, 460px); overflow: auto; padding: 2px; }
+  .di {
+    display: grid; grid-template-columns: 4px 54px minmax(0,1fr) auto; gap: 12px; align-items: center;
+    padding: 10px 12px 10px 0; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--border); overflow: hidden;
+  }
+  .di .bar { align-self: stretch; background: var(--ec); margin: -10px 0; }
+  .di .tm { font-family: "JetBrains Mono", monospace; font-size: .8rem; font-weight: 600; line-height: 1.3; color: var(--ec); }
+  .di .tm small { display: block; color: var(--muted); font-weight: 500; }
+  .di .tm.ad { font-family: inherit; font-size: .66rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .di .ti { display: block; font-weight: 700; font-size: .92rem; line-height: 1.3; }
+  .di .su { display: block; font-size: .76rem; color: var(--muted); line-height: 1.35; }
+  .di .no { display: block; font-size: .8rem; margin-top: 6px; white-space: pre-wrap; padding: 6px 8px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); }
+  .di .kind { font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--ec); background: color-mix(in srgb, var(--ec) 14%, var(--surface)); padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+  .di.mine { cursor: pointer; background: color-mix(in srgb, var(--ec) 8%, var(--surface)); }
+  .di.mine:hover, .di.mine:focus-visible { border-color: var(--ec); outline: none; }
+  .day-empty { text-align: center; color: var(--muted); padding: 28px 12px; border: 1px dashed var(--border); border-radius: 12px; font-size: .9rem; }
+  .day-nav { display: flex; gap: 6px; }
+  .di-act { display: flex; align-items: center; gap: 8px; }
+  .di .ti.done { text-decoration: line-through; opacity: .55; }
+
+  /* Tutorías */
+  .ev.tut { background: color-mix(in srgb, var(--c-cyan) 14%, var(--surface)); border-left-color: var(--c-cyan); }
+  .tut-panel { margin-top: 16px; }
+  .ev.tut.conv { opacity: .5; text-decoration: line-through; border-left-color: var(--c-violet); background: color-mix(in srgb, var(--c-violet) 10%, var(--surface)); }
+  .tt-i.conv { background: var(--surface-2); border-color: var(--border); border-left-color: var(--c-violet); }
+  .tt-i.conv .nm, .tt-i.conv .meta { opacity: .5; text-decoration: line-through; }
+  .tt-i.conv .badge { background: var(--c-violet); border-color: var(--c-violet); color: #fff; }
+  .plan-ul { display: grid; gap: 6px; max-height: 260px; overflow: auto; }
+  .plan-li { display: grid; grid-template-columns: 56px 1fr; gap: 10px; font-size: .8rem; line-height: 1.35; padding: 6px 10px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); }
+  .plan-li b { font-family: "JetBrains Mono", monospace; font-size: .74rem; color: var(--muted); }
+  .plan-li.cur { border-color: var(--brand); background: color-mix(in srgb, var(--brand) 10%, var(--surface)); }
+  .tt { display: grid; grid-template-columns: 56px repeat(var(--n,5), minmax(0,1fr)); gap: 6px; }
+  .tt-h { font-size: .72rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; text-align: center; padding: 4px; }
+  .tt-t { font-family: "JetBrains Mono", monospace; font-size: .75rem; color: var(--muted); text-align: right; padding: 8px 4px 0 0; }
+  .tt-c { min-height: 92px; border-radius: 12px; background: var(--surface-2); border: 1px dashed var(--border); }
+  .tt-i {
+    min-height: 92px; border-radius: 12px; padding: 10px; display: flex; flex-direction: column; gap: 4px;
+    background: color-mix(in srgb, var(--c-cyan) 12%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--c-cyan) 30%, transparent); border-left: 4px solid var(--c-cyan);
+  }
+  .tt-i .nm { font-weight: 800; font-size: .84rem; line-height: 1.25; }
+  .tt-i .meta { font-size: .72rem; color: var(--muted); line-height: 1.35; }
+  .tt-i .when { display: none; font-family: "JetBrains Mono", monospace; font-size: .74rem; font-weight: 600; color: var(--c-cyan); }
+  .tt-i .badge { align-self: flex-start; margin-top: auto; font-size: .64rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--c-cyan); }
+  .tt-i.ip .badge { background: var(--brand); border-color: var(--brand); color: var(--on-brand); }
+  .next-tut { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: var(--c-cyan); }
+  @media (max-width: 720px) {
+    .tt { grid-template-columns: 1fr; }
+    .tt-h, .tt-t, .tt-c { display: none; }
+    .tt-i { min-height: 0; }
+    .tt-i .when { display: block; }
+  }
+
+  @media (max-width: 900px) {
+    .ex-weeks { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats .stat.wide { grid-column: span 2; }
+    .ess { grid-template-columns: 1fr; }
+    .ecard { min-height: 0; }
+  }
+  @media (max-width: 720px) {
+    .prog { grid-template-columns: 1fr; justify-items: center; }
+    .prog > div:last-child { width: 100%; }
+    .info-grid { grid-template-columns: 1fr; }
+    .seg { grid-template-columns: 1fr 1fr; }
+    .calc-res { grid-template-columns: 1fr 1fr; }
+    .crow { grid-template-columns: minmax(0,1fr) 54px 54px 40px 30px; gap: 4px; }
+    .sems { grid-template-columns: 1fr; }
+    .hero { padding-bottom: 84px; }
+    .side { grid-template-columns: 1fr; }
+    .side > :last-child { grid-column: auto; }
+    .panel { padding: 12px; }
+    .dow, .days { gap: 3px; }
+    .day { min-height: 54px; padding: 3px; align-items: center; }
+    .day .add { display: none; }
+    .evs { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 3px; }
+    .ev { font-size: 0; padding: 0; width: 7px; height: 7px; border-radius: 50%; border: 0; background: var(--ec); }
+    .ev .tm { display: none; }
+    .more { display: none; }
+    .row2 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 420px) {
+    .stat .v { font-size: 1.6rem; }
+    .search kbd { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+
+  /* ---------- ESTUDIO CON IA ---------- */
+  .ai-hero { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:16px; align-items:stretch; }
+  .ai-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); padding:18px; }
+  .ai-card h3 { margin:0 0 6px; font-size:1.05rem; }
+  .ai-card p { margin:0 0 12px; color:var(--muted); font-size:.86rem; }
+  .ai-query { display:flex; gap:8px; align-items:stretch; }
+  .ai-query textarea { flex:1; min-height:76px; resize:vertical; border:1px solid var(--border); border-radius:12px; padding:11px 12px; background:var(--surface-2); color:var(--text); font:inherit; }
+  .ai-query .btn { align-self:stretch; min-width:112px; }
+  .ai-tools { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .ai-tools select { flex:1 1 190px; min-width:0; border:1px solid var(--border); border-radius:10px; padding:8px 10px; background:var(--surface); color:var(--text); font:inherit; }
+  .prompt-chips { display:flex; flex-wrap:wrap; gap:7px; margin-top:10px; }
+  .prompt-chip { cursor:pointer; border:1px solid var(--border); background:var(--surface-2); color:var(--text); border-radius:999px; padding:6px 10px; font-size:.76rem; }
+  .prompt-chip:hover { border-color:var(--brand); color:var(--brand); }
+  .ai-answer { margin-top:12px; padding:13px; border-radius:12px; background:var(--brand-soft); border:1px solid color-mix(in srgb,var(--brand) 20%,var(--border)); min-height:48px; white-space:pre-wrap; font-size:.9rem; }
+  .ai-answer:empty { display:none; }
+  .ai-answer .source { display:block; margin-top:8px; color:var(--muted); font-size:.76rem; }
+  .status-line { display:flex; gap:8px; align-items:center; font-size:.82rem; margin:12px 0 0; color:var(--muted); }
+  .status-dot { width:9px; height:9px; border-radius:50%; background:var(--c-amber); flex-shrink:0; }
+  .status-dot.ok { background:var(--c-green); }
+  .status-dot.bad { background:var(--c-rose); }
+  .notebook-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; margin-top:10px; }
+  .notebook-link { display:flex; align-items:center; gap:9px; text-decoration:none; padding:10px; border:1px solid var(--border); border-radius:12px; background:var(--surface-2); font-size:.82rem; font-weight:700; }
+  .notebook-link:hover { border-color:var(--brand); color:var(--brand); }
+  .notebook-link .nb-icon { width:28px; height:28px; border-radius:8px; display:grid; place-items:center; background:var(--c-violet-bg); color:var(--c-violet); flex-shrink:0; }
+  .library { margin-top:16px; }
+  .library-head { display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; }
+  .library-head h3 { margin:0; }
+  .file-input { display:none; }
+  .material-list { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:8px; margin-top:10px; }
+  .material-item { display:flex; gap:8px; align-items:center; padding:9px 10px; border:1px solid var(--border); border-radius:10px; font-size:.8rem; min-width:0; }
+  .material-item span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .empty-material { color:var(--muted); font-size:.82rem; padding:10px 0; }
+  .architecture { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px; }
+  .arch-step { padding:11px; border-radius:12px; background:var(--surface-2); border:1px solid var(--border); font-size:.78rem; }
+  .arch-step b { display:block; margin-bottom:3px; color:var(--brand); }
+  .ai-note { font-size:.75rem !important; line-height:1.45; margin-top:10px !important; }
+  @media (max-width:800px) { .ai-hero { grid-template-columns:1fr; } .ai-query { flex-direction:column; } .ai-query .btn { min-height:44px; } .architecture { grid-template-columns:1fr; } }
+
+
+  /* ---------- AJUSTES DE DISEÑO PÚBLICO ---------- */
+  .hero { padding-bottom:52px; }
+  .hero-inner { display:grid; grid-template-columns:minmax(0,1fr) minmax(420px,.95fr); gap:22px 42px; align-items:center; }
+  .hero-main { min-width:0; grid-column:1; }
+  .hero-inner > .eyebrow, .hero-inner > h1, .hero-inner > .lead { grid-column:1; }
+  .hero-ess { grid-column:2; grid-row:1 / span 4; }
+  .hero .search { max-width:none; width:100%; }
+  .hero-ai-btn { border:0; cursor:pointer; border-radius:9px; padding:8px 12px; background:#e2f2ec; color:#00533e; font-weight:800; }
+  .hero-ai-btn:hover { background:#c9eadc; }
+  .hero-ess { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; align-items:stretch; }
+  .hero-ess .ecard { min-height:176px; padding:15px; border-radius:15px; gap:8px; }
+  .hero-ess .ecard .ic { width:38px; height:38px; border-radius:11px; }
+  .hero-ess .ecard .ic svg.i { width:21px; height:21px; }
+  .hero-ess .ecard strong { font-size:1rem; }
+  .hero-ess .ecard .d { font-size:.73rem; line-height:1.3; }
+  .hero-ess .ecard .cta { font-size:.72rem; }
+  .hero-anchor { display:none !important; }
+  .cal-head-row { grid-template-columns:minmax(0,300px) minmax(0,1fr); }
+  .cal-head-row .countdown { min-height:100%; }
+  .cal-layout { grid-template-columns:minmax(0,1fr) minmax(280px,32%); }
+  .calendar-actions { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:0; }
+  .calendar-actions .note { margin:0; }
+  .calendar-actions .actions { display:flex; flex-wrap:wrap; gap:8px; }
+  .cal-lower { display:grid; grid-template-columns:minmax(0,7fr) minmax(280px,3fr); gap:12px; align-items:start; }
+  .cal-lower .panel { margin-bottom:0; min-width:0; }
+  .cal-lower .tut-panel { order:1; }
+  .cal-lower .exams-panel { order:2; }
+  .cal-lower .tt { overflow-x:auto; }
+  .ai-hero { grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr); }
+  .notebooks-primary { order:0; }
+  .local-ai { order:1; }
+  .library-actions { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .library-actions .btn { white-space:nowrap; }
+  .material-item { position:relative; padding-right:34px; }
+  .material-remove { margin-left:auto; border:0; background:transparent; color:var(--c-rose); cursor:pointer; font-weight:800; position:absolute; right:8px; }
+  @media (max-width:1000px) { .hero-inner { grid-template-columns:1fr; } .hero-inner > .eyebrow, .hero-inner > h1, .hero-inner > .lead, .hero-main, .hero-ess { grid-column:1; grid-row:auto; } .hero-ess { max-width:760px; } .cal-lower { grid-template-columns:1fr; } }
+  @media (max-width:800px) { .hero-ess { grid-template-columns:1fr; } .hero-ess .ecard { min-height:120px; } .calendar-actions { align-items:flex-start; flex-direction:column; } }
+
+
+  /* ---- v10: nav repartido, botón de clase destacado, cuadernos, contador, grabaciones ---- */
+  .secnav a { flex: 1 0 auto; justify-content: center; }
+  .tt-go { display: inline-flex; gap: 7px; align-items: center; justify-content: center; margin-top: 8px; padding: 8px 16px; border-radius: 999px; background: var(--brand); color: #fff !important; font-size: .82rem; font-weight: 800; text-decoration: none; width: max-content; max-width: 100%; box-shadow: 0 3px 10px color-mix(in srgb, var(--brand) 40%, transparent); transition: transform .12s, filter .12s; }
+  .tt-go:hover { transform: translateY(-1px); filter: brightness(1.12); }
+  .tt-go svg.i { width: 15px; height: 15px; }
+  .notebooks-primary { display: flex; flex-direction: column; }
+  .notebook-grid { flex: 1; grid-auto-rows: 1fr; }
+  .nb-meta { display: grid; gap: 2px; min-width: 0; }
+  .nb-meta small { color: var(--muted); font-weight: 600; font-size: .72rem; }
+  .nb-meta span { overflow: hidden; text-overflow: ellipsis; }
+  .material-remove { display: inline-flex; align-items: center; gap: 4px; width: auto !important; height: auto !important; padding: 4px 10px !important; border-radius: 999px !important; font-size: .74rem; font-weight: 700; color: var(--c-rose) !important; border: 1px solid var(--c-rose) !important; background: transparent !important; cursor: pointer; margin-left: auto; }
+  .material-remove svg.i { width: 12px; height: 12px; }
+  a.plan-li { text-decoration: none; color: var(--text); }
+  a.plan-li:hover { border-color: var(--brand); }
+  .prev-vids { margin: 8px 0; }
+  .prev-vids summary { cursor: pointer; font-weight: 700; font-size: .85rem; padding: 6px 0; }
+  .visit-counter[hidden] { display: none !important; }
+  .visit-counter { display: inline-flex; align-items: center; gap: 6px; font-size: .74rem; color: var(--muted); padding: 3px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); }
+  footer { align-items: center; }
+  .wk-list, #wkList { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) !important; }
+  .wk { height: 100%; }
+  .ex-weeks { align-content: start; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow"><span class="dot"></span>Curso 2026/2027 · Código 7103 · UNED Plasencia · Aula de Cáceres</span>
+    <h1>Grado en Ingeniería en <span>Inteligencia Artificial</span></h1>
+    <p class="lead">Accesos de la UNED, tu calendario de exámenes y entregas, y el plan de estudios completo en un solo sitio.</p>
+    <div class="hero-main">
+      <div class="search">
+        <svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Buscar enlaces, asignaturas o preguntar a la IA local…" autocomplete="off">
+        <kbd>/</kbd>
+        <button class="hero-ai-btn" id="topAsk" type="button" title="Consultar la IA local opcional">IA</button>
+      </div>
+    </div>
+    <div class="hero-ess" id="heroEss" aria-label="Accesos esenciales"></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="stats">
+    <div class="stat wide">
+      <div class="k">Reparto de créditos</div>
+      <div class="dist" aria-hidden="true">
+        <span style="width:25%;background:var(--fb)"></span>
+        <span style="width:65%;background:var(--ob)"></span>
+        <span style="width:5%;background:var(--op)"></span>
+        <span style="width:5%;background:var(--tfg)"></span>
+      </div>
+      <div class="dist-legend">
+        <span><i class="sw" style="background:var(--fb)"></i>Básica <b>60</b></span>
+        <span><i class="sw" style="background:var(--ob)"></i>Obligatoria <b>156</b></span>
+        <span><i class="sw" style="background:var(--op)"></i>Optativa <b>12</b></span>
+        <span><i class="sw" style="background:var(--tfg)"></i>TFG <b>12</b></span>
+      </div>
+    </div>
+    <div class="stat"><div class="k">Créditos</div><div class="v">240<small>ECTS</small></div></div>
+    <div class="stat"><div class="k">Duración</div><div class="v">4<small>cursos</small></div></div>
+    <div class="stat"><div class="k">Mi progreso</div><div class="v" id="nSubj">—</div></div>
+  </div>
+
+  <nav class="secnav" id="secnav"></nav>
+
+  <div class="layout">
+  <aside class="sidemenu" id="links" aria-label="Enlaces útiles"></aside>
+  <div class="content">
+
+  <!-- ESENCIALES -->
+  <section id="esenciales" class="hero-anchor" aria-hidden="true"></section>
+
+  <!-- CALENDARIO -->
+  <section id="calendario">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:var(--c-rose-bg);color:var(--c-rose)" id="calIcon"></div>
+      <div><h2>Mi calendario</h2><p>Exámenes, tutorías y tus PEC o trabajos. Pulsa un día para ver lo que tiene, añadir o editar.</p></div>
+    </div>
+    <div class="cal-head-row">
+      <div class="countdown" id="countdown"></div>
+    <div class="panel week-panel">
+      <div class="ex-head">
+        <div><h3 id="wkTitle">Esta semana</h3><p id="wkSub"></p></div>
+      </div>
+      <div class="wk-list" id="wkList"></div>
+    </div>
+
+    </div>
+    <div class="cal-layout">
+      <div class="panel">
+        <div class="cal-top">
+          <h3 class="cal-title" id="calTitle"></h3>
+          <div class="cal-nav">
+            <button class="btn" id="calToday">Hoy</button>
+            <button class="btn icon" id="calPrev" aria-label="Mes anterior"></button>
+            <button class="btn icon" id="calNext" aria-label="Mes siguiente"></button>
+          </div>
+        </div>
+        <div class="dow"><div>L</div><div>M</div><div>X</div><div>J</div><div>V</div><div>S</div><div>D</div></div>
+        <div class="days" id="calDays"></div>
+        <div class="legend" id="calLegend"></div>
+      </div>
+      <aside class="side">
+        <div class="panel up-panel"><div class="up-in">
+          <h3>Próximos <span class="pill" id="upCount"></span></h3>
+          <div class="up-list" id="upList"></div>
+        </div></div>
+      </aside>
+    </div>
+    <div class="calendar-actions panel">
+      <div class="actions">
+        <button class="btn primary" id="btnAdd"></button>
+        <button class="btn" id="btnIcs" title="Descargar .ics para Google Calendar, Outlook o el móvil"></button>
+        <button class="btn" id="btnBackup" title="Guardar copia de tus eventos"></button>
+        <button class="btn" id="btnRestore" title="Cargar una copia guardada"></button>
+        <input type="file" id="restoreFile" accept="application/json,.json" hidden>
+      </div>
+      <p class="note" id="storeNote">Tus eventos se guardan en este navegador. Haz una copia de vez en cuando o expórtalos a tu calendario.</p>
+    </div>
+
+    <div class="cal-lower">
+    <div class="panel exams-panel" id="examenes">
+      <div class="ex-head">
+        <div>
+          <h3 id="exTitle">Exámenes · febrero y junio</h3>
+          <p>Centro Asociado de Plasencia (Aula de Cáceres) · Grado en Ingeniería en IA · Pulsa uno para verlo en el calendario</p>
+        </div>
+        <div class="ex-tools">
+          <label class="switch"><input type="checkbox" id="onlyMine"><span></span>Solo mis asignaturas</label>
+          <span class="draft">Provisional</span>
+        </div>
+      </div>
+      <div class="ex-weeks" id="exWeeks"></div>
+      <p class="note">Cada asignatura tiene examen en las dos semanas de la convocatoria (a distinta hora): te presentas a una sola, la que elijas. Para grados no hay sesión de reserva. El calendario publicado por la UNED aún está marcado como borrador: revísalo antes de las fechas.</p>
+    </div>
+
+    <div class="panel tut-panel" id="tutorias">
+      <div class="ex-head">
+        <div>
+          <h3 id="tutTitle">Mis tutorías · primer semestre</h3>
+          <p>Todas las semanas · <span class="next-tut" id="tutNext"></span></p>
+        </div>
+        <a class="btn" id="tutLink" href="https://akademosweb.uned.es" target="_blank" rel="noopener">Agenda en Akademos</a>
+      </div>
+      <div class="tt" id="tutGrid"></div>
+      <p class="note">Aparecen en el calendario cada semana del 5 de octubre al 22 de enero, sin festivos ni vacaciones de Navidad. Si marcas una asignatura como convalidada, su tutoría aparece tachada y deja de contar. Revisa en Akademos si alguna sesión cambia o se cancela.</p>
+    </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- ESTUDIO CON IA -->
+  <section id="estudio-ia">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:var(--c-violet-bg);color:var(--c-violet)">✦</div>
+      <div><h2>Estudio con IA y tus materiales</h2><p>Gemini Notebook (antes NotebookLM) como acceso rápido y RAG local con Ollama para preguntar sobre tus propios documentos</p></div>
+    </div>
+    <div class="ai-hero">
+      <div class="ai-card notebooks-primary">
+        <h3>Tus notebooks de Gemini</h3>
+        <p>Accesos públicos que ya tienes preparados con el temario. Se abren en Gemini Notebook y son la opción principal para estudiar online.</p>
+        <div class="notebook-grid" id="notebookGrid"></div>
+        <p class="ai-note">Puedes cambiar el nombre de cada notebook editando el array <code>NOTEBOOKS</code> al final de este archivo.</p>
+      </div>
+      <div class="ai-card local-ai">
+        <h3>IA local opcional</h3>
+        <p>Cuando tengas iniciado el proyecto <b>uned-estudio</b>, esta caja consultará su API RAG en <code>localhost:8000</code>. Si no está iniciado, te mostrará cómo ponerlo en marcha.</p>
+        <div class="ai-query">
+          <textarea id="ragQuestion" placeholder="Ej.: ¿Qué tema debo estudiar esta semana en Álgebra? ¿Cuándo es la próxima tutoría?"></textarea>
+          <button class="btn primary" id="ragAsk">Preguntar</button>
+        </div>
+        <div class="ai-tools">
+          <select id="ragSubject" aria-label="Limitar pregunta a una asignatura"><option value="">Todas las asignaturas</option></select>
+          <button class="btn" id="ragOpen" type="button">Abrir motor local</button>
+        </div>
+        <div class="prompt-chips">
+          <button class="prompt-chip" data-prompt="Resume el tema de esta semana y dime qué conceptos debo dominar.">Resumen de esta semana</button>
+          <button class="prompt-chip" data-prompt="¿Qué fechas de tutorías, PEC o exámenes tengo próximas? Cita la fuente.">Próximas fechas</button>
+          <button class="prompt-chip" data-prompt="Explícame este concepto como si estuviera empezando y ponme un ejemplo.">Explicación sencilla</button>
+        </div>
+        <div class="ai-answer" id="ragAnswer" aria-live="polite"></div>
+        <div class="status-line"><span class="status-dot" id="ragDot"></span><span id="ragStatus">Comprobando motor local…</span></div>
+      </div>
+
+    </div>
+    <div class="ai-card library">
+      <div class="library-head">
+        <div><h3>Biblioteca local de materiales</h3><p>Registra aquí PDFs, apuntes o documentos que quieras incorporar al proyecto RAG.</p></div>
+        <div class="library-actions">
+          <label class="btn primary" for="materialFiles">Añadir<input class="file-input" id="materialFiles" type="file" multiple accept=".pdf,.txt,.md,.docx,.html"></label>
+          <button class="btn" id="materialIndex" type="button">Indexar en local</button>
+          <button class="btn" id="materialAsk" type="button">Preguntar</button>
+          <button class="btn danger" id="materialClear" type="button">Eliminar todos</button>
+        </div>
+      </div>
+      <div class="material-list" id="materialList"></div>
+      <div class="architecture">
+        <div class="arch-step"><b>1 · Añadir</b>Guarda los documentos en <code>docs/asignaturas/&lt;codigo&gt;-&lt;nombre&gt;/</code>.</div>
+        <div class="arch-step"><b>2 · Indexar</b>El proyecto usa ChromaDB + <code>nomic-embed-text</code> para crear el índice semántico.</div>
+        <div class="arch-step"><b>3 · Preguntar</b>Ollama responde con <code>qwen2.5:7b-instruct</code> y cita los fragmentos recuperados.</div>
+      </div>
+      <p class="ai-note">La selección de archivos de este HTML es una ayuda visual y se conserva en este navegador. Para que el RAG los use de verdad, cópialos a la carpeta <code>docs/</code> del repositorio y vuelve a indexar.</p>
+    </div>
+  </section>
+
+  <!-- ASIGNATURAS -->
+  <section id="asignaturas">
+    <div class="sec-head">
+      <div class="sec-icon" style="background:var(--brand-soft);color:var(--brand)" id="subjIcon"></div>
+      <div><h2>Asignaturas</h2><p>Tu primer semestre de un vistazo (tutoría, exámenes y tema de la semana). Pulsa una para ver resumen, PEC, temas por tutoría, entregas y calculadora</p></div>
+    </div>
+    <div class="panel prog" id="progPanel"></div>
+    <div class="toolbar">
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div class="chips" id="chips"></div>
+    </div>
+    <div id="subjects"></div>
+  </section>
+
+  </div>
+  </div>
+
+  <footer>
+    <span>Fechas y plan de estudios publicados por la UNED · Curso 2026/2027</span>
+    <span>Pulsa <b>/</b> para buscar</span>
+    <span class="visit-counter" id="visitBox" hidden title="Visitas anónimas (una por navegador y día)">👁 <b id="visitN">–</b> visitas<i id="visitMode" style="font-style:normal;opacity:.7"></i></span>
+  </footer>
+</main>
+
+<!-- Diálogo de evento -->
+<dialog id="dlg">
+  <form id="evForm" method="dialog">
+    <div class="dlg-head">
+      <h3 id="dlgTitle">Nuevo evento</h3>
+      <button type="button" class="btn icon" id="dlgClose" aria-label="Cerrar"></button>
+    </div>
+    <div class="dlg-body">
+      <input type="hidden" id="fId">
+      <div class="field">
+        <span class="lbl">Tipo</span>
+        <div class="types" id="fTypes"></div>
+      </div>
+      <div class="field">
+        <label for="fTitle">Título</label>
+        <input id="fTitle" required maxlength="80" placeholder="Ej. PEC 1, entrega práctica, examen…">
+      </div>
+      <div class="field">
+        <label for="fSubj">Asignatura</label>
+        <select id="fSubj"></select>
+      </div>
+      <div class="row2">
+        <div class="field"><label for="fDate">Fecha</label><input id="fDate" type="date" required></div>
+        <div class="field"><label for="fTime">Hora (opcional)</label><input id="fTime" type="time"></div>
+      </div>
+      <div class="field">
+        <label for="fNotes">Notas</label>
+        <textarea id="fNotes" maxlength="400" placeholder="Temas, aula, enlace…"></textarea>
+      </div>
+    </div>
+    <div class="dlg-foot">
+      <button type="button" class="btn danger" id="fDelete"></button>
+      <div class="r">
+        <button type="button" class="btn" id="fCancel">Cancelar</button>
+        <button type="submit" class="btn primary">Guardar</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<!-- Ficha de asignatura -->
+<dialog id="subjDlg">
+  <div class="dlg-head" style="align-items:flex-start">
+    <div style="min-width:0"><h3 id="sjTitle"></h3><div class="sj-meta" id="sjMeta"></div></div>
+    <button type="button" class="btn icon" id="sjClose" aria-label="Cerrar"></button>
+  </div>
+  <div class="dlg-body" id="sjBody"></div>
+  <div class="dlg-foot"><div class="r"><button type="button" class="btn" id="sjDone">Cerrar</button></div></div>
+</dialog>
+
+<!-- Vista de día -->
+<dialog id="infoDlg">
+  <div class="dlg-head"><div><h3 id="infoTitle"></h3><p class="day-sub" id="infoSub"></p></div><button type="button" class="btn icon" id="infoClose" aria-label="Cerrar"></button></div>
+  <div class="dlg-body" id="infoBody"></div>
+  <div class="dlg-foot"><div class="r"><button type="button" class="btn" id="infoSubj"></button></div></div>
+</dialog>
+<dialog id="dayDlg">
+  <div class="dlg-head">
+    <div><h3 id="dayTitle"></h3><p class="day-sub" id="daySub"></p></div>
+    <button type="button" class="btn icon" id="dayClose" aria-label="Cerrar"></button>
+  </div>
+  <div class="dlg-body"><div class="day-list" id="dayList"></div></div>
+  <div class="dlg-foot">
+    <div class="day-nav">
+      <button type="button" class="btn icon" id="dayPrev" aria-label="Día anterior"></button>
+      <button type="button" class="btn icon" id="dayNext" aria-label="Día siguiente"></button>
+    </div>
+    <div class="r"><button type="button" class="btn primary" id="dayAdd"></button></div>
+  </div>
+</dialog>
+
+<script>
+/* ================= Iconos ================= */
+const ICONS = {
+  home:'<path d="M3 10.5 12 3l9 7.5V21H3Z"/><path d="M9 21v-6h6v6"/>',
+  cap:'<path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+  chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/><path d="M8 9h8"/><path d="M8 13h5"/>',
+  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>',
+  clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  compass:'<circle cx="12" cy="12" r="10"/><path d="m16 8-2 6-6 2 2-6Z"/>',
+  globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20"/><path d="M12 2a15 15 0 0 0 0 20"/>',
+  file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h5"/>',
+  list:'<path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/>',
+  video:'<rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4Z"/>',
+  cpu:'<rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3"/><path d="M15 2v3"/><path d="M9 19v3"/><path d="M15 19v3"/><path d="M2 9h3"/><path d="M2 15h3"/><path d="M19 9h3"/><path d="M19 15h3"/>',
+  swap:'<path d="m17 3 4 4-4 4"/><path d="M3 7h18"/><path d="m7 21-4-4 4-4"/><path d="M21 17H3"/>',
+  award:'<circle cx="12" cy="9" r="6"/><path d="M8.2 13.9 7 22l5-3 5 3-1.2-8.1"/>',
+  bookopen:'<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2Z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7Z"/>',
+  cart:'<path d="M6 6h15l-1.5 9h-12Z"/><path d="M6 6 5 2H2"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/>',
+  sigma:'<path d="M18 7V4H6l6 8-6 8h12v-3"/>',
+  zap:'<path d="M13 2 3 14h9l-1 8 10-12h-9Z"/>',
+  play:'<circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4Z"/>',
+  building:'<path d="M6 22V3h12v19"/><path d="M2 22h20"/><path d="M10 7h4"/><path d="M10 11h4"/><path d="M10 15h4"/>',
+  help:'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
+  info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+  brief:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>',
+  star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1Z"/>',
+  arrow:'<path d="M7 17 17 7"/><path d="M8 7h9v9"/>',
+  book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/>',
+  folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/>',
+  plus:'<path d="M12 5v14"/><path d="M5 12h14"/>',
+  left:'<path d="m15 18-6-6 6-6"/>',
+  right:'<path d="m9 18 6-6-6-6"/>',
+  x:'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  download:'<path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/>',
+  upload:'<path d="M12 21V9"/><path d="m7 14 5-5 5 5"/><path d="M5 3h14"/>',
+  save:'<path d="M5 3h11l5 5v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M7 3v5h8"/><path d="M7 21v-7h10v7"/>',
+  trash:'<path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/>'
+};
+const ic = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||''}</svg>`;
+
+/* ================= Utilidades ================= */
+const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function hl(text, q) {
+  if (!q) return esc(text);
+  const i = norm(text).indexOf(q);
+  if (i < 0) return esc(text);
+  return esc(text.slice(0,i)) + '<mark>' + esc(text.slice(i, i+q.length)) + '</mark>' + esc(text.slice(i+q.length));
+}
+const fmt = n => String(n).replace('.', ',');
+
+/* ================= Enlaces ================= */
+const ESSENTIALS = [
+  { t:'Campus UNED', d:'Tu puerta de entrada: Mis estudios, correo @alumno.uned.es y todos los servicios.', u:'https://www.uned.es/universidad/campus/', i:'cap', g1:'#003a2b', g2:'#0a8f6a' },
+  { t:'Ágora', d:'Cursos virtuales: materiales, foros, entrega de PEC y calificaciones.', u:'https://agora.uned.es', i:'chat', g1:'#3b1478', g2:'#7c3aed' },
+  { t:'Akademos Web', d:'Mis tutorías: horarios, tutorías en línea y enunciados de exámenes anteriores.', u:'https://akademosweb.uned.es', i:'users', g1:'#1e3a8a', g2:'#2563eb' },
+];
+
+const SECTIONS = [
+  { id:'administracion', title:'Administración', sub:'Matrícula, plazos y trámites', icon:'folder', color:'cyan', links:[
+    { t:'Portal UNED', d:'Web principal de la universidad', u:'https://www.uned.es/universidad/inicio.html', i:'home' },
+    { t:'Admisión y matrícula', d:'Matrícula por internet y consulta de tu matrícula', u:'https://app.uned.es/portal/admision-matricula-por-internet', i:'pen' },
+    { t:'Calendario académico', d:'Plazos administrativos del curso', u:'https://www.uned.es/universidad/inicio/estudiantes/calendario-academico-administrativo.html', i:'cal' },
+    { t:'Calendario académico 26/27 (PDF)', d:'Fechas oficiales: matrícula, exámenes, Navidad y Semana Santa', u:'https://www.uned.es/universidad/dam/inicio/atencion-estudiante/PDF-HABITUALES/CALENDARIOS/CURSO-26-27/calendario--A4-V1-2026-27.pdf', i:'file' },
+    { t:'Pruebas presenciales', d:'Reglamento, reservas y exámenes de la UNED', u:'https://www.uned.es/pruebas-presenciales', i:'clock' },
+    { t:'Calendario de exámenes', d:'Horario oficial de las pruebas presenciales', u:'https://www.uned.es/universidad/inicio/estudiantes/calendario-examenes.html', i:'clock' },
+    { t:'Primeros pasos', d:'Guía para estudiantes nuevos', u:'https://www.uned.es/universidad/inicio/estudiantes.html', i:'compass' },
+  ]},
+  { id:'grado', title:'El grado', sub:'Información oficial de la titulación', icon:'cpu', color:'blue', links:[
+    { t:'Página del grado', d:'Presentación del Grado en Ingeniería en IA', u:'https://www.uned.es/universidad/inicio/estudios/grados/grado-en-ingenieria-en-inteligencia-artificial.html?idContenido=1', i:'globe' },
+    { t:'Guía del grado (PDF)', d:'Guía completa de la titulación 2026/27', u:'https://www.uned.es/universidad/pdf/GuiasTitulacionesGrado/GenerarPDFGuia?codigoTitulacion=7103&curso=2027&language=es', i:'file' },
+    { t:'Listado oficial de asignaturas', d:'Plan de estudios con enlaces a libros', u:'https://www.uned.es/universidad/inicio/estudios/grados/grado-en-ingenieria-en-inteligencia-artificial?idContenido=5', i:'list' },
+    { t:'Horarios de tutorías', d:'Tutorías por centro asociado', u:'https://www.uned.es/universidad/inicio/estudiantes/horarios-tutorias-centros.html', i:'video' },
+    { t:'ETSI Informática', d:'Escuela que imparte el grado', u:'https://www.uned.es/universidad/facultades/informatica.html', i:'cpu' },
+    { t:'Reconocimiento de créditos', d:'Procedimiento, formularios y plazos', u:'https://www.uned.es/universidad/facultades/informatica/bienvenida/tramites_administrativos/para_estudiantes/procedimientos_academicos_grado/reconocimiento_de_creditos.html', i:'swap' },
+    { t:'Proyecto / TFG', d:'Información sobre el Trabajo Fin de Grado', u:'https://www.uned.es/universidad/facultades/informatica/bienvenida/estudiantes/informacion-pfg.html', i:'award' },
+  ]},
+  { id:'estudio', title:'Recursos de estudio', sub:'Bibliografía y nivelación', icon:'book', color:'violet', links:[
+    { t:'Mensajes de Ágora', d:'Avisos y mensajes privados de tus cursos', u:'https://agora.uned.es/message/', i:'chat' },
+    { t:'Web de Fundamentos de Programación', d:'Prácticas en C±, notas y enunciados (ETSI Informática)', u:'https://www.issi.uned.es/fp/', i:'globe' },
+    { t:'Biblioteca UNED', d:'Catálogo, libros electrónicos y bases de datos', u:'https://www.uned.es/universidad/biblioteca/', i:'bookopen' },
+    { t:'Librería UNED', d:'Compra de manuales y bibliografía', u:'https://www.librosuned.com/', i:'cart' },
+    { t:'Curso 0 de Matemáticas', d:'Nivelación gratuita y en abierto', u:'https://www.uned.es/universidad/inicio/unidad/IUED/innovacion/grupos-innovacion/grupo-20/recursos.html', i:'sigma' },
+    { t:'Curso 0 de Física', d:'Nivelación en abierto (iedra)', u:'https://iedra.uned.es/courses/course-v1:UNED+FisIng_002+2022/about', i:'zap' },
+    { t:'Contenidos digitales', d:'Vídeos, audios y materiales de la UNED', u:'https://contenidosdigitales.uned.es/', i:'play' },
+  ]},
+  { id:'ayuda', title:'Centro y ayuda', sub:'Soporte y atención', icon:'help', color:'amber', links:[
+    { t:'Aula de Cáceres', d:'Edificio Valhondo Calaff · Avda. de la Universidad s/n · 927 21 36 26', u:'https://www.uned.es/universidad/centros/plasencia/centro/aulas-universitarias.html', i:'building' },
+    { t:'Cómo llegar al Aula de Cáceres', d:'Mapa del Edificio Valhondo Calaff', u:'https://www.google.com/maps/search/?api=1&query=Edificio+Valhondo+Calaff+Avda+de+la+Universidad+Caceres', i:'compass' },
+    { t:'Correo del Aula de Cáceres', d:'info.caceres@plasencia.uned.es', u:'mailto:info.caceres@plasencia.uned.es', i:'info' },
+    { t:'UNED Plasencia (centro asociado)', d:'Plaza de Santa Ana s/n · 927 42 05 20 · info@plasencia.uned.es', u:'https://www.uned.es/universidad/centros/plasencia/centro.html', i:'help' },
+    { t:'Soporte informático (CAU)', d:'Incidencias con campus, usuario o correo', u:'https://soporte.uned.es', i:'help' },
+    { t:'Atención al estudiante', d:'Consultas generales y trámites', u:'https://www.uned.es/universidad/inicio/atencion-estudiante.html', i:'info' },
+    { t:'Orientación y empleo (COIE)', d:'Orientación académica y profesional', u:'https://www.uned.es/universidad/inicio/unidad/coie.html', i:'brief' },
+  ]},
+];
+
+/* ================= Asignaturas ================= */
+const S = [
+  [1,1,'71031010','Fundamentos de Cálculo para la IA','FB',6],
+  [1,1,'71031027','Fundamentos Algebraicos para la IA','FB',6],
+  [1,1,'71031033','Lógica y Estructuras Discretas','FB',6],
+  [1,1,'7103104-','Fundamentos de Computadores','FB',6],
+  [1,1,'71901020','Fundamentos de Programación','FB',6],
+  [1,2,'71031056','Fundamentos de Estadística para la IA','FB',6],
+  [1,2,'71031062','Programación Orientada a Objetos','FB',6],
+  [1,2,'71031079','Introducción a la Inteligencia Artificial','FB',6],
+  [1,2,'71031085','Fundamentos de Autómatas, Gramáticas y Lenguajes','OB',3],
+  [1,2,'71031091','Adquisición, Procesado y Tratamiento de la Información','OB',6],
+  [1,2,'7103110-','Redes','OB',3],
+  [2,1,'71032015','Estructuras de Datos y Algoritmos','FB',6],
+  [2,1,'71032021','Fundamentos de Modelado Estadístico de Datos','FB',6],
+  [2,1,'71032038','Modelado de la Información y Bases de Datos','OB',6],
+  [2,1,'71032044','Métodos Analíticos para la Toma de Decisiones','OB',6],
+  [2,1,'71032096','Modelos Probabilistas y Análisis de Decisiones','OB',6],
+  [2,2,'71032050','Algoritmia para la IA','OB',6],
+  [2,2,'71032067','Infraestructuras para el Procesamiento Masivo de Datos y Computación en la Nube','OB',6],
+  [2,2,'71032073','Sistemas Lógicos para la IA','OB',6],
+  [2,2,'7103208-','Sistemas Distribuidos y Procesamiento Paralelo','OB',6],
+  [2,2,'71902077','Introducción a la Ingeniería de Software','OB',6],
+  [3,1,'7103301-','Aprendizaje Automático I','OB',6],
+  [3,1,'71033026','Ingeniería y Gestión de Conocimiento','OB',6],
+  [3,1,'71033032','Fundamentos de Análisis de Imágenes','OB',6],
+  [3,1,'71033049','Ingeniería de las Aplicaciones Web','OB',6],
+  [3,1,'71033055','Metaheurísticas','OB',6],
+  [3,2,'71014052','Gestión de Proyectos Informáticos','OB',6],
+  [3,2,'71033061','Introducción a la Robótica Autónoma','OB',6],
+  [3,2,'71033078','Procesamiento de Lenguaje Natural','OB',6],
+  [3,2,'71033084','Aprendizaje Automático II','OB',6],
+  [3,2,'71033090','Laboratorio de I+D para Aplicaciones con IA','OB',6],
+  [4,0,'71034126','Trabajo de Fin de Grado en Ingeniería en IA','TFG',12],
+  [4,1,'71034014','Aprendizaje Automático III','OB',6],
+  [4,1,'71034020','Agentes y Sistemas Multiagente','OB',4.5],
+  [4,1,'71034037','Bases de Datos Avanzadas','OB',4.5],
+  [4,1,'71034043','Sociología de la Tecnología','OB',6],
+  [4,1,'71902031','Gestión de Empresas Informáticas','OB',6],
+  [4,1,'7103405-','Fundamentos de Psicología y Neurociencia para la IA','OP',6],
+  [4,1,'71034066','Seguridad de la Información','OP',3],
+  [4,1,'71034132','Ingeniería de Factores Humanos en Sistemas Informáticos','OP',6],
+  [4,2,'71034072','Ampliación de Métodos Probabilistas','OB',6],
+  [4,2,'71034089','Fundamentos Jurídicos y Legislación en IA','OB',6],
+  [4,2,'71012024','Teoría de los Lenguajes de Programación','OP',6],
+  [4,2,'71013147','Pruebas de Software','OP',6],
+  [4,2,'71022011','Diseño de Aplicaciones Orientadas a Objetos','OP',6],
+  [4,2,'71022028','Lenguajes de Programación y Procesadores','OP',6],
+  [4,2,'71034095','Seminarios sobre IA','OP',6],
+  [4,2,'71034103','Aplicaciones de la IA en las Finanzas','OP',6],
+  [4,2,'7103411-','Ética e Inteligencia Artificial','OP',6],
+].map(([c,s,code,n,t,e]) => ({c,s,code,n,t,e}));
+
+const TYPES = {
+  FB:{label:'Básica', color:'var(--fb)'},
+  OB:{label:'Obligatoria', color:'var(--ob)'},
+  OP:{label:'Optativa', color:'var(--op)'},
+  TFG:{label:'TFG', color:'var(--tfg)'},
+};
+const guideURL = code => `https://www.uned.es/universidad/inicio/estudios/grados/grado-en-ingenieria-informatica/asignaturas.html?codTitulacion=7103&codAsignatura=${encodeURIComponent(code)}`;
+
+/* ================= Estado ================= */
+const state = { q:'', course:-1, types:new Set(Object.keys(TYPES)) };
+
+/* ================= Iconos estáticos ================= */
+document.getElementById('calIcon').innerHTML = ic('cal');
+document.getElementById('subjIcon').innerHTML = ic('cap');
+document.getElementById('calPrev').innerHTML = ic('left');
+document.getElementById('calNext').innerHTML = ic('right');
+document.getElementById('dlgClose').innerHTML = ic('x');
+document.getElementById('btnAdd').innerHTML = ic('plus') + 'Añadir evento';
+document.getElementById('btnIcs').innerHTML = ic('download') + 'Exportar .ics';
+document.getElementById('btnBackup').innerHTML = ic('save') + 'Copia';
+document.getElementById('btnRestore').innerHTML = ic('upload') + 'Restaurar copia';
+document.getElementById('fDelete').innerHTML = ic('trash') + 'Eliminar';
+
+/* ================= Navegación ================= */
+document.getElementById('secnav').innerHTML =
+  `<a href="#esenciales">${ic('star')}Esenciales</a>` +
+  `<a href="#calendario">${ic('cal')}Mi calendario</a>` +
+  `<a href="#examenes">${ic('clock')}Exámenes</a>` +
+  `<a href="#tutorias">${ic('users')}Tutorías</a>` +
+  `<a href="#asignaturas">${ic('cap')}Asignaturas</a>` +
+  `<a href="#estudio-ia">✦ Estudio con IA</a>`;
+
+/* ================= Render enlaces ================= */
+function renderLinks() {
+  const q = state.q;
+  const ess = ESSENTIALS.filter(l => !q || norm(l.t + ' ' + l.d).includes(q));
+  document.getElementById('esenciales').style.display = 'none';
+  document.getElementById('heroEss').innerHTML = ess.map(l => `
+    <a class="ecard" style="--g1:${l.g1};--g2:${l.g2}" href="${l.u}" target="_blank" rel="noopener">
+      <span class="ic">${ic(l.i)}</span>
+      <strong>${hl(l.t,q)}</strong>
+      <span class="d">${hl(l.d,q)}</span>
+      <span class="cta">Entrar ${ic('arrow')}</span>
+    </a>`).join('');
+
+  document.getElementById('links').innerHTML = SECTIONS.map(sec => {
+    const items = sec.links.filter(l => !q || norm(l.t + ' ' + l.d).includes(q));
+    if (!items.length) return '';
+    return `<details class="sm" id="${sec.id}" open>
+      <summary><span class="ic" style="background:var(--c-${sec.color}-bg);color:var(--c-${sec.color})">${ic(sec.icon)}</span>${sec.title}<small>${items.length}</small></summary>
+      ${items.map(l => `<a class="sml" href="${l.u}" target="_blank" rel="noopener" title="${esc(l.d)}">${ic(l.i)}<span>${hl(l.t,q)}</span></a>`).join('')}
+    </details>`;
+  }).join('');
+}
+
+/* ================= CALENDARIO ================= */
+const EV_TYPES = {
+  examen:  { label:'Examen',            color:'var(--c-rose)' },
+  pec:     { label:'Parcial / PEC',     color:'var(--c-blue)' },
+  trabajo: { label:'Trabajo / entrega', color:'var(--c-violet)' },
+  tutoria: { label:'Tutoría',           color:'var(--c-cyan)' },
+  otro:    { label:'Otro',              color:'var(--c-amber)' },
+};
+// Calendario oficial UNED 2026/2027 (convocatoria nacional)
+const OFFICIAL = [
+  { start:'2026-10-01', end:'2026-10-01', title:'Inicio de los cursos virtuales', kind:'info' },
+  { start:'2026-10-21', end:'2026-10-21', title:'Fin del plazo de matrícula (grados)', kind:'info' },
+  { start:'2026-11-27', end:'2026-11-27', title:'Patrón de la ETSI Informática (festivo de la escuela)', kind:'info' },
+  { start:'2026-12-21', end:'2027-01-07', title:'No lectivo · Navidad', kind:'off' },
+  { start:'2027-02-16', end:'2027-02-16', title:'Inicio cursos virtuales · 2.º semestre', kind:'info' },
+  { start:'2027-03-10', end:'2027-03-10', title:'Fin del 2.º plazo de matrícula (grados)', kind:'info' },
+  { start:'2027-01-25', end:'2027-01-29', title:'Exámenes febrero · 1.ª semana', kind:'exam' },
+  { start:'2027-02-08', end:'2027-02-12', title:'Exámenes febrero · 2.ª semana', kind:'exam' },
+  { start:'2027-03-20', end:'2027-03-29', title:'No lectivo · Semana Santa', kind:'off' },
+  { start:'2027-05-24', end:'2027-05-28', title:'Exámenes junio · 1.ª semana', kind:'exam' },
+  { start:'2027-06-07', end:'2027-06-11', title:'Exámenes junio · 2.ª semana', kind:'exam' },
+  { start:'2027-09-02', end:'2027-09-08', title:'Exámenes septiembre (extraordinaria)', kind:'exam' },
+];
+const KIND_COLOR = { exam:'var(--c-rose)', off:'var(--muted)', info:'var(--brand)' };
+
+// Exámenes febrero y junio 2027 · Grado en Ingeniería en IA · Centro Asociado de Plasencia (calendario provisional UNED). Cada asignatura tiene examen en las dos semanas: eliges una.
+const EXAMS = [
+  { date:'2027-01-25', time:'09:00', code:'71031010' },
+  { date:'2027-01-25', time:'16:00', code:'71032015' },
+  { date:'2027-01-26', time:'16:00', code:'71901020' },
+  { date:'2027-01-26', time:'18:30', code:'71032044' },
+  { date:'2027-01-27', time:'11:30', code:'7103104-' },
+  { date:'2027-01-27', time:'16:00', code:'71031027' },
+  { date:'2027-01-28', time:'09:00', code:'71032021' },
+  { date:'2027-01-28', time:'11:30', code:'71032096' },
+  { date:'2027-01-29', time:'09:00', code:'71032038' },
+  { date:'2027-01-29', time:'16:00', code:'71031033' },
+  { date:'2027-02-08', time:'09:00', code:'71032015' },
+  { date:'2027-02-08', time:'16:00', code:'71031010' },
+  { date:'2027-02-09', time:'09:00', code:'71901020' },
+  { date:'2027-02-09', time:'11:30', code:'71032044' },
+  { date:'2027-02-10', time:'09:00', code:'71031027' },
+  { date:'2027-02-10', time:'18:30', code:'7103104-' },
+  { date:'2027-02-11', time:'16:00', code:'71032021' },
+  { date:'2027-02-11', time:'18:30', code:'71032096' },
+  { date:'2027-02-12', time:'09:00', code:'71031033' },
+  { date:'2027-02-12', time:'16:00', code:'71032038' },
+  { date:'2027-05-24', time:'16:00', code:'71031085' },
+  { date:'2027-05-25', time:'09:00', code:'7103208-' },
+  { date:'2027-05-25', time:'18:30', code:'71031062' },
+  { date:'2027-05-26', time:'09:00', code:'71032050' },
+  { date:'2027-05-26', time:'16:00', code:'71031079' },
+  { date:'2027-05-27', time:'11:30', code:'71032073' },
+  { date:'2027-05-27', time:'16:00', code:'71902077' },
+  { date:'2027-05-27', time:'18:30', code:'71031091' },
+  { date:'2027-05-28', time:'09:00', code:'71032067' },
+  { date:'2027-05-28', time:'11:30', code:'7103110-' },
+  { date:'2027-05-28', time:'18:30', code:'71031056' },
+  { date:'2027-06-07', time:'09:00', code:'71031085' },
+  { date:'2027-06-08', time:'11:30', code:'71031062' },
+  { date:'2027-06-08', time:'16:00', code:'7103208-' },
+  { date:'2027-06-09', time:'09:00', code:'71031079' },
+  { date:'2027-06-09', time:'16:00', code:'71032050' },
+  { date:'2027-06-10', time:'09:00', code:'71902077' },
+  { date:'2027-06-10', time:'11:30', code:'71031091' },
+  { date:'2027-06-10', time:'18:30', code:'71032073' },
+  { date:'2027-06-11', time:'11:30', code:'71031056' },
+  { date:'2027-06-11', time:'16:00', code:'71032067' },
+  { date:'2027-06-11', time:'18:30', code:'7103110-' },
+];
+const EXAM_WEEKS = [['Feb · 1.ª semana','2027-01-25','2027-01-29'], ['Feb · 2.ª semana','2027-02-08','2027-02-12'], ['Jun · 1.ª semana','2027-05-24','2027-05-28'], ['Jun · 2.ª semana','2027-06-07','2027-06-11']];
+const DOW3 = ['dom','lun','mar','mié','jue','vie','sáb'];
+const examsOn = k => visibleExams().filter(x => x.date === k);
+
+// Tutorías semanales · primer semestre (Akademos)
+const TUTORIAS = [
+  { dow:1, start:'19:00', end:'20:00', code:'71031033', short:'Lógica', place:'Aula 18 · tutor en Mérida', mode:'Presencial + AVIP', tutor:'Luis Pacha', full:'Luis Pacha Olivenza', from:'Mérida',
+    akademos:'https://akademosweb.uned.es/Default.aspx?id_servicio=2&modo_2=1&idUnico_2=71031033&cadenaUnica_2=021000&Dif=1',
+    online:'https://www.intecca.uned.es/webconferencia/splash/496507',},
+  { dow:2, start:'17:00', end:'18:00', code:'71031027', short:'Álgebra', place:'Aula 2 · Plasencia', mode:'Presencial + Teams', tutor:'Sergio Álvarez', full:'Sergio Álvarez Sánchez', from:'Plasencia',
+    akademos:'https://akademosweb.uned.es/Default.aspx?id_servicio=2&modo_2=1&idUnico_2=71031027&cadenaUnica_2=066000&Dif=2',
+    online:'https://www.intecca.uned.es/webconferencia/splash/495769' },
+  { dow:2, start:'19:00', end:'20:00', code:'7103104-', short:'Computadores', place:'Aula 2.2 · tutor en Lugo', mode:'Presencial + AVIP', tutor:'Artur Seixo', full:'Artur Seixo Alonso', from:'Lugo',
+    akademos:'https://akademosweb.uned.es/Default.aspx?id_servicio=2&modo_2=1&idUnico_2=7103104-&cadenaUnica_2=071000&Dif=3',
+    online:'https://www.intecca.uned.es/webconferencia/splash/495770' },
+  { dow:2, start:'20:00', end:'21:00', code:'71031010', short:'Cálculo', place:'Online · confirmar en Akademos', mode:'Online', tutor:'Equipo docente', full:'Equipo docente (Sede Central) · curso virtual aLF',
+    nota:'En Akademos figura como curso virtual (sin tutoría de centro ni enlace de clase). Esta sesión de los martes viene de tu Google Calendar: abre ese evento, normalmente incluye el enlace de la clase.' },
+  { dow:3, start:'18:15', end:'19:15', code:'71901020', short:'Programación', place:'Aula 1 · Plasencia', mode:'Presencial + Teams', tutor:'Alberto Sánchez', full:'Alberto Sánchez García', from:'Plasencia',
+    akademos:'https://akademosweb.uned.es/Default.aspx?id_servicio=2&modo_2=1&idUnico_2=71901020&cadenaUnica_2=066000&Dif=4', // inferido: mismo centro (066000) que Álgebra y 4.º en la lista de Akademos
+    online:'https://www.intecca.uned.es/webconferencia/splash/491960' },
+];
+// Resumen, evaluación y plan semanal por asignatura (guías 2026/27; igual en todos los centros)
+const SUBJ_INFO = {"71031010": {"topics": "Tema 1 números reales · 2 funciones · 3 límites y continuidad · 4 derivadas · 5 aplicaciones de la derivada · 6 integrales indefinidas · 7 integrales definidas · 8 sucesiones y series · 9 métodos numéricos · 10 funciones de varias variables. Libro: «Fundamentos de Cálculo» (Díaz y Dormido, Sanz y Torres, 2026).", "pec": "PEC · 10 % · aprox. diciembre", "pecStatus": "El periodo exacto lo publica el equipo docente en el curso virtual. No es obligatoria; si no se entrega vale 0.", "practice": null, "plan": {"2026-10-05": "Orientativo · números reales y funciones.", "2026-10-12": "Orientativo · límites y continuidad.", "2027-01-04": "Repaso y preparación del examen.", "2027-01-11": "Repaso y preparación del examen.", "2027-01-18": "Repaso y preparación del examen."}, "nota": "Nota = 0,9·examen + 0,1·PEC. Sin PEC hace falta un 5,6 en el examen (máx. 9). Examen: 8 ejercicios de desarrollo, 120 min, solo calculadora no programable.", "src": "guia"}, "71031027": {"topics": "Tema 1: escalares · Tema 2: tensores, matrices y vectores · Tema 3: aplicaciones lineales y multilineales · Tema 4: triangulación · Tema 5: diagonalización.", "pec": "PEC · 5 preguntas tipo test (≈5 h) · aprox. diciembre · máx. 1 punto", "pecStatus": "Se abre un periodo en el curso virtual. No es obligatoria y abarca los 4 primeros bloques.", "practice": "Práctica de programación (Python) · OBLIGATORIA · aprox. enero · máx. 1 punto. Sesión de control con el tutor (presencial, no obligatoria).", "plan": {"2026-10-05": "Tema 1 · Escalares (5–11 oct.): naturales, enteros, racionales, reales, bases de numeración y complejos.", "2026-10-12": "Tema 2 · Tensores, matrices y vectores (12 oct.–1 nov.).", "2026-10-19": "Tema 2 · Tensores, matrices y vectores (12 oct.–1 nov.).", "2026-10-26": "Tema 2 · Tensores, matrices y vectores · cierre el 1/11.", "2026-11-02": "Tema 3 · Aplicaciones lineales y multilineales (2–22 nov.).", "2026-11-09": "Tema 3 · Aplicaciones lineales y multilineales (2–22 nov.).", "2026-11-16": "Tema 3 · Aplicaciones lineales y multilineales · cierre el 22/11.", "2026-11-23": "Tema 4 · Procesos de triangulación (23 nov.–6 dic.).", "2026-11-30": "Tema 4 · Procesos de triangulación (23 nov.–6 dic.).", "2026-12-07": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2026-12-14": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2026-12-21": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2026-12-28": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2027-01-04": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2027-01-11": "Tema 5 · Procesos de diagonalización · cierre el 17/01.", "2027-01-18": "Repaso y preparación del examen."}, "nota": "Nota = examen + 0,1·PEC + 0,1·práctica (máx. 10). Examen: 4 preguntas de desarrollo, 120 min, sin material. Hace falta ≥ 4 en el examen para sumar PEC y práctica; práctica < 2,5 = suspenso.", "src": "guia"}, "71031033": {"topics": "Lógica proposicional · lógica de predicados · conjuntos · relaciones · funciones · combinatoria · grafos · recorridos · árboles.", "pec": "PEC · 30 % · test abiertos todo el curso hasta el inicio de la 1.ª semana de exámenes", "pecStatus": "Voluntaria. Plazos y forma de evaluación se detallan en el curso virtual.", "practice": "Prácticas aplicadas · 10 % · voluntarias · aprox. finales de noviembre y principios de enero.", "plan": {"2026-10-05": "Bloque 1 · Lógica proposicional · octubre.", "2026-10-12": "Bloque 1 · Lógica proposicional · octubre.", "2026-10-19": "Bloque 1 · Lógica proposicional · octubre.", "2026-10-26": "Bloque 1 · cierre de octubre · Lógica proposicional. Tutorías de predicados según calendario registrado.", "2026-11-02": "Bloque 2 · Lógica de predicados · noviembre.", "2026-11-09": "Bloque 2 · Lógica de predicados · noviembre.", "2026-11-16": "Bloque 2 · Lógica de predicados · noviembre.", "2026-11-23": "Bloque 2 · Lógica de predicados · noviembre.", "2026-11-30": "Bloque 3 · Conjuntos, relaciones, funciones y combinatoria · diciembre.", "2026-12-07": "Bloque 3 · Conjuntos, relaciones, funciones y combinatoria · diciembre.", "2026-12-14": "Bloque 3 · Conjuntos, relaciones, funciones y combinatoria · diciembre.", "2026-12-21": "Bloque 3 · transición hacia enero; planificación oficial distribuida por meses.", "2026-12-28": "Bloque 4 · Combinatoria, grafos y árboles · enero.", "2027-01-04": "Bloque 4 · Combinatoria, grafos y árboles · enero.", "2027-01-11": "Bloque 4 · Combinatoria, grafos y árboles · enero.", "2027-01-18": "Bloque 4 · Combinatoria, grafos y árboles · cierre/repaso antes de exámenes."}, "nota": "Nota = 0,8·examen + 0,3·PEC + 0,1·prácticas (máx. 10). Examen mixto: 18 test + 1 desarrollo, 120 min, sin material; hace falta ≥ 3,5 para sumar PEC y prácticas.", "src": "guia"}, "7103104-": {"topics": "Componentes e interconexión · memoria · entrada/salida · CPU · sistemas operativos · procesos · administración de memoria · archivos.", "pec": "PED · diciembre 2026 · día exacto pendiente de publicación", "pecStatus": "Enunciado previsto a principios de noviembre según planificación registrada; la fecha exacta de entrega debe figurar en el enunciado/curso virtual.", "practice": null, "plan": {"2026-10-05": "Tema 1 · Representación de la información y estructura básica del computador.", "2026-10-12": "Tema 2 · Unidad de memoria.", "2026-10-19": "Tema 3 · Unidad de entrada/salida.", "2026-10-26": "Tema 4 · Unidad central de procesamiento.", "2026-11-02": "Tema 5 · Consideraciones generales de los sistemas operativos.", "2026-11-09": "Tema 6 · Descripción y control de procesos.", "2026-11-16": "Tema 7 · Planificación de procesos.", "2026-11-23": "Tema 8 · Administración de memoria.", "2026-11-30": "Tema 9 · Gestión de la entrada/salida.", "2026-12-07": "Tema 10 · Gestión de archivos.", "2026-12-14": "Repaso final · tutoría del 17/12.", "2026-12-21": "Sin tutoría registrada esta semana.", "2026-12-28": "Sin tutoría registrada esta semana.", "2027-01-04": "Repaso final · tutoría del 14/01.", "2027-01-11": "Repaso final · tutoría del 14/01.", "2027-01-18": "Tutoría del 21/01 · título/descripción no recuperados."}, "src": "panel"}, "71901020": {"topics": "Unidad I (temas 1–6): introducción, elementos básicos, constantes y variables, metodología (I), estructuras básicas, metodología (II) · Unidad II (7–11): funciones y procedimientos, metodología (III), definición de tipos, ampliación de estructuras de control, estructuras de datos · Unidad III (12–15): esquemas con formaciones, punteros y variables dinámicas, tipos abstractos de datos, módulos. Lenguaje C± (subconjunto de C/C++). Libros: «Fundamentos de Programación» (Cerrada y Collado) y «Prácticas de Programación en C±».", "pec": "PEC · 4 prácticas de laboratorio en C± · voluntarias", "pecStatus": "Hay que hacerlas todas bien para que cuenten. Las primeras se corrigen automáticamente y la última la evalúa tu tutor. Ponderación, enunciado y fechas están en la web de la asignatura (issi.uned.es/fp), no en la guía.", "practice": "No oficial: fechas aportadas por un compañero (P1 15/10 · P2 29/10 · P3 20/11 · P4 28/12–22/01). Confírmalas en la web de la asignatura.", "plan": {"2026-10-05": "Unidad Didáctica 1 · preparar temas 1–3 · presentación y entorno de prácticas.", "2026-10-12": "Unidad Didáctica 1 · preparar temas 1–3 · 1.ª práctica el 15/10 · comenzar temas 4–6.", "2026-10-19": "Unidad Didáctica 1 · preparar temas 4–6.", "2026-10-26": "Unidad Didáctica 1 · preparar temas 4–6 · 2.ª práctica el 29/10.", "2026-11-02": "Unidad Didáctica 2 · preparar temas 7–10.", "2026-11-09": "Unidad Didáctica 2 · preparar temas 7–10 · inicio de entrega de prácticas autocorregidas 09/11.", "2026-11-16": "Unidad Didáctica 2 · preparar temas 7–10 · 3.ª práctica el 20/11.", "2026-11-23": "Unidad Didáctica 2 · preparar tema 11.", "2026-11-30": "Unidad Didáctica 3 · preparar temas 12–14.", "2026-12-07": "Unidad Didáctica 3 · preparar temas 12–14.", "2026-12-14": "Unidad Didáctica 3 · preparar temas 12–14 hasta el 18/12.", "2026-12-21": "Unidad Didáctica 3 · preparar tema 15 (21–25/12).", "2026-12-28": "4.ª práctica · 28/12–22/01 · comienza la entrega de prácticas autocorregidas ya iniciada.", "2027-01-04": "4.ª práctica · en curso · repaso y preparación de pruebas presenciales desde 06/01.", "2027-01-11": "4.ª práctica · en curso · repaso/preparación PP · final de P4 el 22/01.", "2027-01-18": "4.ª práctica · final 22/01 · final de entrega de autocorregidas 20/01 · preparación PP.", "2027-01-25": "Pruebas presenciales · primera semana de exámenes.", "2027-02-08": "Pruebas presenciales · segunda semana de exámenes."}, "src": "guia", "nota": "Examen = 90 % de la nota (test 30 % + ejercicio 60 %). Mixto: 10 test + 1 ejercicio de desarrollo, 120 min, sin material. El test es eliminatorio: ≥ 8 correctas (≥ 6 si has hecho y aprobado las prácticas). Sin prácticas hace falta un 5,6 en el examen (máx. 9). La web de la asignatura publica el algoritmo exacto de la nota final."}};
+const TUT_RANGE = ['2026-10-05', '2027-01-22'];
+const TUT_SKIP = []; // añade aquí fechas ('2026-12-08') si Akademos marca que no hay tutoría; // festivos nacionales en día de tutoría
+const DOW_FULL = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const tutConv = t => statusOf(t.code) === 'conv';
+const tutActive = k => tutOn(k).filter(t => !tutConv(t));
+function tutOn(k) {
+  if (k < TUT_RANGE[0] || k > TUT_RANGE[1] || TUT_SKIP.includes(k)) return [];
+  if (OFFICIAL.some(o => o.kind !== 'info' && o.start <= k && k <= o.end)) return [];
+  const dw = parse(k).getDay();
+  return TUTORIAS.filter(t => t.dow === dw);
+}
+
+const MONTHS = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const MON3 = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const pad = n => String(n).padStart(2,'0');
+const dkey = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parse = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+let today = new Date(); today.setHours(0,0,0,0);
+let TODAY = dkey(today);
+const daysBetween = (a, b) => Math.round((parse(b) - parse(a)) / 86400000);
+
+/* Almacenamiento */
+const LS_KEY = 'uned-ia-calendario-v1';
+let canStore = true;
+function loadEvents() {
+  try {
+    localStorage.setItem('__t', '1'); localStorage.removeItem('__t');
+    const d = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
+    return Array.isArray(d) ? d.filter(validEvent) : [];
+  } catch (e) { canStore = false; return []; }
+}
+function saveEvents() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(events)); }
+  catch (e) { canStore = false; updateStoreNote(); }
+}
+function validEvent(e) {
+  return e && typeof e.id === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(e.date) && typeof e.title === 'string' && EV_TYPES[e.type];
+}
+function updateStoreNote() {
+  if (!canStore) document.getElementById('storeNote').innerHTML =
+    '<span class="warn">Este navegador no permite guardar datos de la página.</span> Usa «Copia» antes de cerrarla para no perder tus eventos.';
+}
+
+let events = loadEvents();
+let view = new Date(today.getFullYear(), today.getMonth(), 1);
+// Si hoy está fuera del curso, mostrar octubre 2026
+if (TODAY < '2026-09-01' || TODAY > '2027-09-30') view = new Date(2026, 9, 1);
+
+const officialOn = k => OFFICIAL.filter(o => o.start <= k && k <= o.end);
+const userOn = k => events.filter(e => e.date === k).sort((a,b) => (a.time||'99').localeCompare(b.time||'99'));
+const subjName = code => { const s = S.find(x => x.code === code); return s ? s.n : ''; };
+
+/* ---------- Mis asignaturas ---------- */
+const SUBJ_KEY = 'uned-ia-asignaturas-v1', PREFS_KEY = 'uned-ia-prefs-v1';
+// Matrícula de 1.º curso completo (por defecto)
+const DEFAULT_MINE = ['71031010','71031027','71031033','7103104-','71901020','71031056','71031062','71031079','71031085','71031091','7103110-'];
+function loadJSON(key, def) { try { const v = JSON.parse(localStorage.getItem(key)); return v == null ? def : v; } catch (e) { return def; } }
+function saveJSON(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) { canStore = false; updateStoreNote(); } }
+let subj = loadJSON(SUBJ_KEY, null);
+if (!subj || typeof subj !== 'object' || Array.isArray(subj)) { subj = {}; DEFAULT_MINE.forEach(c => subj[c] = { status:'mat' }); saveJSON(SUBJ_KEY, subj); }
+let prefs = Object.assign({ onlyMine:true }, loadJSON(PREFS_KEY, {}));
+const saveSubj = () => saveJSON(SUBJ_KEY, subj);
+const savePrefs = () => saveJSON(PREFS_KEY, prefs);
+const STATUS = {
+  none: { label:'No matriculada', color:'var(--muted)' },
+  mat:  { label:'Matriculada',    color:'var(--c-blue)' },
+  conv: { label:'Convalidada',    color:'var(--c-violet)' },
+  apr:  { label:'Aprobada',       color:'var(--c-green)' },
+};
+const st = code => subj[code] || {};
+const statusOf = code => st(code).status || 'none';
+const visibleExams = () => prefs.onlyMine ? EXAMS.filter(x => statusOf(x.code) === 'mat') : EXAMS;
+function progress() {
+  let apr = 0, conv = 0, mat = 0, sg = 0, se = 0;
+  S.forEach(x => {
+    const s = st(x.code);
+    if (s.status === 'apr') { apr += x.e; if (typeof s.grade === 'number') { sg += s.grade * x.e; se += x.e; } }
+    else if (s.status === 'conv') conv += x.e;
+    else if (s.status === 'mat') mat += x.e;
+  });
+  return { apr, conv, mat, avg: se ? sg / se : null };
+}
+const TASK_TYPES = ['pec', 'trabajo', 'otro'];
+const isTask = e => TASK_TYPES.includes(e.type);
+
+function renderCal() {
+  const y = view.getFullYear(), m = view.getMonth();
+  document.getElementById('calTitle').innerHTML = `${MONTHS[m]}<small>${y}</small>`;
+  const first = new Date(y, m, 1);
+  const offset = (first.getDay() + 6) % 7;
+  const dim = new Date(y, m+1, 0).getDate();
+  const cells = Math.ceil((offset + dim) / 7) * 7;
+  let html = '';
+  for (let i = 0; i < cells; i++) {
+    const d = new Date(y, m, 1 - offset + i);
+    const k = dkey(d);
+    const dow = (d.getDay() + 6) % 7;
+    const offs = officialOn(k);
+    const cls = ['day'];
+    if (d.getMonth() !== m) cls.push('out');
+    if (k === TODAY) cls.push('today');
+    if (dow >= 5) cls.push('weekend');
+    if (offs.some(o => o.kind === 'exam')) cls.push('exam');
+    else if (offs.some(o => o.kind === 'off')) cls.push('off');
+
+    const chips = [];
+    offs.forEach(o => {
+      if (o.start === k || (dow === 0 && o.kind !== 'off') || (d.getDate() === 1 && o.kind !== 'off'))
+        chips.push(`<span class="ev ${o.kind === 'exam' ? 'wk' : 'official'}" style="--ec:${KIND_COLOR[o.kind]}" title="${esc(o.title)}">${esc(o.title)}</span>`);
+    });
+    examsOn(k).forEach(x => {
+      const n = subjName(x.code);
+      chips.push(`<span class="ev official" style="--ec:var(--c-rose)" title="${esc('Examen ' + x.time + ' · ' + n)}"><span class="tm">${x.time}</span>${esc(n)}</span>`);
+    });
+    userOn(k).forEach(e => {
+      const sn = subjName(e.subject);
+      const cl = (e.done ? ' done' : '') + (!e.done && isTask(e) && e.date < TODAY ? ' late' : '');
+      chips.push(`<span class="ev user${cl}" data-id="${esc(e.id)}" style="--ec:${EV_TYPES[e.type].color}" title="${esc(EV_TYPES[e.type].label + ': ' + e.title + (sn ? ' · ' + sn : ''))}">${e.time ? `<span class="tm">${esc(e.time)}</span>` : ''}${esc(e.title)}</span>`);
+    });
+    tutOn(k).forEach(t => {
+      const cv = tutConv(t);
+      chips.push(`<span class="ev tut${cv ? ' conv' : ''}" style="--ec:var(--c-cyan)" title="${esc('Tutoría ' + t.start + '–' + t.end + ' · ' + subjName(t.code) + (cv ? ' · Convalidada' : ' · ' + t.tutor))}"><span class="tm">${t.start}</span>${esc(t.short)}</span>`);
+    });
+    const visible = chips.slice(0, 3).join('');
+    const more = chips.length > 3 ? `<span class="more">+${chips.length - 3} más</span>` : '';
+    const label = `${d.getDate()} de ${MONTHS[d.getMonth()]}` + (offs.length ? ' · ' + offs.map(o => o.title).join(', ') : '');
+    html += `<div class="${cls.join(' ')}" data-k="${k}" role="button" tabindex="0" aria-label="${esc(label)}">
+      <span class="num">${d.getDate()}</span>
+      <span class="add">${ic('plus')}</span>
+      <div class="evs">${visible}${more}</div>
+    </div>`;
+  }
+  document.getElementById('calDays').innerHTML = html;
+}
+
+function renderLegend() {
+  const items = [
+    `<span><i style="background:var(--c-rose)"></i>Examen UNED</span>`,
+    `<span><i style="background:color-mix(in srgb, var(--c-cyan) 30%, var(--surface));border-left:3px solid var(--c-cyan)"></i>Tutoría semanal</span>`,
+    `<span><i style="background:color-mix(in srgb, var(--c-violet) 25%, var(--surface));border-left:3px solid var(--c-violet);opacity:.6"></i>Tutoría convalidada</span>`,
+    `<span><i style="background:color-mix(in srgb, var(--c-rose) 25%, var(--surface))"></i>Semana de exámenes</span>`,
+    `<span><i style="background:repeating-linear-gradient(135deg, var(--surface-2) 0 3px, var(--border) 3px 6px)"></i>No lectivo</span>`,
+    ...Object.values(EV_TYPES).map(t => `<span><i style="background:${t.color}"></i>${t.label}</span>`)
+  ];
+  document.getElementById('calLegend').innerHTML = items.join('');
+}
+
+function renderSide() {
+  // Cuenta atrás a la próxima convocatoria
+  const next = OFFICIAL.find(o => o.kind === 'exam' && o.end >= TODAY);
+  const cd = document.getElementById('countdown');
+  if (next) {
+    const d = daysBetween(TODAY, next.start);
+    const s = parse(next.start), e = parse(next.end);
+    const range = `${s.getDate()} ${MON3[s.getMonth()]} – ${e.getDate()} ${MON3[e.getMonth()]} ${e.getFullYear()}`;
+    cd.innerHTML = `<div class="k">Próxima convocatoria</div>
+      <div class="big">${d > 0 ? d + '<small>días</small>' : 'En curso'}</div>
+      <div class="what">${esc(next.title)}</div><div class="when">${range}</div>`;
+    const fx = visibleExams().find(x => x.date >= TODAY);
+    if (fx) {
+      const fd = parse(fx.date);
+      cd.innerHTML += `<div class="first">Tu primer examen: ${DOW3[fd.getDay()]} ${fd.getDate()} ${MON3[fd.getMonth()]} · <b>${fx.time}</b><br>${esc(subjName(fx.code))}</div>`;
+    }
+    cd.style.display = '';
+  } else cd.style.display = 'none';
+
+  // Próximos eventos
+  const up = [
+    ...events.filter(e => e.date >= TODAY && !e.done).map(e => ({ date:e.date, time:e.time||'', title:e.title, sub:EV_TYPES[e.type].label + (e.subject ? ' · ' + subjName(e.subject) : ''), color:EV_TYPES[e.type].color, id:e.id })),
+    ...visibleExams().filter(x => x.date >= TODAY).map(x => ({ date:x.date, time:x.time, title:subjName(x.code), sub:'Examen UNED · Plasencia', color:'var(--c-rose)', id:'' })),
+    ...OFFICIAL.filter(o => o.kind === 'exam' && o.start >= TODAY && !EXAMS.some(x => x.date >= o.start && x.date <= o.end)).map(o => ({ date:o.start, time:'', title:o.title, sub:'Calendario oficial UNED', color:KIND_COLOR.exam, id:'' })),
+  ].sort((a,b) => (a.date + a.time).localeCompare(b.date + b.time)).slice(0, 6);
+
+  document.getElementById('upCount').textContent = events.filter(e => e.date >= TODAY && !e.done).length + ' tuyos';
+  document.getElementById('upList').innerHTML = (events.length ? '' :
+    `<div class="hint">Pulsa cualquier día del calendario para ver lo que tiene y apuntar una PEC, un trabajo o un parcial.</div>`) +
+    up.map(x => {
+      const d = parse(x.date), n = daysBetween(TODAY, x.date);
+      const when = n === 0 ? 'Hoy' : n === 1 ? 'Mañana' : `En ${n} días`;
+      return `<button class="up" style="--ec:${x.color}" data-goto="${x.date}" ${x.id ? `data-id="${esc(x.id)}"` : ''}>
+        <span class="date"><b>${d.getDate()}</b><span>${MON3[d.getMonth()]}</span></span>
+        <span style="min-width:0"><span class="t" style="display:block">${esc(x.title)}</span>
+        <span class="s" style="display:block"><b>${when}</b>${x.time ? ' · ' + esc(x.time) : ''} · ${esc(x.sub)}</span></span>
+      </button>`;
+    }).join('');
+}
+
+function renderTutorias() {
+  document.getElementById('tutTitle').textContent = 'Mis tutorías · ' + (TODAY >= '2027-02-16' ? 'segundo' : 'primer') + ' semestre';
+  document.getElementById('tutTitle').innerHTML = ic('users') + 'Mis tutorías · primer semestre';
+  document.getElementById('tutLink').innerHTML = ic('arrow') + 'Agenda en Akademos';
+  const slots = [...new Set(TUTORIAS.map(x => x.start))].sort();
+  const days = [...new Set(TUTORIAS.map(x => x.dow))].sort();
+  document.getElementById('tutGrid').style.setProperty('--n', days.length);
+  let html = '<div></div>' + days.map(d => `<div class="tt-h">${DOW_FULL[d]}</div>`).join('');
+  slots.forEach(s => {
+    html += `<div class="tt-t">${s}</div>`;
+    days.forEach(d => {
+      const t = TUTORIAS.find(x => x.dow === d && x.start === s);
+      html += t ? `<div class="tt-i${t.ip ? ' ip' : ''}${tutConv(t) ? ' conv' : ''}" data-code="${t.code}" role="button" tabindex="0" title="Ver detalle">
+          <span class="when">${DOW_FULL[d]} · ${t.start}–${t.end}</span>
+          <span class="nm">${esc(subjName(t.code))}</span>
+          <span class="meta">${esc(t.tutor)}<br>${esc(t.place)}</span>
+          <span class="badge">${tutConv(t) ? 'Convalidada' : t.ip ? 'Presencial en Cáceres' : esc(t.mode)}</span>
+          ${t.online ? `<a class="tt-go" href="${t.online}" target="_blank" rel="noopener">${ic('video')}Clase online</a>` : ''}
+        </div>` : '<div class="tt-c"></div>';
+    });
+  });
+  document.getElementById('tutGrid').innerHTML = TUTORIAS.length ? html : '<p class="note" style="grid-column:1/-1">Aún no has añadido tus tutorías. Edita la lista TUTORIAS en el código con los horarios de tu Aula de Cáceres.</p>';
+
+  if (TODAY > TUT_RANGE[1]) document.getElementById('tutGrid').insertAdjacentHTML('beforeend', '<p class="note" style="grid-column:1/-1">Terminó el 1.er semestre: añade las tutorías del 2.º en la lista TUTORIAS cuando se publiquen.</p>');
+  // Próxima tutoría
+  const now = new Date();
+  const nowHM = pad(now.getHours()) + ':' + pad(now.getMinutes());
+  let next = null;
+  for (let i = 0; i < 150 && !next; i++) {
+    const d = new Date(today); d.setDate(d.getDate() + i);
+    const k = dkey(d);
+    const t = tutActive(k).filter(x => i > 0 || x.end > nowHM).sort((a,b) => a.start.localeCompare(b.start))[0];
+    if (t) next = { d, t };
+  }
+  document.getElementById('tutNext').innerHTML = next
+    ? `Próxima: ${DOW3[next.d.getDay()]} ${next.d.getDate()} ${MON3[next.d.getMonth()]} · ${next.t.start} · ${esc(next.t.short)}${next.t.online ? ` · <a class="tt-go" href="${next.t.online}" target="_blank" rel="noopener">${ic('video')}Entrar a la clase</a>` : ''}`
+    : 'Sin más tutorías este semestre';
+}
+
+let exOpen = null;
+function renderExams() {
+  if (exOpen === null) exOpen = new Set();
+  document.getElementById('exTitle').innerHTML = ic('clock') + 'Exámenes · febrero y junio';
+  document.getElementById('exWeeks').innerHTML = EXAM_WEEKS.map(([label, a, b]) => {
+    const da = parse(a), db = parse(b);
+    const rows = visibleExams().filter(x => x.date >= a && x.date <= b).map(x => {
+      const d = parse(x.date), s = S.find(y => y.code === x.code);
+      const cc = s && s.c === 1 ? 'var(--brand)' : 'var(--c-blue)';
+      return `<button class="ex-row${x.date < TODAY ? ' past' : ''}" data-goto="${x.date}" style="--cc:${cc}">
+        <span class="date"><b>${d.getDate()}</b><span>${DOW3[d.getDay()]}</span></span>
+        <span><span class="nm">${esc(subjName(x.code))}</span><span class="s">${s ? s.c + '.º curso' : ''}</span></span>
+        <span class="time">${x.time}</span>
+      </button>`;
+    }).join('');
+    const n = visibleExams().filter(x => x.date >= a && x.date <= b).length;
+    return `<details class="ex-week" data-l="${label}"${exOpen.has(label) ? ' open' : ''}>
+      <summary class="ex-wh"><b>${label}</b><span>${da.getDate()} ${MON3[da.getMonth()]} – ${db.getDate()} ${MON3[db.getMonth()]} · ${n} ${n === 1 ? 'examen' : 'exámenes'}</span></summary>
+      ${rows || '<div class="wk-empty" style="margin:10px;border-radius:10px">Ningún examen tuyo esta semana</div>'}
+    </details>`;
+  }).join('');
+}
+document.getElementById('exWeeks').addEventListener('toggle', e => { const d = e.target; if (d.dataset && d.dataset.l) { d.open ? exOpen.add(d.dataset.l) : exOpen.delete(d.dataset.l); } }, true);
+document.getElementById('exWeeks').addEventListener('click', e => {
+  const b = e.target.closest('.ex-row'); if (!b) return;
+  const d = parse(b.dataset.goto); view = new Date(d.getFullYear(), d.getMonth(), 1); renderCal();
+  document.getElementById('calDays').scrollIntoView({ behavior:'smooth', block:'center' });
+});
+
+function renderCalendar() { renderCal(); renderSide(); }
+
+/* Navegación del calendario */
+document.getElementById('calPrev').onclick = () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); renderCal(); };
+document.getElementById('calNext').onclick = () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); renderCal(); };
+document.getElementById('calToday').onclick = () => { view = new Date(today.getFullYear(), today.getMonth(), 1); renderCal(); };
+
+const daysEl = document.getElementById('calDays');
+daysEl.addEventListener('click', e => {
+  const cell = e.target.closest('.day');
+  if (!cell) return;
+  if (e.target.closest('.add')) { openNew(cell.dataset.k); return; }
+  openDay(cell.dataset.k);
+});
+daysEl.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('day')) { e.preventDefault(); openDay(e.target.dataset.k); }
+});
+document.getElementById('upList').addEventListener('click', e => {
+  const b = e.target.closest('.up'); if (!b) return;
+  if (b.dataset.id) openEdit(b.dataset.id);
+  else { const d = parse(b.dataset.goto); view = new Date(d.getFullYear(), d.getMonth(), 1); renderCal(); daysEl.scrollIntoView({ block:'center' }); }
+});
+
+/* Diálogo */
+const dlg = document.getElementById('dlg');
+const F = id => document.getElementById(id);
+F('fTypes').innerHTML = Object.entries(EV_TYPES).map(([k,t]) =>
+  `<input type="radio" name="ftype" id="ft-${k}" value="${k}"><label for="ft-${k}" style="--ec:${t.color}"><i></i>${t.label}</label>`).join('');
+F('fSubj').innerHTML = '<option value="">— Sin asignatura —</option>' +
+  [1,2,3,4].map(c => `<optgroup label="${c}.º curso">` +
+    S.filter(x => x.c === c).map(x => `<option value="${x.code}">${esc(x.n)}</option>`).join('') + '</optgroup>').join('');
+
+function setType(t) { const r = document.getElementById('ft-' + t); if (r) r.checked = true; }
+let returnDay = null;  // día al que volver tras cerrar el formulario
+let returnSubj = null; // asignatura a la que volver
+function openNew(k, ret = null, subjCode = null) {
+  returnDay = ret; returnSubj = subjCode;
+  F('dlgTitle').textContent = 'Nuevo evento';
+  F('fId').value = ''; F('fTitle').value = ''; F('fSubj').value = '';
+  F('fDate').value = k || TODAY; F('fTime').value = ''; F('fNotes').value = '';
+  setType(officialOn(k || '').some(o => o.kind === 'exam') ? 'examen' : 'pec');
+  if (subjCode) F('fSubj').value = subjCode;
+  F('fDelete').style.visibility = 'hidden';
+  dlg.showModal(); F('fTitle').focus();
+}
+function openEdit(id, ret = null, subjCode = null) {
+  const e = events.find(x => x.id === id); if (!e) return;
+  returnDay = ret; returnSubj = subjCode;
+  F('dlgTitle').textContent = 'Editar evento';
+  F('fId').value = e.id; F('fTitle').value = e.title; F('fSubj').value = e.subject || '';
+  F('fDate').value = e.date; F('fTime').value = e.time || ''; F('fNotes').value = e.notes || '';
+  setType(e.type);
+  F('fDelete').style.visibility = 'visible';
+  dlg.showModal();
+}
+const closeDlg = () => dlg.close();
+F('dlgClose').onclick = closeDlg;
+F('fCancel').onclick = closeDlg;
+dlg.addEventListener('click', e => { if (e.target === dlg) closeDlg(); });
+
+F('evForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const title = F('fTitle').value.trim();
+  const date = F('fDate').value;
+  if (!title || !date) return;
+  const type = (document.querySelector('input[name="ftype"]:checked') || {}).value || 'otro';
+  const data = { title, date, type, subject:F('fSubj').value, time:F('fTime').value, notes:F('fNotes').value.trim() };
+  const id = F('fId').value;
+  if (id) Object.assign(events.find(x => x.id === id), data);
+  else events.push({ id: 'e' + Date.now().toString(36) + Math.random().toString(36).slice(2,6), ...data });
+  saveEvents();
+  const d = parse(date); view = new Date(d.getFullYear(), d.getMonth(), 1);
+  if (returnDay) returnDay = date;
+  refreshAll(); closeDlg();
+});
+F('fDelete').onclick = () => {
+  const id = F('fId').value; if (!id) return;
+  if (!confirm('¿Eliminar este evento?')) return;
+  events = events.filter(x => x.id !== id);
+  saveEvents(); refreshAll(); closeDlg();
+};
+F('btnAdd').onclick = () => openNew(TODAY);
+
+/* Al cerrar el formulario, volver a la vista del día si venía de ahí */
+dlg.addEventListener('close', () => {
+  if (returnDay) { const k = returnDay; returnDay = null; openDay(k); }
+  else if (returnSubj) { const c = returnSubj; returnSubj = null; openSubj(c); }
+});
+
+/* ---------- Vista de día ---------- */
+const dayDlg = document.getElementById('dayDlg');
+let dayOpen = null;
+F('dayClose').innerHTML = ic('x');
+F('dayPrev').innerHTML = ic('left');
+F('dayNext').innerHTML = ic('right');
+F('dayAdd').innerHTML = ic('plus') + 'Nuevo evento';
+
+function dayItems(k) {
+  const items = [];
+  officialOn(k).forEach(o => items.push({ t:'', title:o.title, sub:'Calendario oficial UNED', color:KIND_COLOR[o.kind], tag:'UNED' }));
+  examsOn(k).forEach(x => {
+    const [h, m] = x.time.split(':').map(Number);
+    items.push({ t:x.time, t2:`${pad(h + 2)}:${pad(m)}`, title:subjName(x.code), sub:'Examen · UNED Plasencia · pulsa para ver el detalle', color:'var(--c-rose)', tag:'Examen', info:x.code });
+  });
+  PRACT.filter(p => p[0] === k).forEach(p => {
+    items.push({ t:'', title:p[1], sub:'Fundamentos de Programación · plan aportado, no oficial', color:'var(--c-amber)', tag:'Práctica', info:'71901020' });
+  });
+  tutOn(k).forEach(t => items.push(tutConv(t)
+    ? { t:t.start, t2:t.end, title:subjName(t.code), sub:'Tutoría · asignatura convalidada, no necesitas asistir', color:'var(--c-violet)', tag:'Convalidada', done:true }
+    : { t:t.start, t2:t.end, title:subjName(t.code), sub:`Tutoría · ${t.tutor} · ${t.place} · pulsa para ver el tema`, color:'var(--c-cyan)', tag:'Tutoría', info:t.code, link:t.online }));
+  userOn(k).forEach(e => items.push({
+    t:e.time || '', title:e.title,
+    sub:EV_TYPES[e.type].label + (e.subject ? ' · ' + subjName(e.subject) : ''),
+    notes:e.notes, color:EV_TYPES[e.type].color, id:e.id, task:isTask(e), done:!!e.done
+  }));
+  return items.sort((a, b) => (a.t || '').localeCompare(b.t || ''));
+}
+
+function openDay(k) {
+  dayOpen = k;
+  const d = parse(k);
+  const items = dayItems(k);
+  const mine = items.filter(x => x.id).length;
+  F('dayTitle').textContent = `${DOW_FULL[d.getDay()]} ${d.getDate()} de ${MONTHS[d.getMonth()]}`;
+  F('daySub').textContent = `${d.getFullYear()} · ` + (items.length
+    ? `${items.length} ${items.length === 1 ? 'elemento' : 'elementos'}${mine ? ` (${mine} ${mine === 1 ? 'tuyo' : 'tuyos'})` : ''}`
+    : 'Día libre');
+  F('dayList').innerHTML = items.length ? items.map(x => `
+    <div class="di${x.id ? ' mine' : ''}" style="--ec:${x.color}" ${x.id ? `data-id="${esc(x.id)}" role="button" tabindex="0" title="Editar"` : x.info ? `data-info="${x.info}" role="button" tabindex="0" title="Ver detalle"` : ''}>
+      <span class="bar"></span>
+      ${x.t ? `<span class="tm">${x.t}${x.t2 ? `<small>${x.t2}</small>` : ''}</span>` : '<span class="tm ad">Todo el día</span>'}
+      <span style="min-width:0"><span class="ti${x.done ? ' done' : ''}">${esc(x.title)}</span><span class="su">${esc(x.sub)}</span>${x.notes ? `<span class="no">${esc(x.notes)}</span>` : ''}${x.link ? `<a class="tt-go" href="${x.link}" target="_blank" rel="noopener">${ic('video')}Entrar a la clase online</a>` : ''}</span>
+      ${x.id ? `<span class="di-act">${x.task ? ckBox(x.id, x.done) : ''}<span class="btn icon" aria-hidden="true">${ic('pen')}</span></span>` : `<span class="kind">${x.tag}</span>`}
+    </div>`).join('')
+    : `<div class="day-empty">No hay nada apuntado este día.<br>Pulsa «Nuevo evento» para añadir algo.</div>`;
+  if (!dayDlg.open) dayDlg.showModal();
+}
+/* ===== Detalle de tutoría / examen / práctica ===== */
+const PRACT = [['2026-10-15','1.ª práctica'],['2026-10-29','2.ª práctica'],['2026-11-09','Empieza la entrega de prácticas autocorregidas'],['2026-11-20','3.ª práctica'],['2026-12-28','Empieza la 4.ª práctica'],['2027-01-20','Fin de las autocorregidas'],['2027-01-22','Fin de la 4.ª práctica']];
+const infoDlg = document.getElementById('infoDlg');
+document.getElementById('infoClose').innerHTML = ic('x');
+document.getElementById('infoSubj').innerHTML = ic('cap') + 'Abrir ficha de la asignatura';
+function weekMonday(k) { const d = parse(k); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return dkey(d); }
+function nextTutDate(code) {
+  for (let i = 0; i < 220; i++) { const d = new Date(today); d.setDate(d.getDate() + i); const k = dkey(d); if (tutOn(k).some(x => x.code === code)) return k; }
+  return TUT_RANGE[0];
+}
+function sessionRows(code) {
+  const si = SUBJ_INFO[code], out = []; if (!si) return out;
+  for (let d = parse(TUT_RANGE[0]); dkey(d) <= TUT_RANGE[1]; d.setDate(d.getDate() + 1)) {
+    const k = dkey(d);
+    tutOn(k).filter(x => x.code === code).forEach(x => out.push({ k, start:x.start, tema:si.plan[weekMonday(k)] || 'Sin tema concreto publicado en la guía para esta semana' }));
+  }
+  return out;
+}
+const UREPO = 'https://contenidosdigitales.uned.es';
+const DEG_INF = ['GRADO EN INGENIERÍA EN TECNOLOGÍAS DE LA INFORMACIÓN', 'GRADO EN INGENIERÍA INFORMÁTICA'];
+const DEG_IA = ['GRADO EN INGENIERÍA EN INTELIGENCIA ARTIFICIAL'];
+const _f = (i, k, v) => `f%5B${i}%5D=${k}%3A${encodeURIComponent(v)}`;
+function repoFilter(area, degs) {   // misma estructura que las búsquedas de contenidosdigitales.uned.es
+  const q = degs.map((d, i) => _f(i, 'degree_sbp', d));
+  q.push(_f(q.length, 'language_repo_sbp', 'Español'), _f(q.length + 1, 'model_sbp', '6277'));
+  if (area) q.push(_f(q.length, 'subject_area_sbp', area));
+  return UREPO + '/search-basic-cw?' + q.join('&');
+}
+const nameSearch = n => UREPO + '/search-basic-cw?search_api_fulltext=' + encodeURIComponent(n) + '&' + _f(0, 'language_repo_sbp', 'Español') + '&' + _f(1, 'model_sbp', '6277');
+const PREV = {
+  '71031033': { area:'Lógica y Estructuras Discretas', deg:DEG_INF, ok:true, eq:'Lógica y Estructuras Discretas (71901037) del Grado en Informática',
+    series:[{ t:'Bergara-Campus Nordeste · Sol Lozano Serrano · curso 2024/25 · serie completa', url: UREPO + '/taxonomy/term/37572?page=0',
+      videos:[['LED 01 · Presentación y lógica de proposiciones 1','825018',''],['LED 02 · Lógica de proposiciones 2','832408','19 oct 2024'],['LED 03 · Lógica de proposiciones 3','836022','25 oct 2024'],['LED 04 · Lógica de predicados 1','838780','31 oct 2024'],['LED 05 · Lógica de predicados 2','843258','9 nov 2024'],['LED 06 · Lógica de predicados 3','847304','16 nov 2024'],['LED 07 · Conjuntos','851359','23 nov 2024'],['LED 08 · Relaciones','855415','30 nov 2024'],['LED 09 · Funciones','862201','14 dic 2024'],['LED 10 · Combinatoria','865772','21 dic 2024'],['LED 11 · Grafos','867532','11 ene 2025'],['LED 12 · Árboles','870500','18 ene 2025']] }] },
+  '71901020': { area:'Fundamentos de Programación', deg:DEG_INF, ok:true, eq:'Mismo código (71901020) que en el Grado en Informática',
+    series:[{ t:'Tudela-Campus Nordeste · Juan Carlos Alfaro López · lunes 18:00–19:00 · curso 2024/25 · solo he localizado 2 (sala 419325)',
+      videos:[['Temas 5 y 6','832826','21 oct 2024'],['Tema 11 y comienzo del tema 12','848537','19 nov 2024']] }] }
+};
+const prevInfo = code => Object.assign({ area: subjName(code), deg: DEG_IA, ok: false, series: [] }, PREV[code] || {});
+const prevUrl = code => { const p = prevInfo(code); return repoFilter(p.area, p.deg); };
+function prevBlock(code) {
+  const p = prevInfo(code), name = subjName(code), link = (u, l, i) => `<a class="btn" href="${u}" target="_blank" rel="noopener">${ic(i)}${l}</a>`;
+  const series = p.series.map(se => `<details class="prev-vids"><summary>${se.videos.length} ${se.videos.length === 1 ? 'tutoría' : 'tutorías'} · ${esc(se.t)}</summary><div class="plan-ul">${se.videos.map(v => `<a class="plan-li" href="${UREPO}/recurso/cadena-campus_${v[1]}" target="_blank" rel="noopener" style="grid-template-columns:92px 1fr"><b>${v[2]}</b><span>${esc(v[0])}</span></a>`).join('')}</div>${se.url ? `<div style="margin-top:6px">${link(se.url, 'Ver la carpeta completa de esta serie', 'video')}</div>` : ''}</details>`).join('');
+  return `<div class="sj-h"><span>Tutorías de otros años</span></div>
+    ${p.eq ? `<div class="s" style="margin-bottom:6px">Equivale a: ${esc(p.eq)}. Comprueba que el temario coincide con el de este curso.</div>` : ''}
+    ${series}
+    <div class="info-links">${link(repoFilter(p.area, p.deg), 'Tutorías anteriores (filtradas)', 'video')}${link(nameSearch(name), 'Buscar por nombre', 'globe')}${link('https://www.intecca.uned.es/portalavip/cadenaCampus.php', 'Cadena Campus', 'play')}</div>
+    <div class="s" style="margin-top:6px">${p.ok ? 'Filtro de carrera y asignatura comprobado: en el listado elige la serie del tutor que tenga todas las tutorías.' : 'Filtro por la carrera de IA y el nombre de la asignatura: si sale vacío, usa «Buscar por nombre» o quita un filtro.'} Algunas grabaciones piden tu usuario UNED.</div>`;
+}
+const AGORA = { '71031033':{ id:16551 }, '71901020':{ id:16780 }, '7103104-':{ id:19531 }, '71031010':{ id:19268 }, '71031027':{ id:19327, foro:'https://agora.uned.es/course/view.php?id=19327&sectionid=223818' } };
+const agoraCurso = c => AGORA[c] ? 'https://agora.uned.es/course/view.php?id=' + AGORA[c].id : 'https://agora.uned.es';
+const agoraForo = c => AGORA[c] ? (AGORA[c].foro || 'https://agora.uned.es/course/overview.php?id=' + AGORA[c].id + '&expand%5B%5D=forum#forum_overview_collapsible') : 'https://agora.uned.es';
+const WEB_ASIG = { '71901020': { u:'https://www.issi.uned.es/fp/', l:'Web de la asignatura' } };
+function tutLinks(code, note) {
+  const tt = TUTORIAS.find(x => x.code === code); if (!tt) return '';
+  const nb = NOTEBOOKS.find(n => n.code === code), web = WEB_ASIG[code];
+  const a = (u, i, l, cls) => `<a class="btn${cls ? ' ' + cls : ''}" href="${u}" target="_blank" rel="noopener">${ic(i)}${l}</a>`;
+  return `<div class="info-links">
+      ${tt.online ? a(tt.online, 'video', 'Entrar a la clase online', 'primary') : ''}
+      ${a(tt.akademos || 'https://akademosweb.uned.es', 'users', tt.akademos ? 'Horario en Akademos' : 'Akademos Web')}
+      ${a(agoraCurso(code), 'cap', 'Curso virtual (Ágora)')}
+      ${a(agoraForo(code), 'chat', 'Foro y avisos')}
+      ${a('https://agora.uned.es/message/', 'info', 'Mensajes')}
+      ${a(prevUrl(code), 'video', 'Tutorías anteriores')}
+      ${nb ? a(nb.url, 'bookopen', 'Cuaderno Gemini') : ''}
+      ${web ? a(web.u, 'globe', web.l) : ''}
+    </div>${tt.online ? `<div class="s" style="margin-top:6px">Sala Intecca nº ${tt.online.split('/').pop()}</div>` : ''}${tt.nota ? `<div class="s" style="margin-top:6px">${esc(tt.nota)}</div>` : (note && !tt.online ? '<div class="s" style="margin-top:6px">Sin enlace de clase online guardado para esta asignatura.</div>' : '')}`;
+}
+let infoCode = null;
+function openInfo(code, k) {
+  infoCode = code;
+  const si = SUBJ_INFO[code] || { plan:{}, topics:'', pec:'', pecStatus:'' }, d = parse(k);
+  const t = tutOn(k).find(x => x.code === code) || TUTORIAS.find(x => x.code === code);
+  const isTut = tutOn(k).some(x => x.code === code), exToday = EXAMS.find(e => e.code === code && e.date === k);
+  const fmt = q => { const x = parse(q); return DOW3[x.getDay()] + ' ' + x.getDate() + ' ' + MON3[x.getMonth()]; };
+  const mon = weekMonday(k), tema = si.plan[mon];
+  const later = Object.entries(si.plan).filter(([w]) => w > mon).slice(0, 3);
+  const mine = events.filter(e => e.subject === code && e.date >= TODAY).sort((a, b) => a.date.localeCompare(b.date)).slice(0, 5);
+  F('infoTitle').textContent = subjName(code);
+  F('infoSub').textContent = `${DOW_FULL[d.getDay()]} ${d.getDate()} de ${MONTHS[d.getMonth()]}` + (isTut && t ? ` · tutoría ${t.start}–${t.end}` : exToday ? ` · examen ${exToday.time}` : '');
+  const links = tutLinks(code);
+  F('infoBody').innerHTML = links + `
+    ${isTut ? `<div class="info" style="--ec:var(--c-cyan)"><div class="k">Tema de esta tutoría (semana del ${fmt(mon)})</div><div class="v">${esc(tema || 'Sin tema concreto publicado en la guía para esta semana')}</div><div class="s">Tema orientativo de la semana: no figura en la guía oficial (viene del plan de un compañero); confírmalo en el curso virtual.</div></div>` : ''}
+    ${exToday ? `<div class="info" style="--ec:var(--c-rose)"><div class="k">Examen · Plasencia (borrador)</div><div class="v">${fmt(k)} · ${exToday.time}</div></div>` : ''}
+    <div class="info-grid">
+      ${t ? `<div class="info" style="--ec:var(--c-cyan)"><div class="k">Tutoría semanal</div><div class="v">${DOW_FULL[t.dow]} · ${t.start}–${t.end}</div><div class="s">${esc(t.full || t.tutor)}${t.from ? ' · tutor de ' + esc(t.from) : ''}<br>${esc(t.place)} · ${esc(t.mode)}</div></div>` : ''}
+      <div class="info" style="--ec:var(--c-rose)"><div class="k">Exámenes (eliges una)</div><div class="v">${EXAMS.filter(e => e.code === code).map(e => fmt(e.date) + ' · ' + e.time).join('<br>')}</div></div>
+    </div>
+    <div class="info" style="--ec:var(--c-blue)"><div class="k">Resumen del contenido</div><div class="s">${esc(si.topics)}</div><div class="s" style="margin-top:4px;opacity:.8">${si.src === 'guia' ? 'Verificado con la guía oficial 2026/27' : 'Dato sin contrastar con la guía oficial: confírmalo en el curso virtual'}</div></div>
+    <div class="info" style="--ec:var(--c-violet)"><div class="k">PEC / evaluación continua</div><div class="v">${esc(si.pec)}</div><div class="s">${esc(si.pecStatus)}${si.practice ? '<br>' + esc(si.practice) : ''}</div></div>
+    ${si.nota ? `<div class="info" style="--ec:var(--c-amber)"><div class="k">Cómo se calcula la nota</div><div class="s">${esc(si.nota)}</div></div>` : ''}
+    ${later.length ? `<div><div class="sj-h"><span>Próximas semanas</span></div><div class="plan-ul">${later.map(([w, x]) => `<div class="plan-li"><b>${fmt(w)}</b><span>${esc(x)}</span></div>`).join('')}</div></div>` : ''}
+    <div><div class="sj-h"><span>Mis entregas y pruebas</span></div>${mine.length ? `<div class="plan-ul">${mine.map(e => `<div class="plan-li"><b>${fmt(e.date)}</b><span>${esc(e.title)}</span></div>`).join('')}</div>` : '<div class="wk-empty">Sin entregas apuntadas para esta asignatura.</div>'}</div>`;
+  if (!infoDlg.open) infoDlg.showModal();
+}
+F('infoClose').onclick = () => infoDlg.close();
+infoDlg.addEventListener('click', e => { if (e.target === infoDlg) infoDlg.close(); });
+F('infoSubj').onclick = () => { infoDlg.close(); if (dayDlg.open) dayDlg.close(); openSubj(infoCode); };
+F('tutGrid').addEventListener('click', e => { if (e.target.closest('a')) return; const c = e.target.closest('.tt-i[data-code]'); if (c) openInfo(c.dataset.code, nextTutDate(c.dataset.code)); });
+
+function shiftDay(n) {
+  const d = parse(dayOpen); d.setDate(d.getDate() + n);
+  const k = dkey(d);
+  if (d.getMonth() !== view.getMonth() || d.getFullYear() !== view.getFullYear()) { view = new Date(d.getFullYear(), d.getMonth(), 1); renderCal(); }
+  openDay(k);
+}
+F('dayPrev').onclick = () => shiftDay(-1);
+F('dayNext').onclick = () => shiftDay(1);
+F('dayClose').onclick = () => dayDlg.close();
+dayDlg.addEventListener('click', e => { if (e.target === dayDlg) dayDlg.close(); });
+F('dayAdd').onclick = () => { const k = dayOpen; dayDlg.close(); openNew(k, k); };
+F('dayList').addEventListener('click', e => {
+  if (e.target.closest('.ck') || e.target.closest('a')) return;
+  const inf = e.target.closest('.di[data-info]'); if (inf) { openInfo(inf.dataset.info, dayOpen); return; }
+  const row = e.target.closest('.di.mine'); if (!row) return;
+  const k = dayOpen; dayDlg.close(); openEdit(row.dataset.id, k);
+});
+F('dayList').addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('mine')) { e.preventDefault(); e.target.click(); }
+});
+dayDlg.addEventListener('keydown', e => {
+  if (e.target.closest('.di')) return;
+  if (e.key === 'ArrowLeft') shiftDay(-1);
+  if (e.key === 'ArrowRight') shiftDay(1);
+});
+
+/* Exportar / copias */
+function download(name, content, type) {
+  const url = URL.createObjectURL(new Blob([content], { type }));
+  const a = document.createElement('a'); a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+const icsText = s => String(s).replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/([,;])/g,'\\$1');
+const icsDate = k => k.replace(/-/g,'');
+const nextDay = k => { const d = parse(k); d.setDate(d.getDate() + 1); return dkey(d); };
+F('btnIcs').onclick = () => {
+  const stamp = new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+  const L = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//UNED IA//Calendario//ES','CALSCALE:GREGORIAN','X-WR-CALNAME:UNED · Grado IA'];
+  OFFICIAL.filter(o => o.kind !== 'info').forEach((o, i) => {
+    L.push('BEGIN:VEVENT', `UID:uned-oficial-${i}@grado-ia`, `DTSTAMP:${stamp}`,
+      `DTSTART;VALUE=DATE:${icsDate(o.start)}`, `DTEND;VALUE=DATE:${icsDate(nextDay(o.end))}`,
+      `SUMMARY:${icsText(o.title)}`, 'TRANSP:TRANSPARENT', 'END:VEVENT');
+  });
+  for (let d = parse(TUT_RANGE[0]); dkey(d) <= TUT_RANGE[1]; d.setDate(d.getDate() + 1)) {
+    const k = dkey(d);
+    tutActive(k).forEach(t => {
+      L.push('BEGIN:VEVENT', `UID:tutoria-${t.code}-${icsDate(k)}@grado-ia`, `DTSTAMP:${stamp}`,
+        `DTSTART:${icsDate(k)}T${t.start.replace(':','')}00`, `DTEND:${icsDate(k)}T${t.end.replace(':','')}00`,
+        `SUMMARY:${icsText('Tutoría: ' + subjName(t.code))}`, `LOCATION:${icsText(t.place)}`,
+        `DESCRIPTION:${icsText(t.tutor + ' · ' + t.mode)}`, 'END:VEVENT');
+    });
+  }
+  visibleExams().forEach(x => {
+    const [h, mi] = x.time.split(':').map(Number);
+    L.push('BEGIN:VEVENT', `UID:examen-${x.code}-${icsDate(x.date)}@grado-ia`, `DTSTAMP:${stamp}`,
+      `DTSTART:${icsDate(x.date)}T${pad(h)}${pad(mi)}00`, `DTEND:${icsDate(x.date)}T${pad(h + 2)}${pad(mi)}00`,
+      `SUMMARY:${icsText('Examen: ' + subjName(x.code))}`, 'LOCATION:UNED Plasencia', 'END:VEVENT');
+  });
+  events.forEach(e => {
+    const sn = subjName(e.subject);
+    L.push('BEGIN:VEVENT', `UID:${e.id}@grado-ia`, `DTSTAMP:${stamp}`);
+    if (e.time) {
+      const t = e.time.replace(':','') + '00';
+      const [h, mi] = e.time.split(':').map(Number);
+      const endH = Math.min(h + 1, 23);
+      L.push(`DTSTART:${icsDate(e.date)}T${t}`, `DTEND:${icsDate(e.date)}T${pad(endH)}${pad(endH === h ? 59 : mi)}00`);
+    } else {
+      L.push(`DTSTART;VALUE=DATE:${icsDate(e.date)}`, `DTEND;VALUE=DATE:${icsDate(nextDay(e.date))}`);
+    }
+    L.push(`SUMMARY:${icsText(EV_TYPES[e.type].label + ': ' + e.title + (sn ? ' (' + sn + ')' : ''))}`);
+    if (e.notes) L.push(`DESCRIPTION:${icsText(e.notes)}`);
+    L.push('END:VEVENT');
+  });
+  L.push('END:VCALENDAR');
+  download('uned-calendario.ics', L.join('\r\n'), 'text/calendar');
+};
+F('btnBackup').onclick = () => download(`uned-copia-${TODAY}.json`, JSON.stringify({ version:2, events, subjects:subj, prefs }, null, 2), 'application/json');
+F('btnRestore').onclick = () => F('restoreFile').click();
+F('restoreFile').onchange = ev => {
+  const file = ev.target.files[0]; if (!file) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try {
+      const data = JSON.parse(r.result);
+      const list = Array.isArray(data) ? data : (data && Array.isArray(data.events) ? data.events : null);
+      if (!list) throw new Error();
+      const ok = list.filter(validEvent);
+      const hasSubj = data && !Array.isArray(data) && data.subjects && typeof data.subjects === 'object';
+      if (!confirm(`Se cargarán ${ok.length} eventos${hasSubj ? ' y el estado de tus asignaturas' : ''}, sustituyendo lo actual. ¿Continuar?`)) return;
+      events = ok; saveEvents();
+      if (hasSubj) { subj = data.subjects; saveSubj(); }
+      if (data && data.prefs) { prefs = Object.assign({ onlyMine:true }, data.prefs); savePrefs(); }
+      refreshAll();
+    } catch (e) { alert('El archivo no es una copia válida del calendario.'); }
+    ev.target.value = '';
+  };
+  r.readAsText(file);
+};
+
+/* ================= Asignaturas ================= */
+const tabsEl = document.getElementById('tabs');
+const tabDefs = [[-1,'Mis asignaturas'],[0,'Todas'],[1,'1.º curso'],[2,'2.º curso'],[3,'3.º curso'],[4,'4.º curso']];
+function renderTabs() {
+  tabsEl.innerHTML = tabDefs.map(([v,l]) => `<button role="tab" data-c="${v}" aria-selected="${state.course===v}">${l}</button>`).join('');
+}
+tabsEl.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  state.course = +b.dataset.c; renderTabs(); renderSubjects();
+});
+const chipsEl = document.getElementById('chips');
+function renderChips() {
+  chipsEl.innerHTML = Object.entries(TYPES).map(([k,v]) =>
+    `<button class="chip" data-t="${k}" style="--cc:${v.color}" aria-pressed="${state.types.has(k)}"><i class="sw" style="background:${v.color}"></i>${v.label}</button>`).join('');
+}
+chipsEl.addEventListener('click', e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  const t = b.dataset.t;
+  if (state.types.has(t) && state.types.size === 1) Object.keys(TYPES).forEach(k => state.types.add(k));
+  else if (state.types.has(t)) state.types.delete(t); else state.types.add(t);
+  renderChips(); renderSubjects();
+});
+function glance(x) {
+  const si = SUBJ_INFO[x.code]; if (!si) return '';
+  const t = TUTORIAS.find(u => u.code === x.code), ex = EXAMS.filter(e => e.code === x.code);
+  const f = k => { const d = parse(k); return d.getDate() + ' ' + MON3[d.getMonth()]; };
+  const wk = weekMonday(TODAY), tema = si.plan[wk] || (Object.entries(si.plan).find(([w]) => w > wk) || [])[1] || 'Sin tema concreto publicado';
+  return `<span class="gl"><span><b>Tutoría</b> ${t ? DOW_FULL[t.dow] + ' ' + t.start + ' · ' + esc(t.tutor) : '—'}</span><span><b>Exámenes</b> ${ex.map(e => f(e.date) + ' ' + e.time).join(' / ')}</span><span><b>Tema</b> ${esc(tema)}</span></span>`;
+}
+function subjCard(x, q) {
+  const T = TYPES[x.t], s = st(x.code), stt = s.status || 'none';
+  const badge = stt === 'none' ? '' :
+    `<span class="stb" style="--sc:${STATUS[stt].color}">${stt === 'apr' && typeof s.grade === 'number' ? 'Aprobada · ' + fmt(s.grade) : STATUS[stt].label}</span>`;
+  const pend = events.filter(e => e.subject === x.code && isTask(e) && !e.done).length;
+  return `<button type="button" class="scard${stt === 'apr' || stt === 'conv' ? ' passed' : ''}" data-code="${x.code}" style="--tc:${T.color}" title="Abrir ficha de ${esc(x.n)}">
+    <span class="nm">${hl(x.n,q)}</span>
+    <span class="ects"><b>${fmt(x.e)}</b><span>ECTS</span></span>
+    <span class="sub"><span class="tag">${x.t}</span><span class="code">${x.code}</span>${badge}${pend ? `<span class="stb" style="--sc:var(--c-amber)">${pend} pendiente${pend > 1 ? 's' : ''}</span>` : ''}</span>
+    ${glance(x)}
+  </button>`;
+}
+function renderSubjects() {
+  const q = state.q;
+  const filtered = S.filter(x => (state.course <= 0 || x.c === state.course) && (state.course !== -1 || statusOf(x.code) !== 'none') && state.types.has(x.t) && (!q || norm(x.n + ' ' + x.code).includes(q)));
+  const out = [];
+  for (let c = 1; c <= 4; c++) {
+    if (state.course > 0 && state.course !== c) continue;
+    const items = filtered.filter(x => x.c === c);
+    if (!items.length) continue;
+    const all = S.filter(x => x.c === c);
+    const sems = [[0,'Anual'],[1,'1.er semestre'],[2,'2.º semestre']].map(([s,l]) => ({ l, list: items.filter(x => x.s === s) })).filter(g => g.list.length);
+    const regular = sems.filter(g => g.l !== 'Anual');
+    const annual = sems.find(g => g.l === 'Anual');
+    const semBlock = g => `<div class="sem">
+        <div class="sem-title"><span>${g.l}</span><span>${fmt(g.list.reduce((a,x)=>a+x.e,0))} ECTS</span></div>
+        <div class="sem-list">${g.list.map(x => subjCard(x,q)).join('')}</div>
+      </div>`;
+    out.push(`<div class="course">
+      <div class="course-head">
+        <h3><span class="course-num">${c}</span>${['','Primer','Segundo','Tercer','Cuarto'][c]} curso</h3>
+        <div class="course-meta"><span class="pill">${all.length} asignaturas</span>
+          ${c === 4 ? '<span class="pill">Optativas a elegir: 12 ECTS</span>' : '<span class="pill">60 ECTS</span>'}</div>
+      </div>
+      ${annual ? `<div class="sems single" style="margin-bottom:16px">${semBlock(annual)}</div>` : ''}
+      <div class="sems${regular.length === 1 ? ' single' : ''}">${regular.map(semBlock).join('')}</div>
+    </div>`);
+  }
+  document.getElementById('subjects').innerHTML = out.length ? out.join('') : `<div class="empty">${state.course === -1 && !state.q ? 'Aún no has marcado ninguna asignatura. Ve a «Todas» y pulsa las tuyas para marcarlas como matriculadas.' : 'No hay asignaturas que coincidan con el filtro.'}</div>`;
+}
+
+/* ================= Hecho / pendiente ================= */
+const ckBox = (id, done) => `<label class="ck" title="Marcar como hecho"><input type="checkbox" data-done="${esc(id)}" ${done ? 'checked' : ''}><span></span></label>`;
+document.addEventListener('change', e => {
+  const t = e.target.closest && e.target.closest('input[data-done]');
+  if (!t) return;
+  const ev = events.find(x => x.id === t.dataset.done); if (!ev) return;
+  ev.done = t.checked; saveEvents(); refreshAll();
+  if (dayDlg.open) openDay(dayOpen);
+  if (subjDlg.open) renderSubj();
+});
+function whenLabel(k) {
+  const n = daysBetween(TODAY, k);
+  if (n < 0) return n === -1 ? 'Venció ayer' : `Venció hace ${-n} días`;
+  if (n === 0) return 'Hoy';
+  if (n === 1) return 'Mañana';
+  const d = parse(k); return `${DOW3[d.getDay()]} ${d.getDate()} ${MON3[d.getMonth()]}`;
+}
+function taskRow(e, late) {
+  const sn = subjName(e.subject), T = EV_TYPES[e.type];
+  return `<div class="wk${late ? ' late' : ''}" style="--ec:${T.color}" data-id="${esc(e.id)}" role="button" tabindex="0">
+    ${isTask(e) ? ckBox(e.id, e.done) : `<span class="ico">${ic(e.type === 'examen' ? 'clock' : 'users')}</span>`}
+    <div style="min-width:0">
+      <div class="when">${whenLabel(e.date)}${e.time ? ' · ' + esc(e.time) : ''}</div>
+      <div class="ti${e.done ? ' done' : ''}">${esc(e.title)}</div>
+      <div class="su">${T.label}${sn ? ' · ' + esc(sn) : ''}</div>
+    </div>
+  </div>`;
+}
+
+/* ================= Esta semana ================= */
+function renderWeek() {
+  const lim = dkey(new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7));
+  const late = events.filter(e => isTask(e) && !e.done && e.date < TODAY);
+  const soon = events.filter(e => e.date >= TODAY && e.date <= lim);
+  const exs = visibleExams().filter(x => x.date >= TODAY && x.date <= lim);
+  let tuts = 0; const tutItems = [], nowHM = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes());
+  for (let i = 0; i <= 7; i++) {
+    const d = new Date(today); d.setDate(d.getDate() + i); const k = dkey(d);
+    tutActive(k).filter(x => i > 0 || x.end > nowHM).forEach(x => { tuts++; tutItems.push({ k:k + x.start, html:`<div class="wk" style="--ec:var(--c-cyan)" data-info="${x.code}" data-k="${k}" role="button" tabindex="0">
+        <span class="ico">${ic('users')}</span>
+        <div style="min-width:0"><div class="when">${whenLabel(k)} · ${x.start}</div><div class="ti">${esc(subjName(x.code))}</div><div class="su">Tutoría · ${esc(x.tutor)} · ${esc(x.place)}</div>${x.online ? `<a class="tt-go" href="${x.online}" target="_blank" rel="noopener">${ic('video')}Clase online</a>` : ''}</div>
+      </div>` }); });
+  }
+  const items = [
+    ...tutItems,
+    ...late.map(e => ({ k:e.date + (e.time || ''), html:taskRow(e, true) })),
+    ...soon.map(e => ({ k:e.date + (e.time || ''), html:taskRow(e, false) })),
+    ...exs.map(x => ({ k:x.date + x.time, html:`<div class="wk" style="--ec:var(--c-rose)" data-goto="${x.date}" role="button" tabindex="0">
+        <span class="ico">${ic('clock')}</span>
+        <div style="min-width:0"><div class="when">${whenLabel(x.date)} · ${x.time}</div><div class="ti">${esc(subjName(x.code))}</div><div class="su">Examen UNED · Plasencia</div></div>
+      </div>` })),
+  ].sort((a, b) => a.k.localeCompare(b.k));
+  const pending = soon.filter(e => isTask(e) && !e.done).length;
+  F('wkTitle').innerHTML = ic('list') + 'Esta semana';
+  F('wkSub').innerHTML = [
+    late.length ? `<b style="color:var(--c-rose)">${late.length} vencida${late.length > 1 ? 's' : ''}</b>` : '',
+    `${pending} pendiente${pending === 1 ? '' : 's'}`,
+    tuts ? `${tuts} tutoría${tuts > 1 ? 's' : ''}` : '',
+    exs.length ? `${exs.length} ${exs.length > 1 ? 'exámenes' : 'examen'}` : '',
+  ].filter(Boolean).join(' · ');
+  F('wkList').innerHTML = items.length ? items.map(x => x.html).join('')
+    : `<div class="wk-empty">Nada en los próximos 7 días. Tus tutorías, exámenes, PEC y trabajos aparecerán aquí.</div>`;
+}
+F('wkList').addEventListener('click', e => {
+  if (e.target.closest('.ck') || e.target.closest('a')) return;
+  const r = e.target.closest('.wk'); if (!r) return;
+  if (r.dataset.info) openInfo(r.dataset.info, r.dataset.k);
+  else if (r.dataset.id) openEdit(r.dataset.id);
+  else if (r.dataset.goto) { const d = parse(r.dataset.goto); view = new Date(d.getFullYear(), d.getMonth(), 1); renderCal(); openDay(r.dataset.goto); }
+});
+F('wkList').addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('wk')) { e.preventDefault(); e.target.click(); }
+});
+
+/* ================= Progreso ================= */
+function renderProgress() {
+  const p = progress(), done = p.apr + p.conv;
+  const pct = x => (x / 240 * 100).toFixed(2) + '%';
+  F('progPanel').innerHTML = `
+    <div class="ring" style="--a:${pct(p.apr)};--b:${pct(p.apr + p.conv)};--c:${pct(p.apr + p.conv + p.mat)}">
+      <b>${Math.round(done / 240 * 100)}%<small>${fmt(done)} / 240 ECTS</small></b>
+    </div>
+    <div>
+      <div class="prog-stats">
+        ${[['Aprobadas', p.apr, 'var(--c-green)'], ['Convalidadas', p.conv, 'var(--c-violet)'], ['Matriculadas', p.mat, 'var(--c-blue)']]
+          .map(([k, v, c]) => `<div class="ps" style="--sc:${c}"><div class="k">${k}</div><div class="v">${fmt(v)}<small>ECTS</small></div></div>`).join('')}
+        <div class="ps" style="--sc:var(--c-amber)"><div class="k">Nota media</div><div class="v">${p.avg == null ? '—' : fmt(p.avg.toFixed(2))}</div></div>
+      </div>
+      <p class="note">Pulsa una asignatura para cambiar su estado (matriculada, convalidada o aprobada con nota). Las convalidadas sin nota no cuentan para la media.</p>
+    </div>`;
+  F('nSubj').innerHTML = `${fmt(done)}<small>/ 240 ECTS</small>`;
+}
+
+/* ================= Ficha de asignatura ================= */
+const subjDlg = F('subjDlg');
+let sjOpen = null;
+F('sjClose').innerHTML = ic('x');
+F('sjClose').onclick = () => subjDlg.close();
+F('sjDone').onclick = () => subjDlg.close();
+subjDlg.addEventListener('click', e => { if (e.target === subjDlg) subjDlg.close(); });
+const booksURL = code => `https://www.librosuned.com/esp/grados2.aspx?idTU=68&idAU=${encodeURIComponent(code)}&idPU=-1`;
+const DEFAULT_COMPS = () => [{ n:'PEC', w:20, g:null, exam:false }, { n:'Examen final', w:80, g:null, exam:true }];
+function sjState(code) { if (!subj[code]) subj[code] = { status:'none' }; return subj[code]; }
+function comps() { const s = sjState(sjOpen); if (!Array.isArray(s.comps)) s.comps = DEFAULT_COMPS(); return s.comps; }
+
+function openSubj(code) { sjOpen = code; renderSubj(); if (!subjDlg.open) subjDlg.showModal(); }
+function renderSubj() {
+  const x = S.find(y => y.code === sjOpen), s = sjState(sjOpen), status = s.status || 'none';
+  F('sjTitle').textContent = x.n;
+  F('sjMeta').innerHTML = `<span class="pill">${x.c}.º curso · ${x.s ? x.s + '.º semestre' : 'Anual'}</span>
+    <span class="pill" style="color:${TYPES[x.t].color}">${TYPES[x.t].label}</span>
+    <span class="pill">${fmt(x.e)} ECTS</span><span class="pill" style="font-family:'JetBrains Mono',monospace">${x.code}</span>`;
+  const tut = TUTORIAS.find(t => t.code === x.code);
+  const ex = EXAMS.find(e => e.code === x.code);
+  const tasks = events.filter(e => e.subject === x.code).sort((a, b) => (a.date + (a.time || '')).localeCompare(b.date + (b.time || '')));
+  const exd = ex ? parse(ex.date) : null;
+  F('sjBody').innerHTML = `
+    <div class="field">
+      <span class="lbl">Estado</span>
+      <div class="seg" id="sjSeg">${Object.entries(STATUS).map(([k, v]) =>
+        `<button type="button" data-s="${k}" style="--sc:${v.color}" aria-pressed="${status === k}">${v.label}</button>`).join('')}</div>
+      ${status === 'apr' ? `<div class="grade-row"><label for="sjGrade">Nota final</label><input id="sjGrade" class="field-in" type="number" min="5" max="10" step="0.1" value="${s.grade ?? ''}" placeholder="—"></div>` : ''}
+    </div>
+    <div class="links-row">
+      <a class="btn" href="${guideURL(x.code)}" target="_blank" rel="noopener">${ic('file')}Guía</a>
+      <a class="btn" href="${booksURL(x.code)}" target="_blank" rel="noopener">${ic('cart')}Libros</a>
+      <a class="btn" href="https://agora.uned.es" target="_blank" rel="noopener">${ic('chat')}Ágora</a>
+      <a class="btn" href="https://akademosweb.uned.es" target="_blank" rel="noopener">${ic('users')}Akademos</a>
+    </div>
+    <div class="info-grid">
+      <div class="info" style="--ec:var(--c-cyan)"><div class="k">Tutoría</div>${tut
+        ? `<div class="v">${DOW_FULL[tut.dow]} · ${tut.start}–${tut.end}</div><div class="s">${status === 'conv' ? 'Convalidada · no necesitas asistir' : esc(tut.tutor) + ' · ' + esc(tut.place)}</div>`
+        : '<div class="s">Sin tutoría registrada</div>'}</div>
+      <div class="info" style="--ec:var(--c-rose)"><div class="k">Exámenes</div>${ex
+        ? `<div class="v">${EXAMS.filter(e => e.code === x.code).map(e => { const q = parse(e.date); return DOW3[q.getDay()] + ' ' + q.getDate() + ' ' + MON3[q.getMonth()] + ' · ' + e.time; }).join('<br>')}</div><div class="s">${(n => n < 0 ? 'Ya pasó' : n === 0 ? 'Hoy' : n === 1 ? 'Mañana' : 'Dentro de ' + n + ' días')(daysBetween(TODAY, ex.date))} · UNED Plasencia</div>`
+        : '<div class="s">Sin fecha de examen registrada</div>'}</div>
+    </div>
+    ${SUBJ_INFO[x.code] ? (si => `<div>
+      <div class="sj-h"><span>Tutoría y clase online</span></div>${(t => t ? `<div class="info" style="--ec:var(--c-cyan)"><div class="k">Tutoría semanal · ${esc(t.mode)}</div><div class="v">${DOW_FULL[t.dow]} · ${t.start}–${t.end}</div><div class="s">${esc(t.full || t.tutor)}${t.from ? ' · tutor de ' + esc(t.from) : ''}<br>${esc(t.place)}</div>${tutLinks(x.code, true)}</div>` : '<div class="wk-empty">Sin tutoría de centro</div>')(TUTORIAS.find(u => u.code === x.code))}
+      <div class="sj-h" style="margin-top:12px"><span>Resumen y evaluación</span></div>
+      <div class="info" style="--ec:var(--c-blue)"><div class="k">Contenido</div><div class="s">${esc(si.topics)}</div><div class="s" style="margin-top:4px;opacity:.8">${si.src === 'guia' ? 'Verificado con la guía oficial 2026/27' : 'Dato sin contrastar con la guía oficial: confírmalo en el curso virtual'}</div></div>
+      <div class="info" style="--ec:var(--c-violet);margin-top:8px"><div class="k">Evaluación continua</div><div class="v">${esc(si.pec)}</div><div class="s">${esc(si.pecStatus)}${si.practice ? '<br>' + esc(si.practice) : ''}</div></div>
+      ${si.nota ? `<div class="info" style="--ec:var(--c-amber);margin-top:8px"><div class="k">Cómo se calcula la nota</div><div class="s">${esc(si.nota)}</div></div>` : ''}
+    </div>
+    <div>
+      <div class="sj-h"><span>Tutorías y tema de cada semana · orientativo</span></div>
+      <div class="plan-ul">${(rows => rows.map((r, i) => { const q = parse(r.k), cur = r.k >= TODAY && (i === 0 || rows[i - 1].k < TODAY);
+        return `<div class="plan-li${cur ? ' cur' : ''}" style="grid-template-columns:128px 1fr${r.k < TODAY ? ';opacity:.5' : ''}"><b>${DOW3[q.getDay()]} ${q.getDate()} ${MON3[q.getMonth()]} · ${r.start}</b><span>${esc(r.tema)}</span></div>`; }).join(''))(sessionRows(x.code))}</div>
+    </div>`)(SUBJ_INFO[x.code]) : ''}
+    <div>${prevBlock(x.code)}</div>
+    <div>
+      <div class="sj-h"><span>Entregas y pruebas</span><button type="button" class="btn" id="sjAddTask">${ic('plus')}Añadir</button></div>
+      <div class="sj-tasks">${tasks.length ? tasks.map(e => taskRow(e, isTask(e) && !e.done && e.date < TODAY)).join('')
+        : '<div class="wk-empty">Sin entregas apuntadas. Añade las PEC o trabajos de esta asignatura.</div>'}</div>
+    </div>
+    <div>
+      <div class="sj-h"><span>Calculadora de nota</span></div>
+      <div class="calc" id="sjCalc"></div>
+      <div id="sjCalcRes"></div>
+      <p class="note">Ajusta los componentes y pesos a lo que indique la guía de la asignatura. Lo que aún no tiene nota cuenta como 0.</p>
+    </div>
+    <div class="field">
+      <label for="sjNotes">Mis notas</label>
+      <textarea id="sjNotes" rows="4" maxlength="4000" placeholder="Temas difíciles, dudas para la tutoría, criterios del examen…">${esc(s.notes || '')}</textarea>
+    </div>`;
+  renderCalc();
+}
+
+function renderCalc() {
+  const c = comps(), s = sjState(sjOpen);
+  F('sjCalc').innerHTML = `<div class="crow head"><span>Componente</span><span>Peso %</span><span>Nota</span><span>Examen</span><span></span></div>` +
+    c.map((r, i) => `<div class="crow" data-i="${i}">
+      <input type="text" data-f="n" value="${esc(r.n)}" maxlength="30" aria-label="Nombre">
+      <input type="number" data-f="w" min="0" max="100" step="1" value="${r.w}" aria-label="Peso">
+      <input type="number" data-f="g" min="0" max="10" step="0.1" value="${r.g ?? ''}" placeholder="—" aria-label="Nota">
+      <label class="exr" title="Es el examen"><input type="radio" name="sjExam" data-f="exam" ${r.exam ? 'checked' : ''}></label>
+      <button type="button" class="btn icon" data-del="${i}" aria-label="Quitar">${ic('x')}</button>
+    </div>`).join('') +
+    `<div class="calc-tools">
+      <button type="button" class="btn" id="sjAddComp">${ic('plus')}Componente</button>
+      <label>Nota mínima en el examen <input type="number" id="sjMin" min="0" max="10" step="0.5" value="${s.minExam ?? ''}" placeholder="—"></label>
+    </div>`;
+  updateCalc();
+}
+const r2 = n => Math.round(n * 100) / 100;
+function updateCalc() {
+  const c = comps(), s = sjState(sjOpen);
+  const sumW = c.reduce((a, r) => a + (+r.w || 0), 0);
+  const ex = c.find(r => r.exam);
+  const has = r => typeof r.g === 'number';
+  const all = c.length && c.every(has);
+  const cur = sumW ? c.reduce((a, r) => a + (+r.w || 0) * (has(r) ? r.g : 0), 0) / sumW : 0;
+  const minFail = ex && s.minExam != null && has(ex) && ex.g < s.minExam;
+  let html = sumW !== 100 ? `<p class="calc-warn">Los pesos suman ${fmt(sumW)} %. Deberían sumar 100 %.</p>` : '';
+  const cards = [];
+  if (all) {
+    const ok = !minFail && cur >= 5;
+    cards.push({ k:'Nota final', v: fmt(r2(cur).toFixed(2)), s: minFail ? `Examen por debajo de ${fmt(s.minExam)}` : (ok ? 'Aprobado' : 'Suspenso'), c: ok ? 'var(--c-green)' : 'var(--c-rose)' });
+  } else {
+    cards.push({ k:'Llevas', v: fmt(r2(cur).toFixed(2)), s:'con lo apuntado', c:'var(--c-blue)' });
+    if (ex && !has(ex) && +ex.w > 0 && sumW > 0) {
+      const others = c.filter(r => r !== ex).reduce((a, r) => a + (+r.w || 0) * (has(r) ? r.g : 0), 0);
+      [[5, 'Para aprobar', 'var(--c-green)'], [7, 'Para notable', 'var(--c-amber)'], [9, 'Sobresaliente', 'var(--c-violet)']].forEach(([T, l, col]) => {
+        let need = (T * sumW - others) / ex.w;
+        if (s.minExam != null) need = Math.max(need, s.minExam);
+        need = Math.max(need, 0);
+        cards.push({ k:l, v: need > 10 ? '—' : fmt((Math.ceil(need * 100) / 100).toFixed(2)), s: need > 10 ? 'no alcanzable' : 'en el examen', c:col });
+      });
+    } else if (!ex) {
+      html += '<p class="calc-warn">Marca qué componente es el examen para calcular la nota que necesitas.</p>';
+    }
+  }
+  html += `<div class="calc-res">${cards.map(x => `<div class="cr" style="--rc:${x.c}"><div class="k">${x.k}</div><div class="v">${x.v}</div><div class="s">${x.s}</div></div>`).join('')}</div>`;
+  if (all && !minFail && cur >= 5 && !(s.status === 'apr' && s.grade === r2(cur)))
+    html += `<button type="button" class="btn primary" id="sjUseGrade" style="margin-top:10px">${ic('award')}Marcar aprobada con un ${fmt(r2(cur).toFixed(2))}</button>`;
+  F('sjCalcRes').innerHTML = html;
+}
+
+
+function afterSubjChange() { saveSubj(); renderProgress(); renderSubjects(); renderExams(); renderCalendar(); renderWeek(); renderTutorias(); }
+F('sjBody').addEventListener('click', e => {
+  if (e.target.closest('.ck')) return;
+  const seg = e.target.closest('#sjSeg button');
+  if (seg) {
+    const s = sjState(sjOpen); s.status = seg.dataset.s;
+    if (s.status !== 'apr') delete s.grade;
+    afterSubjChange(); renderSubj(); return;
+  }
+  if (e.target.closest('#sjAddTask')) { const c = sjOpen; subjDlg.close(); openNew(TODAY, null, c); return; }
+  const del = e.target.closest('[data-del]');
+  if (del) { comps().splice(+del.dataset.del, 1); saveSubj(); renderCalc(); return; }
+  if (e.target.closest('#sjAddComp')) { comps().push({ n:'PEC', w:0, g:null, exam:false }); saveSubj(); renderCalc(); return; }
+  if (e.target.closest('#sjUseGrade')) {
+    const s = sjState(sjOpen), c = comps(), sumW = c.reduce((a, r) => a + (+r.w || 0), 0);
+    s.status = 'apr'; s.grade = r2(c.reduce((a, r) => a + (+r.w || 0) * r.g, 0) / sumW);
+    afterSubjChange(); renderSubj(); return;
+  }
+  const row = e.target.closest('.wk');
+  if (row && row.dataset.id) { const c = sjOpen; subjDlg.close(); openEdit(row.dataset.id, null, c); }
+});
+F('sjBody').addEventListener('input', e => {
+  const t = e.target, s = sjState(sjOpen);
+  if (t.id === 'sjNotes') { s.notes = t.value; saveSubj(); return; }
+  if (t.id === 'sjGrade') {
+    const v = parseFloat(t.value);
+    if (isNaN(v)) delete s.grade; else s.grade = Math.min(10, Math.max(0, v));
+    saveSubj(); renderProgress(); renderSubjects(); return;
+  }
+  if (t.id === 'sjMin') { const v = parseFloat(t.value); s.minExam = isNaN(v) ? null : Math.min(10, Math.max(0, v)); saveSubj(); updateCalc(); return; }
+  const f = t.dataset.f; if (!f) return;
+  const i = +t.closest('.crow').dataset.i, c = comps();
+  if (f === 'n') c[i].n = t.value;
+  else if (f === 'w') c[i].w = Math.max(0, parseFloat(t.value) || 0);
+  else if (f === 'g') { const v = parseFloat(t.value); c[i].g = isNaN(v) ? null : Math.min(10, Math.max(0, v)); }
+  else if (f === 'exam') c.forEach((r, j) => r.exam = j === i);
+  saveSubj(); updateCalc();
+});
+F('sjBody').addEventListener('change', e => { if (e.target.dataset.f === 'exam') e.target.dispatchEvent(new Event('input', { bubbles:true })); });
+document.getElementById('subjects').addEventListener('click', e => {
+  const b = e.target.closest('.scard'); if (b) openSubj(b.dataset.code);
+});
+
+/* Interruptor «solo mis asignaturas» */
+F('onlyMine').checked = !!prefs.onlyMine;
+F('onlyMine').addEventListener('change', e => { prefs.onlyMine = e.target.checked; savePrefs(); renderExams(); renderCalendar(); renderWeek(); });
+
+function refreshAll() { renderProgress(); renderSubjects(); renderExams(); renderCalendar(); renderWeek(); renderTutorias(); }
+/* Auto-actualización: al cambiar de día se recalcula todo (hoy, semana, mes, tutorías); cada minuto se refresca «próxima/en curso» */
+function rollover() {
+  const n = new Date(); n.setHours(0,0,0,0);
+  if (dkey(n) !== TODAY) { today = n; TODAY = dkey(n); view = new Date(n.getFullYear(), n.getMonth(), 1); refreshAll(); }
+  else { renderWeek(); renderTutorias(); }
+}
+setInterval(rollover, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) rollover(); });
+window.addEventListener('focus', rollover);
+
+/* ================= Búsqueda ================= */
+const qEl = document.getElementById('q');
+qEl.addEventListener('input', () => { state.q = norm(qEl.value.trim()); renderLinks(); renderSubjects(); });
+document.addEventListener('keydown', e => {
+  const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+  if (e.key === '/' && !typing && !dlg.open) { e.preventDefault(); qEl.focus(); }
+  if (e.key === 'Escape' && document.activeElement === qEl) { qEl.value = ''; qEl.dispatchEvent(new Event('input')); qEl.blur(); }
+});
+
+/* ================= Inicio ================= */
+updateStoreNote();
+renderLinks(); renderLegend(); renderCalendar(); renderExams(); renderTutorias(); renderWeek(); renderProgress(); renderTabs(); renderChips(); renderSubjects();
+
+
+/* ================= Estudio con IA / biblioteca local ================= */
+const NOTEBOOKS = [
+  { name:'Lógica y Estructuras Discretas', code:'71031033', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/1658e8a0-bbf5-4092-bd74-732e4595c302' },
+  { name:'Fundamentos de Programación', code:'71901020', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/fea81c7b-3c54-4109-b91d-f8a3f445dc25' },
+  { name:'Fundamentos de Computadores', code:'7103104-', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/731728f3-983d-48eb-93ab-3ae2009ecc7d' },
+  { name:'Fundamentos de Cálculo', code:'71031010', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/ad30fa02-ddbe-401e-8a55-26c8ffb53b25' },
+  { name:'Fundamentos Algebraicos', code:'71031027', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/8a45708d-c336-4b48-871c-499838509921' }
+];
+const nbGrid = document.getElementById('notebookGrid');
+if (nbGrid) nbGrid.innerHTML = NOTEBOOKS.map((n,i) => `<a class="notebook-link" href="${n.url}" target="_blank" rel="noopener"><span class="nb-icon">${i+1}</span><span class="nb-meta"><span>${esc(n.name)}</span><small>${esc(n.desc || '')} · Gemini Notebook ↗</small></span></a>`).join('');
+const ragSubject = document.getElementById('ragSubject');
+if (ragSubject) S.forEach(x => { const o=document.createElement('option'); o.value=x.code; o.textContent=x.n; ragSubject.appendChild(o); });
+const ragAnswer = document.getElementById('ragAnswer'), ragStatus = document.getElementById('ragStatus'), ragDot = document.getElementById('ragDot');
+function setRagStatus(text, kind='') { if(ragStatus) ragStatus.textContent=text; if(ragDot) ragDot.className='status-dot '+kind; }
+async function checkRag() {
+  try { const r=await fetch('http://localhost:8000/api/health',{method:'GET'}); if(!r.ok) throw new Error(); setRagStatus('Motor local conectado en localhost:8000','ok'); }
+  catch(e) { setRagStatus('Motor local apagado · abre el proyecto uned-estudio para activarlo','bad'); }
+}
+checkRag();
+document.getElementById('ragOpen')?.addEventListener('click',()=>window.open('http://localhost:8000','_blank'));
+document.querySelectorAll('.prompt-chip').forEach(b=>b.addEventListener('click',()=>{ document.getElementById('ragQuestion').value=b.dataset.prompt; document.getElementById('ragQuestion').focus(); }));
+document.getElementById('ragAsk')?.addEventListener('click', async ()=>{
+  const q=document.getElementById('ragQuestion').value.trim(); if(!q) return;
+  ragAnswer.textContent='Consultando documentos…';
+  const subject=ragSubject?.value || '';
+  try {
+    const url='http://localhost:8000/api/rag/query?q='+encodeURIComponent(q)+(subject?'&subject='+encodeURIComponent(subject):'');
+    const r=await fetch(url); const data=await r.json(); if(!r.ok) throw new Error(data.detail||'Error del motor');
+    const answer=data.answer || data.response || data.text || JSON.stringify(data,null,2);
+    ragAnswer.textContent=answer;
+    if(Array.isArray(data.sources) && data.sources.length) { const src=document.createElement('span'); src.className='source'; src.textContent='Fuentes: '+data.sources.map(x=>typeof x==='string'?x:(x.path||x.source||x.file||'documento')).join(' · '); ragAnswer.appendChild(src); }
+    setRagStatus('Respuesta obtenida del RAG local','ok');
+  } catch(e) { ragAnswer.textContent='No se ha podido consultar el RAG local.\n\nActiva el repositorio con Iniciar.bat (Windows) o iniciar.sh (Mac/Linux), espera a que arranque el servidor y vuelve a intentarlo.\n\nDetalle: '+e.message; setRagStatus('No hay respuesta del motor local','bad'); }
+});
+const MATERIAL_KEY='uned-materiales-v2';
+function materialNames(){ try{return JSON.parse(localStorage.getItem(MATERIAL_KEY)||'[]')}catch(e){return[]} }
+function saveMaterialNames(a){ localStorage.setItem(MATERIAL_KEY,JSON.stringify(a)); }
+function renderMaterials(){ const box=document.getElementById('materialList'); if(!box)return; const a=materialNames(); box.innerHTML=a.length?a.map((n,i)=>`<div class="material-item">${ic('file')}<span title="${esc(n)}">${esc(n)}</span><button class="material-remove" type="button" data-material-index="${i}" title="Eliminar este material">${ic('x')}Quitar</button></div>`).join(''):'<div class="empty-material">Todavía no has registrado materiales en este navegador.</div>'; }
+renderMaterials();
+document.getElementById('materialFiles')?.addEventListener('change',e=>{ const old=materialNames(); [...e.target.files].forEach(f=>{if(!old.includes(f.name))old.push(f.name)}); saveMaterialNames(old); renderMaterials(); e.target.value=''; });
+document.getElementById('materialList')?.addEventListener('click',e=>{ const b=e.target.closest('[data-material-index]'); if(!b)return; const a=materialNames(); a.splice(+b.dataset.materialIndex,1); saveMaterialNames(a); renderMaterials(); });
+document.getElementById('materialClear')?.addEventListener('click',()=>{ if(materialNames().length && confirm('¿Eliminar todos los materiales registrados en este navegador?')){saveMaterialNames([]);renderMaterials();} });
+document.getElementById('materialAsk')?.addEventListener('click',()=>{ document.getElementById('ragQuestion').focus(); document.getElementById('ragQuestion').scrollIntoView({behavior:'smooth',block:'center'}); });
+document.getElementById('materialIndex')?.addEventListener('click',async()=>{ const ans=document.getElementById('ragAnswer'); ans.textContent='Intentando indexar en el motor local…'; try{ const r=await fetch('http://localhost:8000/api/rag/ingest',{method:'POST'}); if(!r.ok)throw new Error('El endpoint de indexación no está disponible'); ans.textContent='Indexación solicitada. Si estás usando uned-estudio, espera a que termine y vuelve a preguntar.'; setRagStatus('Indexación local solicitada','ok'); }catch(e){ans.textContent='La indexación solo está disponible cuando ejecutas uned-estudio en local.\n\nCopia los documentos a la carpeta docs/ y ejecuta el indexador del proyecto.';setRagStatus('Motor local no disponible','bad');} });
+document.getElementById('topAsk')?.addEventListener('click',()=>{ const q=document.getElementById('q').value.trim(); if(q)document.getElementById('ragQuestion').value=q; document.getElementById('estudio-ia').scrollIntoView({behavior:'smooth',block:'start'}); setTimeout(()=>document.getElementById('ragAsk')?.click(),350); });
+/* Contador de visitas anónimo: solo cuenta en tu web publicada (github.io), una vez por navegador y día.
+   Prueba primero Abacus (sin registro, con CORS) y, si falla, CounterAPI v2. */
+const VISIT_NS = 'romanosma-github-io', VISIT_KEY = 'panel-uned-visitas';
+const VISIT_PROVIDERS = [
+  { url: inc => `https://abacus.jasoncameron.dev/${inc ? 'hit' : 'get'}/${VISIT_NS}/${VISIT_KEY}`, parse: d => d && d.value },
+  { url: inc => `https://api.counterapi.dev/v2/${VISIT_NS}/${VISIT_KEY}${inc ? '/up' : ''}`, parse: d => d && ((d.data && d.data.up_count) ?? d.value ?? d.count) }
+];
+async function initVisitCounter(forcePublished) {
+  const box = document.getElementById('visitBox'), out = document.getElementById('visitN'), mode = document.getElementById('visitMode');
+  try {
+    box.hidden = false;
+    // Publicada = abierta por http(s) en un dominio real. En local (archivo, localhost) solo lee el total y no suma.
+    const published = !!forcePublished || (/^https?:$/.test(location.protocol) && !/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname));
+    const day = new Date().toISOString().slice(0, 10), inc = published && localStorage.getItem('uned-visit-day') !== day;
+    mode.textContent = published ? '' : ' · local, no suma';
+    box.title = published ? 'Visitas anónimas (una por navegador y día)' : 'Estás viendo una copia local: se muestra el total pero tu visita no cuenta';
+    for (const pr of VISIT_PROVIDERS) {
+      try {
+        const r = await fetch(pr.url(inc)); if (!r.ok) continue;
+        const n = Number(pr.parse(await r.json()));
+        if (Number.isFinite(n)) { out.textContent = n.toLocaleString('es-ES'); if (inc) localStorage.setItem('uned-visit-day', day); return; }
+      } catch (e) { /* prueba el siguiente servicio */ }
+    }
+    box.title = 'No se pudo contactar con el contador de visitas ahora mismo';
+  } catch (e) {}
+}
+initVisitCounter();
+</script>
+</body>
+</html>
