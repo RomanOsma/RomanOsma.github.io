@@ -786,9 +786,6 @@
     color: var(--c-amber);
     font-weight: 600;
   }
-  body:has(dialog[open]) {
-    overflow: hidden;
-  }
   dialog {
     border: 0;
     border-radius: 20px;
@@ -2255,10 +2252,9 @@
     font-weight: 700;
     color: var(--c-rose);
   }
-  input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"], .is-invalid {
-    border-color: var(--c-rose) !important;
-    outline-color: var(--c-rose) !important;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-rose) 25%, transparent) !important;
+  input[aria-invalid="true"], select[aria-invalid="true"], textarea[aria-invalid="true"] {
+    border-color: var(--c-rose);
+    outline-color: var(--c-rose);
   }
   .ia-row {
     display: grid;
@@ -2307,6 +2303,39 @@
     max-height: calc(92vh - 170px);
     overflow: auto;
   }
+  .wvi { grid-template-columns: minmax(0, 1fr); }
+  .wvi .ti, .wvi .su { overflow-wrap: anywhere; }
+  .wvi .tt-go { width: 100%; margin-top: 6px; padding: 5px 6px; gap: 5px; font-size: .72rem; }
+  .wvi .tt-go svg { width: 13px; height: 13px; }
+  .info .k { color: color-mix(in srgb, var(--ec) 62%, var(--text)); }
+  .stat.tint .k { color: color-mix(in srgb, var(--sc) 62%, var(--text)); }
+  .next-tut { color: color-mix(in srgb, var(--c-cyan) 62%, var(--text)); }
+  .draft { color: color-mix(in srgb, var(--c-amber) 50%, var(--text)); }
+  .scard .tag { color: color-mix(in srgb, var(--tc) 62%, var(--text)); }
+  .ex-row .date { color: color-mix(in srgb, var(--c-rose) 62%, var(--text)); }
+  .tt-go { color: var(--on-brand) !important; }
+  .cr .k { color: color-mix(in srgb, var(--rc) 62%, var(--text)); }
+  @media (max-width: 1500px) {
+    .stat.ringcard { gap: 10px; }
+    .stat.ringcard > div:last-child { min-width: 0; }
+    .stat.ringcard .k { white-space: normal; line-height: 1.15; }
+    .stat.ringcard .v { font-size: 1.15rem; }
+    .ring.sm { width: 60px; height: 60px; }
+    .ring.sm::before { inset: 7px; }
+    .ring.sm b { font-size: .85rem; }
+  }
+  .stats { grid-template-columns: 2.2fr 1.4fr repeat(4, minmax(0, 1fr)); }
+  .stat.wide { grid-column: auto; }
+  .stat.ringcard .v small { display: block; margin-left: 0; }
+  @media (max-width: 1250px) {
+    .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .stat.wide, .stat.ringcard { grid-column: span 2; }
+  }
+  @media (max-width: 560px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .hero-ess { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .stat.wide .k { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 10px; }
+  .stat .k .k-sub { float: none; }
+  @media (max-width: 1100px) { .hero-ess { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 1100px) {
     .tt-go { width: auto; }
     .cal-main { grid-template-columns: minmax(0, 1fr) !important; }
@@ -2389,6 +2418,8 @@
       scroll-behavior: auto !important;
     }
   }
+  .ec-blue { --ec: var(--c-blue); } .ec-cyan { --ec: var(--c-cyan); } .ec-rose { --ec: var(--c-rose); } .ec-violet { --ec: var(--c-violet); } .ec-amber { --ec: var(--c-amber); } .ec-green { --ec: var(--c-green); }
+  .sc-green { --sc: var(--c-green); } .sc-violet { --sc: var(--c-violet); } .sc-blue { --sc: var(--c-blue); } .sc-amber { --sc: var(--c-amber); } .sc-brand { --sc: var(--brand); }
 </style>
 </head>
 <body>
@@ -2428,22 +2459,18 @@
       </div>
     </div>
     <div class="stat ringcard"><div class="ring sm" id="stRing"><b id="stPct">0%</b></div><div><div class="k">Mi progreso</div><div class="v" id="nSubj">—</div></div></div>
-    <div class="stat tint" style="--sc:var(--c-green)"><div class="k">Aprobadas</div><div class="v" id="stApr">0<small>ECTS</small></div></div>
-    <div class="stat tint" style="--sc:var(--c-violet)"><div class="k">Convalidadas</div><div class="v" id="stConv">0<small>ECTS</small></div></div>
-    <div class="stat tint" style="--sc:var(--c-blue)"><div class="k">Matriculadas</div><div class="v" id="stMat">0<small>ECTS</small></div></div>
-    <div class="stat tint" style="--sc:var(--c-amber)" title="Las convalidadas sin nota no cuentan para la media"><div class="k">Nota media</div><div class="v" id="stAvg">—</div></div>
+    <div class="stat tint sc-green"><div class="k">Aprobadas</div><div class="v" id="stApr">0<small>ECTS</small></div></div>
+    <div class="stat tint sc-violet"><div class="k">Convalidadas</div><div class="v" id="stConv">0<small>ECTS</small></div></div>
+    <div class="stat tint sc-blue"><div class="k">Matriculadas</div><div class="v" id="stMat">0<small>ECTS</small></div></div>
+    <div class="stat tint sc-amber" title="Las convalidadas sin nota no cuentan para la media"><div class="k">Nota media</div><div class="v" id="stAvg">—</div></div>
   </div>
 
   <nav class="secnav" id="secnav"></nav>
 
   <div class="layout">
   <aside class="sidemenu" id="links" aria-label="Enlaces útiles"></aside>
-  <div class="content">
+  <div>
 
-  <!-- ESENCIALES -->
-  <section id="esenciales" class="hero-anchor" aria-hidden="true"></section>
-
-  <!-- CALENDARIO -->
   <section id="calendario">
     <div class="sec-head">
       <div class="sec-icon" style="background:var(--c-rose-bg);color:var(--c-rose)" id="calIcon"></div>
@@ -2453,8 +2480,8 @@
       <div class="panel cal-unified" id="tutorias">
         <div class="cu-tabs">
           <div class="seg" id="calTabs" role="tablist" aria-label="Vista del calendario">
-            <button type="button" role="tab" data-v="week" style="--sc:var(--brand)" aria-pressed="true">Semanal</button>
-            <button type="button" role="tab" data-v="month" style="--sc:var(--brand)" aria-pressed="false">Mensual</button>
+            <button type="button" role="tab" data-v="week" class="sc-brand" aria-pressed="true">Semanal</button>
+            <button type="button" role="tab" data-v="month" class="sc-brand" aria-pressed="false">Mensual</button>
           </div>
         </div>
         <div class="cu-view" id="viewWeek">
@@ -2526,14 +2553,13 @@
         <div class="ex-head"><div><h3>Cuadernos de Gemini Notebook</h3><p>Antes NotebookLM · un cuaderno por asignatura con el temario cargado</p></div></div>
         <div class="notebook-grid" id="notebookGrid"></div>
       </div>
-      <div class="panel" id="savedPanel">
+      <div class="panel">
         <div class="ex-head"><div><h3>Tutorías guardadas</h3><p>Pulsa una asignatura para ver su lista de grabaciones</p></div></div>
         <div class="saved-list" id="savedList"></div>
       </div>
     </div>
   </section>
 
-  <!-- ASIGNATURAS -->
   <section id="asignaturas">
     <div class="sec-head">
       <div class="sec-icon" style="background:var(--brand-soft);color:var(--brand)" id="subjIcon"></div>
@@ -2556,7 +2582,6 @@
   </footer>
 </main>
 
-<!-- Diálogo de evento -->
 <dialog id="dlg">
   <form id="evForm" method="dialog" novalidate>
     <div class="dlg-head">
@@ -2596,7 +2621,6 @@
   </form>
 </dialog>
 
-<!-- Ficha de asignatura -->
 <dialog id="subjDlg">
   <div class="dlg-head" style="align-items:flex-start">
     <div style="min-width:0"><h3 id="sjTitle"></h3><div class="sj-meta" id="sjMeta"></div></div>
@@ -2606,7 +2630,6 @@
   <div class="dlg-foot"><div class="r"><button type="button" class="btn" id="sjDone">Cerrar</button></div></div>
 </dialog>
 
-<!-- Vista de día -->
 <dialog id="vidDlg" aria-labelledby="vidTitle">
   <div class="dlg-head"><div><h3 id="vidTitle"></h3><p class="day-sub" id="vidSub"></p></div><button type="button" class="btn icon" id="vidClose" aria-label="Cerrar"></button></div>
   <div class="dlg-body" id="vidBody"></div>
@@ -2681,7 +2704,7 @@ function hl(text, q) {
 }
 const fmt = n => String(n).replace('.', ',');
 
-/* ================= Enlaces ================= */
+/* ================= Datos: enlaces ================= */
 const ESSENTIALS = [
   { t:'Campus UNED', d:'Tu puerta de entrada: Mis estudios, correo @alumno.uned.es y todos los servicios.', u:'https://www.uned.es/universidad/campus/', i:'cap', g1:'#003a2b', g2:'#0a8f6a' },
   { t:'Ágora', d:'Cursos virtuales: materiales, foros, entrega de PEC y calificaciones.', u:'https://agora.uned.es', i:'chat', g1:'#3b1478', g2:'#7c3aed' },
@@ -2744,7 +2767,7 @@ const SECTIONS = [
   ]},
 ];
 
-/* ================= Asignaturas ================= */
+/* ================= Datos: asignaturas ================= */
 const S = [
   [1,1,'71031010','Fundamentos de Cálculo para la IA','FB',6],
   [1,1,'71031027','Fundamentos Algebraicos para la IA','FB',6],
@@ -2805,16 +2828,15 @@ const TYPES = {
 };
 const guideURL = code => `https://www.uned.es/universidad/inicio/estudios/grados/grado-en-ingenieria-informatica/asignaturas.html?codTitulacion=7103&codAsignatura=${encodeURIComponent(code)}`;
 
-/* ================= Estado ================= */
+/* ================= Estados de asignatura ================= */
 const state = { q:'', course:-1, types:new Set(Object.keys(TYPES)) };
 
-/* ================= Iconos estáticos ================= */
+/* ================= Iconos de cabecera ================= */
 document.getElementById('calIcon').innerHTML = ic('cal');
 document.getElementById('subjIcon').innerHTML = ic('cap');
 document.getElementById('iaIcon').innerHTML = ic('bookopen');
 document.getElementById('calPrev').innerHTML = ic('left');
 document.getElementById('calNext').innerHTML = ic('right');
-document.getElementById('dlgClose').innerHTML = ic('x');
 document.getElementById('btnAdd').innerHTML = ic('plus') + 'Añadir evento';
 document.getElementById('btnIcs').innerHTML = ic('download') + 'Exportar .ics';
 document.getElementById('btnBackup').innerHTML = ic('save') + 'Copia';
@@ -2823,18 +2845,17 @@ document.getElementById('fDelete').innerHTML = ic('trash') + 'Eliminar';
 
 /* ================= Navegación ================= */
 document.getElementById('secnav').innerHTML =
-  `<a href="#esenciales">${ic('star')}Esenciales</a>` +
+  `<a href="#heroEss">${ic('star')}Esenciales</a>` +
   `<a href="#calendario">${ic('cal')}Mi calendario</a>` +
   `<a href="#tutorias">${ic('users')}Tutorías</a>` +
   `<a href="#examenes">${ic('clock')}Exámenes</a>` +
   `<a href="#estudio-ia">✦ Estudio con IA</a>` +
   `<a href="#asignaturas">${ic('cap')}Asignaturas</a>`;
 
-/* ================= Render enlaces ================= */
+/* ================= Menú lateral ================= */
 function renderLinks() {
   const q = state.q;
   const ess = ESSENTIALS.filter(l => !q || norm(l.t + ' ' + l.d).includes(q));
-  document.getElementById('esenciales').style.display = 'none';
   document.getElementById('heroEss').innerHTML = ess.map(l => `
     <a class="ecard" style="--g1:${l.g1};--g2:${l.g2}" href="${l.u}" target="_blank" rel="noopener noreferrer">
       <span class="ic">${ic(l.i)}</span>
@@ -2853,7 +2874,7 @@ function renderLinks() {
   }).join('');
 }
 
-/* ================= CALENDARIO ================= */
+/* ================= Datos del curso: calendario, exámenes y tutorías ================= */
 const EV_TYPES = {
   examen:  { label:'Examen',            color:'var(--c-rose)' },
   pec:     { label:'Parcial / PEC',     color:'var(--c-blue)' },
@@ -2878,7 +2899,7 @@ const OFFICIAL = [
 ];
 const KIND_COLOR = { exam:'var(--c-rose)', off:'var(--muted)', info:'var(--brand)' };
 
-// Exámenes febrero y junio 2027 · Grado en Ingeniería en IA · Centro Asociado de Plasencia (calendario provisional UNED). Cada asignatura tiene examen en las dos semanas: eliges una.
+// Exámenes de febrero y junio 2027 (Grado en IA, CA Plasencia-Cáceres, calendario provisional): cada asignatura tiene examen en las dos semanas y se elige una: eliges una.
 const EXAMS = [
   { date:'2027-01-25', time:'09:00', code:'71031010' },
   { date:'2027-01-25', time:'16:00', code:'71032015' },
@@ -2945,12 +2966,45 @@ const TUTORIAS = [
     akademos:'https://akademosweb.uned.es/Default.aspx?id_servicio=2&modo_2=1&idUnico_2=71901020&cadenaUnica_2=066000&Dif=4', // inferido: mismo centro (066000) que Álgebra y 4.º en la lista de Akademos
     online:'https://www.intecca.uned.es/webconferencia/splash/491960', sala:'Plasencia-Campus Noroeste - Fundamentos De Programación' },
 ];
-// Resumen, evaluación y plan semanal por asignatura (guías 2026/27; igual en todos los centros)
+// Resumen, evaluación y plan semanal por asignatura (guías 2026/27)
 const SUBJ_INFO = {"71031010": {"topics": "Tema 1 números reales · 2 funciones · 3 límites y continuidad · 4 derivadas · 5 aplicaciones de la derivada · 6 integrales indefinidas · 7 integrales definidas · 8 sucesiones y series · 9 métodos numéricos · 10 funciones de varias variables. Libro: «Fundamentos de Cálculo» (Díaz y Dormido, Sanz y Torres, 2026).", "pec": "PEC · 10 % · aprox. diciembre", "pecStatus": "El periodo exacto lo publica el equipo docente en el curso virtual. No es obligatoria; si no se entrega vale 0.", "practice": null, "plan": {"2026-10-05": "Orientativo · números reales y funciones.", "2026-10-12": "Orientativo · límites y continuidad.", "2027-01-04": "Repaso y preparación del examen.", "2027-01-11": "Repaso y preparación del examen.", "2027-01-18": "Repaso y preparación del examen."}, "nota": "Nota = 0,9·examen + 0,1·PEC. Sin PEC hace falta un 5,6 en el examen (máx. 9). Examen: 8 ejercicios de desarrollo, 120 min, solo calculadora no programable.", "src": "guia"}, "71031027": {"topics": "Tema 1: escalares · Tema 2: tensores, matrices y vectores · Tema 3: aplicaciones lineales y multilineales · Tema 4: triangulación · Tema 5: diagonalización.", "pec": "PEC · 5 preguntas tipo test (≈5 h) · aprox. diciembre · máx. 1 punto", "pecStatus": "Se abre un periodo en el curso virtual. No es obligatoria y abarca los 4 primeros bloques.", "practice": "Práctica de programación (Python) · OBLIGATORIA · aprox. enero · máx. 1 punto. Sesión de control con el tutor (presencial, no obligatoria).", "plan": {"2026-10-05": "Tema 1 · Escalares (5–11 oct.): naturales, enteros, racionales, reales, bases de numeración y complejos.", "2026-10-12": "Tema 2 · Tensores, matrices y vectores (12 oct.–1 nov.).", "2026-10-19": "Tema 2 · Tensores, matrices y vectores (12 oct.–1 nov.).", "2026-10-26": "Tema 2 · Tensores, matrices y vectores · cierre el 1/11.", "2026-11-02": "Tema 3 · Aplicaciones lineales y multilineales (2–22 nov.).", "2026-11-09": "Tema 3 · Aplicaciones lineales y multilineales (2–22 nov.).", "2026-11-16": "Tema 3 · Aplicaciones lineales y multilineales · cierre el 22/11.", "2026-11-23": "Tema 4 · Procesos de triangulación (23 nov.–6 dic.).", "2026-11-30": "Tema 4 · Procesos de triangulación (23 nov.–6 dic.).", "2026-12-07": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2026-12-14": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2026-12-21": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2026-12-28": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2027-01-04": "Tema 5 · Procesos de diagonalización (7 dic.–17 ene.).", "2027-01-11": "Tema 5 · Procesos de diagonalización · cierre el 17/01.", "2027-01-18": "Repaso y preparación del examen."}, "nota": "Nota = examen + 0,1·PEC + 0,1·práctica (máx. 10). Examen: 4 preguntas de desarrollo, 120 min, sin material. Hace falta ≥ 4 en el examen para sumar PEC y práctica; práctica < 2,5 = suspenso.", "src": "guia"}, "71031033": {"topics": "Lógica proposicional · lógica de predicados · conjuntos · relaciones · funciones · combinatoria · grafos · recorridos · árboles.", "pec": "PEC · 30 % · test abiertos todo el curso hasta el inicio de la 1.ª semana de exámenes", "pecStatus": "Voluntaria. Plazos y forma de evaluación se detallan en el curso virtual.", "practice": "Prácticas aplicadas · 10 % · voluntarias · aprox. finales de noviembre y principios de enero.", "plan": {"2026-10-05": "Bloque 1 · Lógica proposicional · octubre.", "2026-10-12": "Bloque 1 · Lógica proposicional · octubre.", "2026-10-19": "Bloque 1 · Lógica proposicional · octubre.", "2026-10-26": "Bloque 1 · cierre de octubre · Lógica proposicional. Tutorías de predicados según calendario registrado.", "2026-11-02": "Bloque 2 · Lógica de predicados · noviembre.", "2026-11-09": "Bloque 2 · Lógica de predicados · noviembre.", "2026-11-16": "Bloque 2 · Lógica de predicados · noviembre.", "2026-11-23": "Bloque 2 · Lógica de predicados · noviembre.", "2026-11-30": "Bloque 3 · Conjuntos, relaciones, funciones y combinatoria · diciembre.", "2026-12-07": "Bloque 3 · Conjuntos, relaciones, funciones y combinatoria · diciembre.", "2026-12-14": "Bloque 3 · Conjuntos, relaciones, funciones y combinatoria · diciembre.", "2026-12-21": "Bloque 3 · transición hacia enero; planificación oficial distribuida por meses.", "2026-12-28": "Bloque 4 · Combinatoria, grafos y árboles · enero.", "2027-01-04": "Bloque 4 · Combinatoria, grafos y árboles · enero.", "2027-01-11": "Bloque 4 · Combinatoria, grafos y árboles · enero.", "2027-01-18": "Bloque 4 · Combinatoria, grafos y árboles · cierre/repaso antes de exámenes."}, "nota": "Nota = 0,8·examen + 0,3·PEC + 0,1·prácticas (máx. 10). Examen mixto: 18 test + 1 desarrollo, 120 min, sin material; hace falta ≥ 3,5 para sumar PEC y prácticas.", "src": "guia"}, "7103104-": {"topics": "Bloque I · estructura de computadores: 1 componentes básicos e interconexión · 2 unidad de memoria · 3 unidad de entrada/salida · 4 unidad central de procesamiento. Bloque II · sistemas operativos: 5 consideraciones generales · 6 descripción y control de procesos · 7 planificación de procesos · 8 administración de memoria · 9 gestión de la E/S · 10 gestión de archivos. Material: apuntes en el curso virtual.", "pec": "PEC · 10 % · aprox. diciembre", "pecStatus": "No obligatoria. Se publica en el curso virtual con un plazo definido por el equipo docente; sin entregar vale 0. Se evalúa de 0 a 10.", "practice": null, "plan": {"2026-10-05": "Tema 1 · Representación de la información y estructura básica del computador.", "2026-10-12": "Tema 2 · Unidad de memoria.", "2026-10-19": "Tema 3 · Unidad de entrada/salida.", "2026-10-26": "Tema 4 · Unidad central de procesamiento.", "2026-11-02": "Tema 5 · Consideraciones generales de los sistemas operativos.", "2026-11-09": "Tema 6 · Descripción y control de procesos.", "2026-11-16": "Tema 7 · Planificación de procesos.", "2026-11-23": "Tema 8 · Administración de memoria.", "2026-11-30": "Tema 9 · Gestión de la entrada/salida.", "2026-12-07": "Tema 10 · Gestión de archivos.", "2026-12-14": "Repaso final · tutoría del 17/12.", "2026-12-21": "Sin tutoría registrada esta semana.", "2026-12-28": "Sin tutoría registrada esta semana.", "2027-01-04": "Repaso final · tutoría del 14/01.", "2027-01-11": "Repaso final · tutoría del 14/01.", "2027-01-18": "Tutoría del 21/01 · título/descripción no recuperados."}, "src": "guia", "nota": "Nota final = 0,9·examen + 0,1·PEC (hay que sacar ≥ 5). Sin PEC hace falta un 5,6 en el examen y la nota máxima es 9. Examen de desarrollo: de 4 a 6 ejercicios, 120 min, sin material salvo calculadora no programable. Equipo docente: José Manuel Díaz (coordinador), Dictino Chaos y Rocío Muñoz."}, "71901020": {"topics": "Unidad I (temas 1–6): introducción, elementos básicos, constantes y variables, metodología (I), estructuras básicas, metodología (II) · Unidad II (7–11): funciones y procedimientos, metodología (III), definición de tipos, ampliación de estructuras de control, estructuras de datos · Unidad III (12–15): esquemas con formaciones, punteros y variables dinámicas, tipos abstractos de datos, módulos. Lenguaje C± (subconjunto de C/C++). Libros: «Fundamentos de Programación» (Cerrada y Collado) y «Prácticas de Programación en C±».", "pec": "PEC · 4 prácticas de laboratorio en C± · voluntarias", "pecStatus": "Hay que hacerlas todas bien para que cuenten. Las primeras se corrigen automáticamente y la última la evalúa tu tutor. Ponderación, enunciado y fechas están en la web de la asignatura (issi.uned.es/fp), no en la guía.", "practice": "No oficial: fechas aportadas por un compañero (P1 15/10 · P2 29/10 · P3 20/11 · P4 28/12–22/01). Confírmalas en la web de la asignatura.", "plan": {"2026-10-05": "Unidad Didáctica 1 · preparar temas 1–3 · presentación y entorno de prácticas.", "2026-10-12": "Unidad Didáctica 1 · preparar temas 1–3 · 1.ª práctica el 15/10 · comenzar temas 4–6.", "2026-10-19": "Unidad Didáctica 1 · preparar temas 4–6.", "2026-10-26": "Unidad Didáctica 1 · preparar temas 4–6 · 2.ª práctica el 29/10.", "2026-11-02": "Unidad Didáctica 2 · preparar temas 7–10.", "2026-11-09": "Unidad Didáctica 2 · preparar temas 7–10 · inicio de entrega de prácticas autocorregidas 09/11.", "2026-11-16": "Unidad Didáctica 2 · preparar temas 7–10 · 3.ª práctica el 20/11.", "2026-11-23": "Unidad Didáctica 2 · preparar tema 11.", "2026-11-30": "Unidad Didáctica 3 · preparar temas 12–14.", "2026-12-07": "Unidad Didáctica 3 · preparar temas 12–14.", "2026-12-14": "Unidad Didáctica 3 · preparar temas 12–14 hasta el 18/12.", "2026-12-21": "Unidad Didáctica 3 · preparar tema 15 (21–25/12).", "2026-12-28": "4.ª práctica · 28/12–22/01 · comienza la entrega de prácticas autocorregidas ya iniciada.", "2027-01-04": "4.ª práctica · en curso · repaso y preparación de pruebas presenciales desde 06/01.", "2027-01-11": "4.ª práctica · en curso · repaso/preparación PP · final de P4 el 22/01.", "2027-01-18": "4.ª práctica · final 22/01 · final de entrega de autocorregidas 20/01 · preparación PP.", "2027-01-25": "Pruebas presenciales · primera semana de exámenes.", "2027-02-08": "Pruebas presenciales · segunda semana de exámenes."}, "src": "guia", "nota": "Examen = 90 % de la nota (test 30 % + ejercicio 60 %). Mixto: 10 test + 1 ejercicio de desarrollo, 120 min, sin material. El test es eliminatorio: ≥ 8 correctas (≥ 6 si has hecho y aprobado las prácticas). Sin prácticas hace falta un 5,6 en el examen (máx. 9). La web de la asignatura publica el algoritmo exacto de la nota final."}};
 const SEM_RANGE = { 1: ['2026-10-05', '2027-01-22'], 2: ['2027-02-16', '2027-05-21'] };   // días con tutorías de cada semestre
 const TUT_RANGE = [SEM_RANGE[1][0], SEM_RANGE[2][1]];
 const semOf = t => t.sem || 1;
 const TUT_SKIP = ['2026-10-12', '2026-12-08']; // 12 oct confirmado por Akademos (Lógica pasa del 5 al 19); 8 dic = Inmaculada, suposición: confírmalo
+// Listas de tutorías grabadas: series = otros años · actual = curso en marcha · term = nº de carpeta del repositorio
+// Equipo docente (sede central), guías oficiales 2026/27: [nombre, correo, coordinador]
+const NOTEBOOKS = [
+  { name:'Lógica y Estructuras Discretas', code:'71031033', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/1658e8a0-bbf5-4092-bd74-732e4595c302' },
+  { name:'Fundamentos de Programación', code:'71901020', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/fea81c7b-3c54-4109-b91d-f8a3f445dc25' },
+  { name:'Fundamentos de Computadores', code:'7103104-', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/731728f3-983d-48eb-93ab-3ae2009ecc7d' },
+  { name:'Fundamentos de Cálculo', code:'71031010', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/ad30fa02-ddbe-401e-8a55-26c8ffb53b25' },
+  { name:'Fundamentos Algebraicos', code:'71031027', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/8a45708d-c336-4b48-871c-499838509921' }
+];
+const SAVED = {
+  '71031033': { area: 'Lógica y Estructuras Discretas', series: [
+    { t: 'Bergara · Sol Lozano Serrano · viernes 19:00 · curso 2025/26', term: 45970, videos: [['LED 01 · Presentación y lógica de proposiciones 1', '925873', ''], ['LED 02 · Lógica de proposiciones 2', '929764', '17 oct 2025'], ['LED 03 · Lógica de proposiciones 3', '933946', '24 oct 2025'], ['LED 04 · Lógica de predicados 1', '937889', '31 oct 2025'], ['LED 05 · Lógica de predicados 2', '942012', '7 nov 2025'], ['LED 06 · Lógica de predicados 3', '946198', '14 nov 2025'], ['LED 07 · Conjuntos', '950526', '21 nov 2025'], ['LED 08 · Relaciones', '954878', '28 nov 2025'], ['LED 09 · Funciones', '962287', '12 dic 2025'], ['LED 10 · Combinatoria', '966003', '19 dic 2025'], ['LED 11 · Grafos', '966904', '9 ene 2026'], ['LED 12 · Árboles', '970234', '16 ene 2026']] },
+    { t: 'Bergara · Sol Lozano Serrano · curso 2024/25', term: 37572, videos: [['LED 01 · Presentación y lógica de proposiciones 1', '825018', ''], ['LED 02 · Lógica de proposiciones 2', '832408', '19 oct 2024'], ['LED 03 · Lógica de proposiciones 3', '836022', '25 oct 2024'], ['LED 04 · Lógica de predicados 1', '838780', '31 oct 2024'], ['LED 05 · Lógica de predicados 2', '843258', '9 nov 2024'], ['LED 06 · Lógica de predicados 3', '847304', '16 nov 2024'], ['LED 07 · Conjuntos', '851359', '23 nov 2024'], ['LED 08 · Relaciones', '855415', '30 nov 2024'], ['LED 09 · Funciones', '862201', '14 dic 2024'], ['LED 10 · Combinatoria', '865772', '21 dic 2024'], ['LED 11 · Grafos', '867532', '11 ene 2025'], ['LED 12 · Árboles', '870500', '18 ene 2025']] }],
+    actual: null },
+  '71901020': { area: 'Fundamentos de Programación', series: [
+    { t: 'Tudela · Juan Carlos Alfaro López · lunes 18:00 · curso 2025/26', term: 45509, videos: [['Ejemplos de programas · tema 2', '922564', '6 oct 2025'], ['Temas 3 y 4', '927069', '14 oct 2025'], ['Temas 5 y 6', '930254', '20 oct 2025'], ['Subprogramas (funciones y procedimientos)', '934434', '~27 oct 2025'], ['Temas 8 y 9', '942541', '10 nov 2025'], ['Tema 10', '943471', '11 nov 2025'], ['Temas 11 y 12', '946804', '17 nov 2025'], ['Tema 12 · segunda parte', '951280', '24 nov 2025'], ['Tema 14 · Tipos abstractos de datos', '955524', '1 dic 2025'], ['Tema 15', '962880', '15 dic 2025'], ['Orientaciones sobre la PEC4', '966176', '22 dic 2025'], ['Pinceladas del tema 13', '967331', '12 ene 2026']] },
+    { t: 'Tudela · Juan Carlos Alfaro López · lunes 18:00 · curso 2024/25', term: 39058, videos: [['Introducción y temas 1 y 2', '825381', '7 oct 2024'], ['Temas 3 y 4', '828873', '14 oct 2024'], ['Temas 5 y 6', '832826', '21 oct 2024'], ['Ejercicios resueltos · tema 5 funciones y procedimientos', '836679', '28 oct 2024'], ['Temas 8 y 9', '839615', '4 nov 2024'], ['Tema 10 · ampliación de estructuras de control e iteración', '843714', '11 nov 2024'], ['Tema 11 y comienzo del tema 12', '848537', '19 nov 2024'], ['Tema 14', '855847', '2 dic 2024'], ['Tema 15 · Módulos', '858945', '9 dic 2024'], ['Tema 13 · Estructuras no acotadas', '867821', '13 ene 2025']] }],
+    actual: { t: 'Tudela · Juan Carlos Alfaro López · lunes 18:00 · curso 2026/27 (se va ampliando)', term: 53847, videos: [['Presentación · temas 1 y 2', '1025387', '5 oct 2026']] } }
+};
+const AGORA = {
+  '71031033': { id:16551, sec:188502 }, '71901020': { id:16780, sec:192183 }, '7103104-': { id:19531, sec:232109 },
+  '71031010': { id:19268, sec:231978 }, '71031027': { id:19327, sec:223818 }
+};
+const DOCENTES = {
+  '71031010': [['José Manuel Díaz Martínez','josema@dia.uned.es',1],['Sebastián Dormido Canto','sebas@dia.uned.es',0]],
+  '71031027': [['Fernando Jiménez Alburquerque','fjimenez@ind.uned.es',1],['Juan Jacobo Perán Mazón','jperan@ind.uned.es',0],['Estibalitz Durand Cartagena','edurand@ind.uned.es',0]],
+  '71031033': [['Jorge Pérez Martín','jperezmartin@dia.uned.es',1],['José Luis Fernández Vindel','jlvindel@dia.uned.es',0],['Javier Olivares Romero','jolivares@dia.uned.es',0]],
+  '7103104-': [['José Manuel Díaz Martínez','josema@dia.uned.es',0],['Dictino Chaos García','dchaos@dia.uned.es',0],['María del Rocío Muñoz Mansilla','rmunoz@dia.uned.es',0]],
+  '71901020': [['Rubén Heradio Gil','rheradio@issi.uned.es',1],['Ismael Abad Cardiel','iabad@issi.uned.es',0]]
+};
+const GIT = { user: 'https://github.com/RomanOsma', repo: 'https://github.com/RomanOsma/Uned', by: { '71901020': 'https://github.com/RomanOsma/Uned/tree/main/Proyectos_C' } };
+const WEB_ASIG = { '71901020': { u:'https://www.issi.uned.es/fp/', l:'Web de la asignatura' } };
+const PRACT = [['2026-10-15','1.ª práctica'],['2026-10-29','2.ª práctica'],['2026-11-09','Empieza la entrega de prácticas autocorregidas'],['2026-11-20','3.ª práctica'],['2026-12-28','Empieza la 4.ª práctica'],['2027-01-20','Fin de las autocorregidas'],['2027-01-22','Fin de la 4.ª práctica']];
 const DOW_FULL = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 const tutConv = t => statusOf(t.code) === 'conv';
 const tutActive = k => tutOn(k).filter(t => !tutConv(t));
@@ -3020,33 +3074,7 @@ function saveJSON(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); 
 let subj = loadJSON(SUBJ_KEY, null);
 if (!subj || typeof subj !== 'object' || Array.isArray(subj)) { subj = {}; DEFAULT_MINE.forEach(c => subj[c] = { status:'mat' }); saveJSON(SUBJ_KEY, subj); }
 let prefs = Object.assign({ onlyMine:true }, loadJSON(PREFS_KEY, {}));
-function cleanSubjData(raw) {
-  const clean = {};
-  for (const [code, val] of Object.entries(raw || {})) {
-    if (!val || typeof val !== 'object') continue;
-    const item = { status: val.status || 'none' };
-    if (val.status === 'apr' && typeof val.grade === 'number' && !isNaN(val.grade)) {
-      item.grade = Math.round(val.grade * 100) / 100;
-    }
-    if (val.notes && String(val.notes).trim()) {
-      item.notes = String(val.notes).trim().slice(0, 4000);
-    }
-    if (Array.isArray(val.comps) && val.comps.length) {
-      item.comps = val.comps.map(c => ({
-        n: String(c.n || '').trim().slice(0, 30),
-        w: Math.max(0, Math.min(100, Number(c.w) || 0)),
-        g: typeof c.g === 'number' && !isNaN(c.g) ? Math.max(0, Math.min(10, c.g)) : null,
-        exam: !!c.exam
-      }));
-    }
-    if (typeof val.minExam === 'number' && !isNaN(val.minExam)) {
-      item.minExam = Math.max(0, Math.min(10, val.minExam));
-    }
-    clean[code] = item;
-  }
-  return clean;
-}
-const saveSubj = () => saveJSON(SUBJ_KEY, cleanSubjData(subj));
+const saveSubj = () => saveJSON(SUBJ_KEY, subj);
 const savePrefs = () => saveJSON(PREFS_KEY, prefs);
 const STATUS = {
   none: { label:'No matriculada', color:'var(--muted)' },
@@ -3061,30 +3089,11 @@ function progress() {
   let apr = 0, conv = 0, mat = 0, sg = 0, se = 0;
   S.forEach(x => {
     const s = st(x.code);
-    if (s.status === 'apr') {
-      apr += x.e;
-      const g = typeof s.grade === 'number' && !isNaN(s.grade) ? s.grade : 5.0;
-      sg += g * x.e;
-      se += x.e;
-    }
+    if (s.status === 'apr') { apr += x.e; if (typeof s.grade === 'number') { sg += s.grade * x.e; se += x.e; } }
     else if (s.status === 'conv') conv += x.e;
     else if (s.status === 'mat') mat += x.e;
   });
   return { apr, conv, mat, avg: se ? sg / se : null };
-}
-function actualizarProgreso(code, nuevoEstado, nota = null) {
-  const s = sjState(code);
-  s.status = nuevoEstado;
-  if (nuevoEstado === 'apr') {
-    if (typeof nota === 'number' && !isNaN(nota)) {
-      s.grade = Math.min(10, Math.max(5, nota));
-    } else if (typeof s.grade !== 'number' || isNaN(s.grade)) {
-      s.grade = 5.0;
-    }
-  } else {
-    delete s.grade;
-  }
-  afterSubjChange();
 }
 const TASK_TYPES = ['pec', 'trabajo', 'otro'];
 const isTask = e => TASK_TYPES.includes(e.type);
@@ -3116,7 +3125,7 @@ function renderCal() {
     });
     examsOn(k).forEach(x => {
       const n = subjName(x.code);
-      chips.push(`<span class="ev official" style="--ec:var(--c-rose)" title="${esc('Examen ' + x.time + ' · ' + n)}"><span class="tm">${x.time}</span>${esc(n)}</span>`);
+      chips.push(`<span class="ev official ec-rose" title="${esc('Examen ' + x.time + ' · ' + n)}"><span class="tm">${x.time}</span>${esc(n)}</span>`);
     });
     userOn(k).forEach(e => {
       const sn = subjName(e.subject);
@@ -3125,7 +3134,7 @@ function renderCal() {
     });
     tutOn(k).forEach(t => {
       const cv = tutConv(t);
-      chips.push(`<span class="ev tut${cv ? ' conv' : ''}" style="--ec:var(--c-cyan)" title="${esc('Tutoría ' + t.start + '–' + t.end + ' · ' + subjName(t.code) + (cv ? ' · Convalidada' : ' · ' + t.tutor))}"><span class="tm">${t.start}</span>${esc(t.short)}</span>`);
+      chips.push(`<span class="ev tut${cv ? ' conv' : ''} ec-cyan" title="${esc('Tutoría ' + t.start + '–' + t.end + ' · ' + subjName(t.code) + (cv ? ' · Convalidada' : ' · ' + t.tutor))}"><span class="tm">${t.start}</span>${esc(t.short)}</span>`);
     });
     const visible = chips.slice(0, 3).join('');
     const more = chips.length > 3 ? `<span class="more">+${chips.length - 3} más</span>` : '';
@@ -3153,13 +3162,21 @@ function renderLegend() {
 
 
 let wvStart = null;   // lunes de la semana que se está viendo
-const mondayOf = d => { const m = new Date(d); m.setHours(0, 0, 0, 0); m.setDate(m.getDate() - ((m.getDay() + 6) % 7)); return m; };
+const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+const eachDay = (from, to, fn) => { for (let d = parse(from); dkey(d) <= to; d = addDays(d, 1)) fn(dkey(d), d); };
+const mondayOf = d => addDays(d, -((d.getDay() + 6) % 7));
+const weekMonday = k => dkey(mondayOf(parse(k)));
+const nextDay = k => dkey(addDays(parse(k), 1));
+function bindDialog(dlg, ...closeIds) {
+  closeIds.forEach(id => { const b = document.getElementById(id); if (b.classList.contains('icon')) b.innerHTML = ic('x'); b.onclick = () => dlg.close(); });
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+}
 function renderTutorias() {
   if (!wvStart) wvStart = mondayOf(today);
   document.getElementById('tutTitle').innerHTML = ic('users') + 'Mis tutorías · ' + (TODAY >= SEM_RANGE[2][0] ? 'segundo' : 'primer') + ' semestre';
   document.getElementById('tutLink').innerHTML = ic('arrow') + 'Agenda en Akademos';
   document.getElementById('tutAulas').innerHTML = ic('video') + 'Mis aulas virtuales';
-  const days = [...Array(7)].map((_, i) => { const d = new Date(wvStart); d.setDate(d.getDate() + i); return d; });
+  const days = [...Array(7)].map((_, i) => addDays(wvStart, i));
   const nowHM = pad(new Date().getHours()) + ':' + pad(new Date().getMinutes());
   const cols = days.slice(0, 5).concat([5, 6].some(i => dayItems(dkey(days[i])).length) ? days.slice(5) : []);
   const cur = dkey(wvStart) === dkey(mondayOf(today));
@@ -3189,7 +3206,7 @@ function renderTutorias() {
   // Próxima tutoría (con enlace directo a la clase)
   let next = null;
   for (let i = 0; i < 150 && !next; i++) {
-    const d = new Date(today); d.setDate(d.getDate() + i);
+    const d = addDays(today, i);
     const t = tutActive(dkey(d)).filter(x => i > 0 || x.end > nowHM).sort((a, b) => a.start.localeCompare(b.start))[0];
     if (t) next = { d, t };
   }
@@ -3246,7 +3263,7 @@ daysEl.addEventListener('click', e => {
 daysEl.addEventListener('keydown', e => {
   if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('day')) { e.preventDefault(); openDay(e.target.dataset.k); }
 });
-/* Diálogo */
+/* ================= Formulario de evento ================= */
 const dlg = document.getElementById('dlg');
 const F = id => document.getElementById(id);
 F('fTypes').innerHTML = Object.entries(EV_TYPES).map(([k,t]) =>
@@ -3262,7 +3279,7 @@ function openNew(k, ret = null, subjCode = null) {
   returnDay = ret; returnSubj = subjCode;
   F('dlgTitle').textContent = 'Nuevo evento';
   F('fId').value = ''; F('fTitle').value = ''; F('fSubj').value = '';
-  F('fDate').value = k || ''; F('fTime').value = ''; F('fNotes').value = '';
+  F('fDate').value = k || TODAY; F('fTime').value = ''; F('fNotes').value = '';
   setType(officialOn(k || '').some(o => o.kind === 'exam') ? 'examen' : 'pec');
   if (subjCode) F('fSubj').value = subjCode;
   F('fDelete').style.visibility = 'hidden';
@@ -3279,9 +3296,7 @@ function openEdit(id, ret = null, subjCode = null) {
   dlg.showModal();
 }
 const closeDlg = () => dlg.close();
-F('dlgClose').onclick = closeDlg;
-F('fCancel').onclick = closeDlg;
-dlg.addEventListener('click', e => { if (e.target === dlg) closeDlg(); });
+bindDialog(dlg, 'dlgClose', 'fCancel');
 
 function setErr(id, msg) {
   const out = F('err' + id.slice(1));
@@ -3294,13 +3309,6 @@ function validateEvent() {
   return !F('errTitle').textContent && !F('errDate').textContent;
 }
 ['fTitle', 'fDate'].forEach(id => F(id).addEventListener('input', () => setErr(id, '')));
-dlg.addEventListener('close', () => {
-  F('evForm').reset();
-  setErr('fTitle', '');
-  setErr('fDate', '');
-  if (returnDay) { const k = returnDay; returnDay = null; openDay(k); }
-  else if (returnSubj) { const c = returnSubj; returnSubj = null; openSubj(c); }
-});
 F('evForm').addEventListener('submit', e => {
   e.preventDefault();
   if (!validateEvent()) { F(F('errTitle').textContent ? 'fTitle' : 'fDate').focus(); return; }
@@ -3320,12 +3328,17 @@ F('fDelete').onclick = () => {
   events = events.filter(x => x.id !== id);
   saveEvents(); refreshAll(); closeDlg();
 };
-F('btnAdd').onclick = () => openNew();
+F('btnAdd').onclick = () => openNew(TODAY);
+
+dlg.addEventListener('close', () => {
+  F('evForm').reset(); setErr('fTitle', ''); setErr('fDate', '');
+  if (returnDay) { const k = returnDay; returnDay = null; openDay(k); }
+  else if (returnSubj) { const c = returnSubj; returnSubj = null; openSubj(c); }
+});
 
 /* ---------- Vista de día ---------- */
 const dayDlg = document.getElementById('dayDlg');
 let dayOpen = null;
-F('dayClose').innerHTML = ic('x');
 F('dayPrev').innerHTML = ic('left');
 F('dayNext').innerHTML = ic('right');
 F('dayAdd').innerHTML = ic('plus') + 'Nuevo evento';
@@ -3371,15 +3384,10 @@ function openDay(k) {
     : `<div class="day-empty">No hay nada apuntado este día.<br>Pulsa «Nuevo evento» para añadir algo.</div>`;
   if (!dayDlg.open) dayDlg.showModal();
 }
-/* ===== Detalle de tutoría / examen / práctica ===== */
-const PRACT = [['2026-10-15','1.ª práctica'],['2026-10-29','2.ª práctica'],['2026-11-09','Empieza la entrega de prácticas autocorregidas'],['2026-11-20','3.ª práctica'],['2026-12-28','Empieza la 4.ª práctica'],['2027-01-20','Fin de las autocorregidas'],['2027-01-22','Fin de la 4.ª práctica']];
-function weekMonday(k) { const d = parse(k); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return dkey(d); }
+/* ================= Repositorio, Ágora y enlaces por asignatura ================= */
 function sessionRows(code) {
   const si = SUBJ_INFO[code], out = []; if (!si) return out;
-  for (let d = parse(TUT_RANGE[0]); dkey(d) <= TUT_RANGE[1]; d.setDate(d.getDate() + 1)) {
-    const k = dkey(d);
-    tutOn(k).filter(x => x.code === code).forEach(x => out.push({ k, start:x.start, tema:si.plan[weekMonday(k)] || 'Sin tema concreto publicado en la guía para esta semana' }));
-  }
+  eachDay(TUT_RANGE[0], TUT_RANGE[1], k => tutOn(k).filter(x => x.code === code).forEach(x => out.push({ k, start:x.start, tema:si.plan[weekMonday(k)] || 'Sin tema concreto publicado en la guía para esta semana' })));
   return out;
 }
 const UREPO = 'https://contenidosdigitales.uned.es';
@@ -3396,45 +3404,20 @@ function repoURL({ area = '', text = '' } = {}) {
   if (area) f.push(facet(f.length, 'subject_area_sbp', area));
   return `${UREPO}/search-basic-cw?search_api_fulltext=${formEnc(text)}&field_creation_date%5Bmin%5D=${min}&field_creation_date%5Bmax%5D=${max}&${f.join('&')}`;
 }
-// Listas de tutorías grabadas: series = otros años · actual = curso en marcha · term = nº de carpeta del repositorio
-const SAVED = {
-  '71031033': { area: 'Lógica y Estructuras Discretas', series: [
-    { t: 'Bergara · Sol Lozano Serrano · viernes 19:00 · curso 2025/26', term: 45970, videos: [['LED 01 · Presentación y lógica de proposiciones 1', '925873', ''], ['LED 02 · Lógica de proposiciones 2', '929764', '17 oct 2025'], ['LED 03 · Lógica de proposiciones 3', '933946', '24 oct 2025'], ['LED 04 · Lógica de predicados 1', '937889', '31 oct 2025'], ['LED 05 · Lógica de predicados 2', '942012', '7 nov 2025'], ['LED 06 · Lógica de predicados 3', '946198', '14 nov 2025'], ['LED 07 · Conjuntos', '950526', '21 nov 2025'], ['LED 08 · Relaciones', '954878', '28 nov 2025'], ['LED 09 · Funciones', '962287', '12 dic 2025'], ['LED 10 · Combinatoria', '966003', '19 dic 2025'], ['LED 11 · Grafos', '966904', '9 ene 2026'], ['LED 12 · Árboles', '970234', '16 ene 2026']] },
-    { t: 'Bergara · Sol Lozano Serrano · curso 2024/25', term: 37572, videos: [['LED 01 · Presentación y lógica de proposiciones 1', '825018', ''], ['LED 02 · Lógica de proposiciones 2', '832408', '19 oct 2024'], ['LED 03 · Lógica de proposiciones 3', '836022', '25 oct 2024'], ['LED 04 · Lógica de predicados 1', '838780', '31 oct 2024'], ['LED 05 · Lógica de predicados 2', '843258', '9 nov 2024'], ['LED 06 · Lógica de predicados 3', '847304', '16 nov 2024'], ['LED 07 · Conjuntos', '851359', '23 nov 2024'], ['LED 08 · Relaciones', '855415', '30 nov 2024'], ['LED 09 · Funciones', '862201', '14 dic 2024'], ['LED 10 · Combinatoria', '865772', '21 dic 2024'], ['LED 11 · Grafos', '867532', '11 ene 2025'], ['LED 12 · Árboles', '870500', '18 ene 2025']] }],
-    actual: null },
-  '71901020': { area: 'Fundamentos de Programación', series: [
-    { t: 'Tudela · Juan Carlos Alfaro López · lunes 18:00 · curso 2025/26', term: 45509, videos: [['Ejemplos de programas · tema 2', '922564', '6 oct 2025'], ['Temas 3 y 4', '927069', '14 oct 2025'], ['Temas 5 y 6', '930254', '20 oct 2025'], ['Subprogramas (funciones y procedimientos)', '934434', '~27 oct 2025'], ['Temas 8 y 9', '942541', '10 nov 2025'], ['Tema 10', '943471', '11 nov 2025'], ['Temas 11 y 12', '946804', '17 nov 2025'], ['Tema 12 · segunda parte', '951280', '24 nov 2025'], ['Tema 14 · Tipos abstractos de datos', '955524', '1 dic 2025'], ['Tema 15', '962880', '15 dic 2025'], ['Orientaciones sobre la PEC4', '966176', '22 dic 2025'], ['Pinceladas del tema 13', '967331', '12 ene 2026']] },
-    { t: 'Tudela · Juan Carlos Alfaro López · lunes 18:00 · curso 2024/25', term: 39058, videos: [['Introducción y temas 1 y 2', '825381', '7 oct 2024'], ['Temas 3 y 4', '828873', '14 oct 2024'], ['Temas 5 y 6', '832826', '21 oct 2024'], ['Ejercicios resueltos · tema 5 funciones y procedimientos', '836679', '28 oct 2024'], ['Temas 8 y 9', '839615', '4 nov 2024'], ['Tema 10 · ampliación de estructuras de control e iteración', '843714', '11 nov 2024'], ['Tema 11 y comienzo del tema 12', '848537', '19 nov 2024'], ['Tema 14', '855847', '2 dic 2024'], ['Tema 15 · Módulos', '858945', '9 dic 2024'], ['Tema 13 · Estructuras no acotadas', '867821', '13 ene 2025']] }],
-    actual: { t: 'Tudela · Juan Carlos Alfaro López · lunes 18:00 · curso 2026/27 (se va ampliando)', term: 53847, videos: [['Presentación · temas 1 y 2', '1025387', '5 oct 2026']] } }
-};
 const savedOf = code => SAVED[code] || { area: '', series: [], actual: null };
 const savedLists = sv => sv.series.length + (sv.actual ? 1 : 0);
 const savedVideos = sv => [...sv.series, ...(sv.actual ? [sv.actual] : [])].reduce((n, x) => n + x.videos.length, 0);
 const lastYearURL = code => { const { area } = savedOf(code); return repoURL({ area, text: area ? '' : subjName(code) }); };
 const ext = (href, inner, cls = '') => `<a${cls ? ` class="${cls}"` : ''} href="${href}" target="_blank" rel="noopener noreferrer">${inner}</a>`;
 
-const AGORA = {
-  '71031033': { id:16551, sec:188502 }, '71901020': { id:16780, sec:192183 }, '7103104-': { id:19531, sec:232109 },
-  '71031010': { id:19268, sec:231978 }, '71031027': { id:19327, sec:223818 }
-};
 const agoraCurso = c => AGORA[c] ? 'https://agora.uned.es/course/view.php?id=' + AGORA[c].id : 'https://agora.uned.es';
 const agoraAvisos = c => AGORA[c] ? 'https://agora.uned.es/course/view.php?id=' + AGORA[c].id + '&sectionid=' + AGORA[c].sec : 'https://agora.uned.es';
 const agoraForos = c => AGORA[c] ? 'https://agora.uned.es/course/overview.php?id=' + AGORA[c].id + '&expand%5B%5D=forum#forum_overview_collapsible' : 'https://agora.uned.es';
-// Equipo docente (sede central) según las guías oficiales 2026/27: [nombre, correo, coordinador]
-const DOCENTES = {
-  '71031010': [['José Manuel Díaz Martínez','josema@dia.uned.es',1],['Sebastián Dormido Canto','sebas@dia.uned.es',0]],
-  '71031027': [['Fernando Jiménez Alburquerque','fjimenez@ind.uned.es',1],['Juan Jacobo Perán Mazón','jperan@ind.uned.es',0],['Estibalitz Durand Cartagena','edurand@ind.uned.es',0]],
-  '71031033': [['Jorge Pérez Martín','jperezmartin@dia.uned.es',1],['José Luis Fernández Vindel','jlvindel@dia.uned.es',0],['Javier Olivares Romero','jolivares@dia.uned.es',0]],
-  '7103104-': [['José Manuel Díaz Martínez','josema@dia.uned.es',0],['Dictino Chaos García','dchaos@dia.uned.es',0],['María del Rocío Muñoz Mansilla','rmunoz@dia.uned.es',0]],
-  '71901020': [['Rubén Heradio Gil','rheradio@issi.uned.es',1],['Ismael Abad Cardiel','iabad@issi.uned.es',0]]
-};
 const mailTo = (to, cc, subj) => 'mailto:' + to + '?' + (cc && cc.length ? 'cc=' + cc.join(',') + '&' : '') + 'subject=' + encodeURIComponent(subj);
-const GIT = { user: 'https://github.com/RomanOsma', repo: 'https://github.com/RomanOsma/Uned', by: { '71901020': 'https://github.com/RomanOsma/Uned/tree/main/Proyectos_C' } };
 const gitUrl = c => GIT.by[c] || GIT.repo;
 const gitLabel = c => GIT.by[c] ? 'Proyectos en C/C++ (GitHub)' : 'Repositorio UNED (GitHub)';
-const WEB_ASIG = { '71901020': { u:'https://www.issi.uned.es/fp/', l:'Web de la asignatura' } };
 const guidePdf = c => 'https://www.uned.es/universidad/pdf/GuiasAsignaturasGrados/PDFGuiaPublica?codigoAsignatura=' + encodeURIComponent(c) + '&curso=2027&codigoTitulacion=7103&language=es&esMaster=false';
-const lnk = (u, i, l, cls) => `<a class="btn${cls ? ' ' + cls : ''}" href="${u}" target="_blank" rel="noopener noreferrer">${ic(i)}${l}</a>`;
+const lnk = (u, i, l, cls) => ext(u, ic(i) + l, 'btn' + (cls ? ' ' + cls : ''));
 const lrow = (t, html) => html ? `<div style="margin-top:10px;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">${t}</div><div class="info-links" style="margin-top:4px">${html}</div>` : '';
 function materialRow(code) {
   const nb = NOTEBOOKS.find(n => n.code === code), web = WEB_ASIG[code];
@@ -3451,20 +3434,18 @@ function subjLinks(code, note) {
   return lrow('Clase', (tt.online ? lnk(tt.online, 'video', 'Entrar a la clase online', 'primary') : '') + (tt.akademos ? lnk(tt.akademos, 'users', 'Horario en Akademos') : ''))
     + lrow('Ágora', lnk(agoraCurso(code), 'cap', 'Curso virtual') + lnk(agoraAvisos(code), 'chat', 'Avisos y foros') + lnk(agoraForos(code), 'chat', 'Resumen de foros') + lnk('https://agora.uned.es/message/', 'info', 'Mensajes'))
     + lrow('Contacto', tutorMail + teamMail)
-    + (doc.length ? `<div class="s" style="margin-top:6px">Equipo docente (sede central): ${doc.map(d => `<a href="${mailTo(d[1], null, subj)}">${esc(d[0])}</a>${d[2] ? ' (coord.)' : ''}`).join(' · ')}</div>` : '')
+    + (doc.length ? `<div class="s mt6">Equipo docente (sede central): ${doc.map(d => `<a href="${mailTo(d[1], null, subj)}">${esc(d[0])}</a>${d[2] ? ' (coord.)' : ''}`).join(' · ')}</div>` : '')
     + materialRow(code)
-    + `${tt.online ? `<div class="s" style="margin-top:6px">Sala Intecca nº ${tt.online.split('/').pop()}</div>` : ''}${tt.nota ? `<div class="s" style="margin-top:6px">${esc(tt.nota)}</div>` : (note && !tt.online ? '<div class="s" style="margin-top:6px">Sin enlace de clase online guardado para esta asignatura.</div>' : '')}`;
+    + `${tt.online ? `<div class="s mt6">Sala Intecca nº ${tt.online.split('/').pop()}</div>` : ''}${tt.nota ? `<div class="s mt6">${esc(tt.nota)}</div>` : (note && !tt.online ? '<div class="s mt6">Sin enlace de clase online guardado para esta asignatura.</div>' : '')}`;
 }
-function openInfo(code, k) { openSubj(code, k); }   // compatibilidad: desde el calendario se abre la misma ficha, con la sesión de ese día arriba
 const setCalTab = v => {
   document.querySelectorAll('#calTabs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
   F('viewWeek').hidden = v !== 'week'; F('viewMonth').hidden = v !== 'month';
-  if (v === 'week') renderTutorias(); else renderCal();
 };
 F('calTabs').addEventListener('click', e => { const b = e.target.closest('button[data-v]'); if (b) setCalTab(b.dataset.v); });
 document.getElementById('secnav').addEventListener('click', e => { if (e.target.closest('a[href="#tutorias"]')) setCalTab('week'); });
 F('wvPrev').innerHTML = ic('left'); F('wvNext').innerHTML = ic('right');
-const shiftWeek = n => { wvStart = new Date(wvStart || mondayOf(today)); wvStart.setDate(wvStart.getDate() + n); renderTutorias(); };
+const shiftWeek = n => { wvStart = addDays(wvStart || mondayOf(today), n); renderTutorias(); };
 F('wvPrev').onclick = () => shiftWeek(-7); F('wvNext').onclick = () => shiftWeek(7);
 F('wvToday').onclick = () => { wvStart = mondayOf(today); renderTutorias(); };
 F('tutGrid').addEventListener('click', e => {
@@ -3472,25 +3453,23 @@ F('tutGrid').addEventListener('click', e => {
   const col = e.target.closest('.wv-col'); if (!col) return;
   const it = e.target.closest('.wvi');
   if (!it) { if (e.target.closest('.wv-h')) openDay(col.dataset.k); return; }
-  if (it.dataset.info) openInfo(it.dataset.info, col.dataset.k); else if (it.dataset.id) openEdit(it.dataset.id);
+  if (it.dataset.info) openSubj(it.dataset.info, col.dataset.k); else if (it.dataset.id) openEdit(it.dataset.id);
 });
 F('tutGrid').addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('wvi')) { e.preventDefault(); e.target.click(); } });
 
 function shiftDay(n) {
-  const d = parse(dayOpen); d.setDate(d.getDate() + n);
+  const d = addDays(parse(dayOpen), n);
   const k = dkey(d);
   if (d.getMonth() !== view.getMonth() || d.getFullYear() !== view.getFullYear()) { view = new Date(d.getFullYear(), d.getMonth(), 1); renderCal(); }
   openDay(k);
 }
 F('dayPrev').onclick = () => shiftDay(-1);
 F('dayNext').onclick = () => shiftDay(1);
-F('dayClose').onclick = () => dayDlg.close();
-dayDlg.addEventListener('click', e => { if (e.target === dayDlg) dayDlg.close(); });
-dayDlg.addEventListener('close', () => { dayOpen = null; F('dayList').innerHTML = ''; });
+bindDialog(dayDlg, 'dayClose');
 F('dayAdd').onclick = () => { const k = dayOpen; dayDlg.close(); openNew(k, k); };
 F('dayList').addEventListener('click', e => {
   if (e.target.closest('.ck') || e.target.closest('a')) return;
-  const inf = e.target.closest('.di[data-info]'); if (inf) { openInfo(inf.dataset.info, dayOpen); return; }
+  const inf = e.target.closest('.di[data-info]'); if (inf) { openSubj(inf.dataset.info, dayOpen); return; }
   const row = e.target.closest('.di.mine'); if (!row) return;
   const k = dayOpen; dayDlg.close(); openEdit(row.dataset.id, k);
 });
@@ -3512,7 +3491,6 @@ function download(name, content, type) {
 }
 const icsText = s => String(s).replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/([,;])/g,'\\$1');
 const icsDate = k => k.replace(/-/g,'');
-const nextDay = k => { const d = parse(k); d.setDate(d.getDate() + 1); return dkey(d); };
 F('btnIcs').onclick = () => {
   const stamp = new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
   const L = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//UNED IA//Calendario//ES','CALSCALE:GREGORIAN','X-WR-CALNAME:UNED · Grado IA'];
@@ -3521,15 +3499,14 @@ F('btnIcs').onclick = () => {
       `DTSTART;VALUE=DATE:${icsDate(o.start)}`, `DTEND;VALUE=DATE:${icsDate(nextDay(o.end))}`,
       `SUMMARY:${icsText(o.title)}`, 'TRANSP:TRANSPARENT', 'END:VEVENT');
   });
-  for (let d = parse(TUT_RANGE[0]); dkey(d) <= TUT_RANGE[1]; d.setDate(d.getDate() + 1)) {
-    const k = dkey(d);
+  eachDay(TUT_RANGE[0], TUT_RANGE[1], k => {
     tutActive(k).forEach(t => {
       L.push('BEGIN:VEVENT', `UID:tutoria-${t.code}-${icsDate(k)}@grado-ia`, `DTSTAMP:${stamp}`,
         `DTSTART:${icsDate(k)}T${t.start.replace(':','')}00`, `DTEND:${icsDate(k)}T${t.end.replace(':','')}00`,
         `SUMMARY:${icsText('Tutoría: ' + subjName(t.code))}`, `LOCATION:${icsText(t.place)}`,
         `DESCRIPTION:${icsText(t.tutor + ' · ' + t.mode)}`, 'END:VEVENT');
     });
-  }
+  });
   visibleExams().forEach(x => {
     const [h, mi] = x.time.split(':').map(Number);
     L.push('BEGIN:VEVENT', `UID:examen-${x.code}-${icsDate(x.date)}@grado-ia`, `DTSTAMP:${stamp}`,
@@ -3577,7 +3554,7 @@ F('restoreFile').onchange = ev => {
   r.readAsText(file);
 };
 
-/* ================= Asignaturas ================= */
+/* ================= Lista de asignaturas ================= */
 const tabsEl = document.getElementById('tabs');
 const tabDefs = [[-1,'Mis asignaturas'],[0,'Todas'],[1,'1.º curso'],[2,'2.º curso'],[3,'3.º curso'],[4,'4.º curso']];
 function renderTabs() {
@@ -3614,7 +3591,7 @@ function subjCard(x, q) {
   return `<button type="button" class="scard${stt === 'apr' || stt === 'conv' ? ' passed' : ''}" data-code="${x.code}" style="--tc:${T.color}" title="Abrir ficha de ${esc(x.n)}">
     <span class="nm">${hl(x.n,q)}</span>
     <span class="ects"><b>${fmt(x.e)}</b><span>ECTS</span></span>
-    <span class="sub"><span class="tag">${x.t}</span><span class="code">${x.code}</span>${badge}${pend ? `<span class="stb" style="--sc:var(--c-amber)">${pend} pendiente${pend > 1 ? 's' : ''}</span>` : ''}</span>
+    <span class="sub"><span class="tag">${x.t}</span><span class="code">${x.code}</span>${badge}${pend ? `<span class="stb sc-amber">${pend} pendiente${pend > 1 ? 's' : ''}</span>` : ''}</span>
     ${glance(x)}
   </button>`;
 }
@@ -3677,27 +3654,21 @@ function taskRow(e, late) {
 }
 
 /* ================= Progreso ================= */
+const PROGRESS_FIELDS = { apr: 'stApr', conv: 'stConv', mat: 'stMat' };
 function renderProgress() {
-  const p = progress(), done = p.apr + p.conv;
-  const pct = x => (x / 240 * 100).toFixed(2) + '%';
+  const p = progress(), done = p.apr + p.conv, pct = x => (x / 240 * 100).toFixed(2) + '%';
   const ring = F('stRing');
-  ring.style.setProperty('--a', pct(p.apr)); ring.style.setProperty('--b', pct(p.apr + p.conv)); ring.style.setProperty('--c', pct(p.apr + p.conv + p.mat));
+  ring.style.setProperty('--a', pct(p.apr)); ring.style.setProperty('--b', pct(done)); ring.style.setProperty('--c', pct(done + p.mat));
   F('stPct').textContent = Math.round(done / 240 * 100) + '%';
   F('nSubj').innerHTML = `${fmt(done)}<small>/ 240 ECTS</small>`;
-  F('stApr').innerHTML = `${fmt(p.apr)}<small>ECTS</small>`;
-  F('stConv').innerHTML = `${fmt(p.conv)}<small>ECTS</small>`;
-  F('stMat').innerHTML = `${fmt(p.mat)}<small>ECTS</small>`;
+  Object.entries(PROGRESS_FIELDS).forEach(([k, id]) => { F(id).innerHTML = `${fmt(p[k])}<small>ECTS</small>`; });
   F('stAvg').textContent = p.avg == null ? '—' : fmt(p.avg.toFixed(2));
 }
 
 /* ================= Ficha de asignatura ================= */
 const subjDlg = F('subjDlg');
 let sjOpen = null;
-F('sjClose').innerHTML = ic('x');
-F('sjClose').onclick = () => subjDlg.close();
-F('sjDone').onclick = () => subjDlg.close();
-subjDlg.addEventListener('click', e => { if (e.target === subjDlg) subjDlg.close(); });
-subjDlg.addEventListener('close', () => { sjOpen = null; sjCtx = null; F('sjBody').innerHTML = ''; });
+bindDialog(subjDlg, 'sjClose', 'sjDone');
 const booksURL = () => 'https://www.librosuned.com/estudios/grado.aspx?id=7103001';   // libros del Grado en IA
 const DEFAULT_COMPS = () => [{ n:'PEC', w:20, g:null, exam:false }, { n:'Examen final', w:80, g:null, exam:true }];
 function sjState(code) { if (!subj[code]) subj[code] = { status:'none' }; return subj[code]; }
@@ -3709,9 +3680,9 @@ function ctxCard(code, k) {
   const d = parse(k), si = SUBJ_INFO[code], t = tutOn(k).find(x => x.code === code), exd = EXAMS.find(e => e.code === code && e.date === k);
   const f = `${DOW_FULL[d.getDay()]} ${d.getDate()} de ${MONTHS[d.getMonth()]}`;
   let h = '';
-  if (t) h += `<div class="info" style="--ec:var(--c-cyan)"><div class="k">Esta sesión · ${f} · ${t.start}–${t.end}</div><div class="v">${esc((si && si.plan[weekMonday(k)]) || 'Sin tema concreto publicado en la guía para esta semana')}</div><div class="s">Tema orientativo de la semana: no figura en la guía oficial (viene del plan de un compañero); confírmalo en el curso virtual.</div>${t.online ? ext(t.online, ic('video') + 'Entrar a la clase online', 'tt-go') : ''}</div>`;
-  if (exd) h += `<div class="info mt8" style="--ec:var(--c-rose)"><div class="k">Examen · ${f}</div><div class="v">${exd.time}</div><div class="s">Sede y horario definitivos: Campus UNED → Evaluación → Calendario de Mis Exámenes.</div></div>`;
-  return h || `<div class="info" style="--ec:var(--c-blue)"><div class="k">${f}</div><div class="s">Ese día no hay tutoría ni examen de esta asignatura.</div></div>`;
+  if (t) h += `<div class="info ec-cyan"><div class="k">Esta sesión · ${f} · ${t.start}–${t.end}</div><div class="v">${esc((si && si.plan[weekMonday(k)]) || 'Sin tema concreto publicado en la guía para esta semana')}</div><div class="s">Tema orientativo de la semana: no figura en la guía oficial (viene del plan de un compañero); confírmalo en el curso virtual.</div>${t.online ? ext(t.online, ic('video') + 'Entrar a la clase online', 'tt-go') : ''}</div>`;
+  if (exd) h += `<div class="info mt8 ec-rose"><div class="k">Examen · ${f}</div><div class="v">${exd.time}</div><div class="s">Sede y horario definitivos: Campus UNED → Evaluación → Calendario de Mis Exámenes.</div></div>`;
+  return h || `<div class="info ec-blue"><div class="k">${f}</div><div class="s">Ese día no hay tutoría ni examen de esta asignatura.</div></div>`;
 }
 function tutoriasZone(code) {
   const sv = savedOf(code), rows = sessionRows(code), n = savedVideos(sv);
@@ -3738,13 +3709,13 @@ function renderSubj() {
       <span class="lbl">Estado</span>
       <div class="seg" id="sjSeg">${Object.entries(STATUS).map(([k, v]) =>
         `<button type="button" data-s="${k}" style="--sc:${v.color}" aria-pressed="${status === k}">${v.label}</button>`).join('')}</div>
-      ${status === 'apr' ? `<div class="grade-row"><label for="sjGrade">Nota final (5–10)</label><input id="sjGrade" class="field-in" type="number" min="5" max="10" step="0.1" value="${s.grade ?? ''}" placeholder="—"></div>` : ''}
+      ${status === 'apr' ? `<div class="grade-row"><label for="sjGrade">Nota final (5–10)</label><input id="sjGrade" type="number" min="5" max="10" step="0.1" value="${s.grade ?? ''}" placeholder="—"></div>` : ''}
     </div>
     <div class="info-grid">
-      <div class="info" style="--ec:var(--c-cyan)"><div class="k">Tutoría semanal${tut ? ' · ' + esc(tut.mode) : ''}</div>${tut
+      <div class="info ec-cyan"><div class="k">Tutoría semanal${tut ? ' · ' + esc(tut.mode) : ''}</div>${tut
         ? `<div class="v">${DOW_FULL[tut.dow]} · ${tut.start}–${tut.end}</div><div class="s">${status === 'conv' ? 'Convalidada · no necesitas asistir' : esc(tut.full || tut.tutor) + (tut.from ? ' · tutor de ' + esc(tut.from) : '') + '<br>' + esc(tut.place)}</div>`
         : '<div class="s">Sin tutoría registrada</div>'}</div>
-      <div class="info" style="--ec:var(--c-rose)"><div class="k">Exámenes (eliges una semana)</div>${ex
+      <div class="info ec-rose"><div class="k">Exámenes (eliges una semana)</div>${ex
         ? `<div class="v">${EXAMS.filter(e => e.code === x.code).map(e => { const q = parse(e.date); return DOW3[q.getDay()] + ' ' + q.getDate() + ' ' + MON3[q.getMonth()] + ' · ' + e.time; }).join('<br>')}</div><div class="s">${(n => n < 0 ? 'Ya pasó' : n === 0 ? 'Hoy' : n === 1 ? 'Mañana' : 'Dentro de ' + n + ' días')(daysBetween(TODAY, ex.date))} · CA Plasencia-Cáceres (calendario provisional)</div>`
         : '<div class="s">Sin fecha de examen registrada</div>'}</div>
     </div>
@@ -3752,9 +3723,9 @@ function renderSubj() {
     <div>${tutoriasZone(x.code)}</div>
     ${si ? `<div>
       <div class="sj-h"><span>Resumen y evaluación</span></div>
-      <div class="info" style="--ec:var(--c-blue)"><div class="k">Contenido</div><div class="s">${esc(si.topics)}</div><div class="s dim">${si.src === 'guia' ? 'Verificado con la guía oficial 2026/27' : 'Dato sin contrastar con la guía oficial: confírmalo en el curso virtual'}</div></div>
-      <div class="info mt8" style="--ec:var(--c-violet)"><div class="k">Evaluación continua</div><div class="v">${esc(si.pec)}</div><div class="s">${esc(si.pecStatus)}${si.practice ? '<br>' + esc(si.practice) : ''}</div></div>
-      ${si.nota ? `<div class="info mt8" style="--ec:var(--c-amber)"><div class="k">Cómo se calcula la nota</div><div class="s">${esc(si.nota)}</div></div>` : ''}
+      <div class="info ec-blue"><div class="k">Contenido</div><div class="s">${esc(si.topics)}</div><div class="s dim">${si.src === 'guia' ? 'Verificado con la guía oficial 2026/27' : 'Dato sin contrastar con la guía oficial: confírmalo en el curso virtual'}</div></div>
+      <div class="info mt8 ec-violet"><div class="k">Evaluación continua</div><div class="v">${esc(si.pec)}</div><div class="s">${esc(si.pecStatus)}${si.practice ? '<br>' + esc(si.practice) : ''}</div></div>
+      ${si.nota ? `<div class="info mt8 ec-amber"><div class="k">Cómo se calcula la nota</div><div class="s">${esc(si.nota)}</div></div>` : ''}
     </div>` : ''}
     <div>
       <div class="sj-h"><span>Entregas y pruebas</span><button type="button" class="btn" id="sjAddTask">${ic('plus')}Añadir</button></div>
@@ -3830,9 +3801,9 @@ F('sjBody').addEventListener('click', e => {
   if (e.target.closest('.ck')) return;
   const seg = e.target.closest('#sjSeg button');
   if (seg) {
-    actualizarProgreso(sjOpen, seg.dataset.s);
-    renderSubj();
-    return;
+    const s = sjState(sjOpen); s.status = seg.dataset.s;
+    if (s.status !== 'apr') delete s.grade;
+    afterSubjChange(); renderSubj(); return;
   }
   if (e.target.closest('#sjAddTask')) { const c = sjOpen; subjDlg.close(); openNew(TODAY, null, c); return; }
   const del = e.target.closest('[data-del]');
@@ -3840,138 +3811,40 @@ F('sjBody').addEventListener('click', e => {
   if (e.target.closest('#sjAddComp')) { comps().push({ n:'PEC', w:0, g:null, exam:false }); saveSubj(); renderCalc(); return; }
   if (e.target.closest('#sjUseGrade')) {
     const s = sjState(sjOpen), c = comps(), sumW = c.reduce((a, r) => a + (+r.w || 0), 0);
-    actualizarProgreso(sjOpen, 'apr', r2(c.reduce((a, r) => a + (+r.w || 0) * r.g, 0) / sumW));
-    renderSubj();
-    return;
+    s.status = 'apr'; s.grade = r2(c.reduce((a, r) => a + (+r.w || 0) * r.g, 0) / sumW);
+    afterSubjChange(); renderSubj(); return;
   }
   const row = e.target.closest('.wk');
   if (row && row.dataset.id) { const c = sjOpen; subjDlg.close(); openEdit(row.dataset.id, null, c); }
 });
+const readNum = (input, min, max) => {
+  const v = parseFloat(input.value), ok = input.value === '' || (Number.isFinite(v) && v >= min && v <= max);
+  input.setAttribute('aria-invalid', String(!ok));
+  return { ok, value: Number.isFinite(v) ? Math.min(max, Math.max(min, v)) : null };
+};
 F('sjBody').addEventListener('input', e => {
-  const t = e.target, s = sjState(sjOpen);
+  const t = e.target, s = sjState(sjOpen), f = t.dataset.f;
   if (t.id === 'sjNotes') { s.notes = t.value; saveSubj(); return; }
   if (t.id === 'sjGrade') {
-    const raw = t.value.trim();
-    if (!raw) {
-      delete s.grade;
-      t.removeAttribute('aria-invalid');
-    } else {
-      const v = parseFloat(raw.replace(',', '.'));
-      if (isNaN(v) || v < 5 || v > 10) {
-        t.setAttribute('aria-invalid', 'true');
-      } else {
-        t.removeAttribute('aria-invalid');
-        s.grade = Math.round(v * 100) / 100;
-      }
-    }
+    const r = readNum(t, 5, 10); if (!r.ok) return;
+    if (r.value === null) delete s.grade; else s.grade = r.value;
     saveSubj(); renderProgress(); renderSubjects(); return;
   }
-  if (t.id === 'sjMin') {
-    const raw = t.value.trim();
-    if (!raw) {
-      s.minExam = null;
-      t.removeAttribute('aria-invalid');
-    } else {
-      const v = parseFloat(raw.replace(',', '.'));
-      if (isNaN(v) || v < 0 || v > 10) {
-        t.setAttribute('aria-invalid', 'true');
-      } else {
-        t.removeAttribute('aria-invalid');
-        s.minExam = Math.round(v * 100) / 100;
-      }
-    }
-    saveSubj(); updateCalc(); return;
-  }
-  const f = t.dataset.f; if (!f) return;
+  if (t.id === 'sjMin') { s.minExam = readNum(t, 0, 10).value; saveSubj(); updateCalc(); return; }
+  if (!f) return;
   const i = +t.closest('.crow').dataset.i, c = comps();
   if (f === 'n') c[i].n = t.value;
-  else if (f === 'w') {
-    const raw = t.value.trim();
-    const v = parseFloat(raw.replace(',', '.'));
-    if (isNaN(v) || v < 0 || v > 100) t.setAttribute('aria-invalid', 'true');
-    else { t.removeAttribute('aria-invalid'); c[i].w = Math.max(0, Math.min(100, Math.round(v))); }
-  }
-  else if (f === 'g') {
-    const raw = t.value.trim();
-    if (!raw) {
-      c[i].g = null;
-      t.removeAttribute('aria-invalid');
-    } else {
-      const v = parseFloat(raw.replace(',', '.'));
-      if (isNaN(v) || v < 0 || v > 10) {
-        t.setAttribute('aria-invalid', 'true');
-      } else {
-        t.removeAttribute('aria-invalid');
-        c[i].g = Math.round(v * 100) / 100;
-      }
-    }
-  }
+  else if (f === 'w') c[i].w = readNum(t, 0, 100).value ?? 0;
+  else if (f === 'g') c[i].g = readNum(t, 0, 10).value;
   else if (f === 'exam') c.forEach((r, j) => r.exam = j === i);
   saveSubj(); updateCalc();
 });
 F('sjBody').addEventListener('change', e => {
-  const t = e.target, s = sjState(sjOpen);
-  if (t.id === 'sjGrade') {
-    const raw = t.value.trim();
-    const v = parseFloat(raw.replace(',', '.'));
-    if (isNaN(v) || !raw) {
-      s.grade = 5.0;
-      t.value = '5';
-    } else if (v < 5) {
-      s.grade = 5.0;
-      t.value = '5';
-    } else if (v > 10) {
-      s.grade = 10.0;
-      t.value = '10';
-    } else {
-      s.grade = Math.round(v * 100) / 100;
-      t.value = String(s.grade);
-    }
-    t.removeAttribute('aria-invalid');
-    saveSubj(); renderProgress(); renderSubjects(); return;
-  }
-  if (t.id === 'sjMin') {
-    const raw = t.value.trim();
-    if (!raw) {
-      s.minExam = null;
-      t.value = '';
-    } else {
-      const v = parseFloat(raw.replace(',', '.'));
-      if (isNaN(v) || v < 0) { s.minExam = 0; t.value = '0'; }
-      else if (v > 10) { s.minExam = 10; t.value = '10'; }
-      else { s.minExam = Math.round(v * 100) / 100; t.value = String(s.minExam); }
-    }
-    t.removeAttribute('aria-invalid');
-    saveSubj(); updateCalc(); return;
-  }
-  const f = t.dataset.f;
-  if (f) {
-    const i = +t.closest('.crow').dataset.i, c = comps();
-    if (f === 'w') {
-      const v = parseFloat(t.value.replace(',', '.')) || 0;
-      c[i].w = Math.max(0, Math.min(100, Math.round(v)));
-      t.value = String(c[i].w);
-      t.removeAttribute('aria-invalid');
-      saveSubj(); updateCalc();
-    } else if (f === 'g') {
-      const raw = t.value.trim();
-      if (!raw) {
-        c[i].g = null;
-        t.value = '';
-      } else {
-        const v = parseFloat(raw.replace(',', '.'));
-        if (isNaN(v)) { c[i].g = null; t.value = ''; }
-        else if (v < 0) { c[i].g = 0; t.value = '0'; }
-        else if (v > 10) { c[i].g = 10; t.value = '10'; }
-        else { c[i].g = Math.round(v * 100) / 100; t.value = String(c[i].g); }
-      }
-      t.removeAttribute('aria-invalid');
-      saveSubj(); updateCalc();
-    } else if (f === 'exam') {
-      c.forEach((r, j) => r.exam = j === i);
-      saveSubj(); updateCalc();
-    }
-  }
+  const t = e.target, f = t.dataset.f;
+  if (f === 'exam') { t.dispatchEvent(new Event('input', { bubbles: true })); return; }
+  const stored = t.id === 'sjGrade' ? sjState(sjOpen).grade : t.id === 'sjMin' ? sjState(sjOpen).minExam : (f === 'g' || f === 'w') ? comps()[+t.closest('.crow').dataset.i][f] : undefined;
+  if (stored !== undefined || t.id === 'sjGrade') t.value = stored ?? '';
+  t.removeAttribute('aria-invalid');
 });
 document.getElementById('subjects').addEventListener('click', e => {
   const b = e.target.closest('.scard'); if (b) openSubj(b.dataset.code);
@@ -3982,7 +3855,7 @@ F('onlyMine').checked = !!prefs.onlyMine;
 F('onlyMine').addEventListener('change', e => { prefs.onlyMine = e.target.checked; savePrefs(); renderExams(); renderCalendar(); });
 
 function refreshAll() { renderProgress(); renderSubjects(); renderExams(); renderCalendar(); renderTutorias(); }
-/* Auto-actualización: al cambiar de día se recalcula todo (hoy, semana, mes, tutorías); cada minuto se refresca «próxima/en curso» */
+/* Auto-actualización: cada minuto refresca «próxima / en curso»; al cambiar de día recalcula todo */
 function rollover() {
   const n = new Date(); n.setHours(0,0,0,0);
   if (dkey(n) !== TODAY) { today = n; TODAY = dkey(n); wvStart = null; view = new Date(n.getFullYear(), n.getMonth(), 1); refreshAll(); }
@@ -3997,34 +3870,15 @@ const qEl = document.getElementById('q');
 qEl.addEventListener('input', () => { state.q = norm(qEl.value.trim()); renderLinks(); renderSubjects(); });
 document.addEventListener('keydown', e => {
   const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
-  const anyModalOpen = dlg.open || subjDlg.open || dayDlg.open || vidDlg.open;
-  if (e.key === '/' && !typing && !anyModalOpen) {
-    e.preventDefault();
-    qEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    qEl.focus();
-  }
-  if (e.key === 'Escape' && document.activeElement === qEl) {
-    qEl.value = '';
-    state.q = '';
-    renderLinks();
-    renderSubjects();
-    qEl.blur();
-  }
+  if (e.key === '/' && !typing && !dlg.open) { e.preventDefault(); qEl.focus(); }
+  if (e.key === 'Escape' && document.activeElement === qEl) { qEl.value = ''; qEl.dispatchEvent(new Event('input')); qEl.blur(); }
 });
 
 /* ================= Inicio ================= */
 updateStoreNote();
 renderLinks(); renderLegend(); renderCalendar(); renderExams(); renderTutorias(); renderProgress(); renderTabs(); renderChips(); renderSubjects();
 
-
-/* ================= Estudio con IA / biblioteca local ================= */
-const NOTEBOOKS = [
-  { name:'Lógica y Estructuras Discretas', code:'71031033', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/1658e8a0-bbf5-4092-bd74-732e4595c302' },
-  { name:'Fundamentos de Programación', code:'71901020', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/fea81c7b-3c54-4109-b91d-f8a3f445dc25' },
-  { name:'Fundamentos de Computadores', code:'7103104-', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/731728f3-983d-48eb-93ab-3ae2009ecc7d' },
-  { name:'Fundamentos de Cálculo', code:'71031010', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/ad30fa02-ddbe-401e-8a55-26c8ffb53b25' },
-  { name:'Fundamentos Algebraicos', code:'71031027', desc:'Grado en IA · UNED', url:'https://notebook.google.com/notebook/8a45708d-c336-4b48-871c-499838509921' }
-];
+/* ================= Estudio con IA y tutorías guardadas ================= */
 F('notebookGrid').innerHTML = NOTEBOOKS.map((n, i) => ext(n.url, `<span class="nb-icon">${i + 1}</span><span class="nb-meta"><span>${esc(n.name)}</span><small>${esc(n.desc)} · Gemini Notebook ↗</small></span>`, 'notebook-link')).join('');
 const vidDlg = document.getElementById('vidDlg');
 F('savedList').innerHTML = Object.keys(SAVED).filter(c => savedVideos(SAVED[c])).map(c => `<button type="button" class="saved-item" data-saved="${c}"><span><b>${esc(subjName(c))}</b><small>${savedLists(SAVED[c])} listas · ${savedVideos(SAVED[c])} vídeos</small></span>${ic('right')}</button>`).join('');
@@ -4039,10 +3893,7 @@ function openSaved(code) {
   vidDlg.showModal();
 }
 document.addEventListener('click', e => { const b = e.target.closest('[data-saved]'); if (b) openSaved(b.dataset.saved); });
-F('vidClose').innerHTML = ic('x');
-F('vidClose').onclick = F('vidDone').onclick = () => vidDlg.close();
-vidDlg.addEventListener('click', e => { if (e.target === vidDlg) vidDlg.close(); });
-vidDlg.addEventListener('close', () => { F('vidBody').innerHTML = ''; });
+bindDialog(vidDlg, 'vidClose', 'vidDone');
 /* Contador de visitas anónimo: solo cuenta en tu web publicada (github.io), una vez por navegador y día.
    Prueba primero Abacus (sin registro, con CORS) y, si falla, CounterAPI v2. */
 const VISIT_NS = 'romanosma-github-io', VISIT_KEY = 'panel-uned-visitas';
@@ -4051,23 +3902,22 @@ const VISIT_PROVIDERS = [
   { url: inc => `https://api.counterapi.dev/v2/${VISIT_NS}/${VISIT_KEY}${inc ? '/up' : ''}`, parse: d => d && ((d.data && d.data.up_count) ?? d.value ?? d.count) }
 ];
 async function initVisitCounter(forcePublished) {
-  const box = document.getElementById('visitBox'), out = document.getElementById('visitN'), mode = document.getElementById('visitMode');
-  try {
-    box.hidden = false;
-    // Publicada = abierta por http(s) en un dominio real. En local (archivo, localhost) solo lee el total y no suma.
-    const published = !!forcePublished || (/^https?:$/.test(location.protocol) && !/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname));
-    const day = new Date().toISOString().slice(0, 10), inc = published && localStorage.getItem('uned-visit-day') !== day;
-    mode.textContent = published ? '' : ' · local, no suma';
-    box.title = published ? 'Visitas anónimas (una por navegador y día)' : 'Estás viendo una copia local: se muestra el total pero tu visita no cuenta';
-    for (const pr of VISIT_PROVIDERS) {
-      try {
-        const r = await fetch(pr.url(inc)); if (!r.ok) continue;
-        const n = Number(pr.parse(await r.json()));
-        if (Number.isFinite(n)) { out.textContent = n.toLocaleString('es-ES'); if (inc) localStorage.setItem('uned-visit-day', day); return; }
-      } catch (e) { /* prueba el siguiente servicio */ }
-    }
-    box.title = 'No se pudo contactar con el contador de visitas ahora mismo';
-  } catch (e) {}
+  const box = F('visitBox'), out = F('visitN'), mode = F('visitMode');
+  box.hidden = false;
+  const published = !!forcePublished || (/^https?:$/.test(location.protocol) && !/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname));
+  mode.textContent = published ? '' : ' · local, no suma';
+  box.title = published ? 'Visitas anónimas (una por navegador y día)' : 'Copia local: el contador solo funciona en la web publicada';
+  if (!published) return;
+  const day = new Date().toISOString().slice(0, 10);
+  const inc = localStorage.getItem(VISIT_DAY_KEY) !== day;
+  for (const pr of VISIT_PROVIDERS) {
+    try {
+      const r = await fetch(pr.url(inc)); if (!r.ok) continue;
+      const n = Number(pr.parse(await r.json()));
+      if (Number.isFinite(n)) { out.textContent = n.toLocaleString('es-ES'); if (inc) localStorage.setItem(VISIT_DAY_KEY, day); return; }
+    } catch (e) { continue; }
+  }
+  box.title = 'No se pudo contactar con el contador de visitas ahora mismo';
 }
 initVisitCounter();
 </script>
