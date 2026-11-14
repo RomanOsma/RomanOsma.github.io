@@ -1,0 +1,276 @@
+{
+ "actualizado": "2026-11-09",
+ "series": {
+  "45970": {
+   "videos": [
+    [
+     "LED 01 · Presentación y lógica de proposiciones 1",
+     "925873",
+     ""
+    ],
+    [
+     "LED 02 · Lógica de proposiciones 2",
+     "929764",
+     "17 oct 2025"
+    ],
+    [
+     "LED 03 · Lógica de proposiciones 3",
+     "933946",
+     "24 oct 2025"
+    ],
+    [
+     "LED 04 · Lógica de predicados 1",
+     "937889",
+     "31 oct 2025"
+    ],
+    [
+     "LED 05 · Lógica de predicados 2",
+     "942012",
+     "7 nov 2025"
+    ],
+    [
+     "LED 06 · Lógica de predicados 3",
+     "946198",
+     "14 nov 2025"
+    ],
+    [
+     "LED 07 · Conjuntos",
+     "950526",
+     "21 nov 2025"
+    ],
+    [
+     "LED 08 · Relaciones",
+     "954878",
+     "28 nov 2025"
+    ],
+    [
+     "LED 09 · Funciones",
+     "962287",
+     "12 dic 2025"
+    ],
+    [
+     "LED 10 · Combinatoria",
+     "966003",
+     "19 dic 2025"
+    ],
+    [
+     "LED 11 · Grafos",
+     "966904",
+     "9 ene 2026"
+    ],
+    [
+     "LED 12 · Árboles",
+     "970234",
+     "16 ene 2026"
+    ]
+   ]
+  },
+  "37572": {
+   "videos": [
+    [
+     "LED 01 · Presentación y lógica de proposiciones 1",
+     "825018",
+     ""
+    ],
+    [
+     "LED 02 · Lógica de proposiciones 2",
+     "832408",
+     "19 oct 2024"
+    ],
+    [
+     "LED 03 · Lógica de proposiciones 3",
+     "836022",
+     "25 oct 2024"
+    ],
+    [
+     "LED 04 · Lógica de predicados 1",
+     "838780",
+     "31 oct 2024"
+    ],
+    [
+     "LED 05 · Lógica de predicados 2",
+     "843258",
+     "9 nov 2024"
+    ],
+    [
+     "LED 06 · Lógica de predicados 3",
+     "847304",
+     "16 nov 2024"
+    ],
+    [
+     "LED 07 · Conjuntos",
+     "851359",
+     "23 nov 2024"
+    ],
+    [
+     "LED 08 · Relaciones",
+     "855415",
+     "30 nov 2024"
+    ],
+    [
+     "LED 09 · Funciones",
+     "862201",
+     "14 dic 2024"
+    ],
+    [
+     "LED 10 · Combinatoria",
+     "865772",
+     "21 dic 2024"
+    ],
+    [
+     "LED 11 · Grafos",
+     "867532",
+     "11 ene 2025"
+    ],
+    [
+     "LED 12 · Árboles",
+     "870500",
+     "18 ene 2025"
+    ]
+   ]
+  },
+  "45509": {
+   "videos": [
+    [
+     "Ejemplos de programas · tema 2",
+     "922564",
+     "6 oct 2025"
+    ],
+    [
+     "Temas 3 y 4",
+     "927069",
+     "14 oct 2025"
+    ],
+    [
+     "Temas 5 y 6",
+     "930254",
+     "20 oct 2025"
+    ],
+    [
+     "Subprogramas (funciones y procedimientos)",
+     "934434",
+     "~27 oct 2025"
+    ],
+    [
+     "Temas 8 y 9",
+     "942541",
+     "10 nov 2025"
+    ],
+    [
+     "Tema 10",
+     "943471",
+     "11 nov 2025"
+    ],
+    [
+     "Temas 11 y 12",
+     "946804",
+     "17 nov 2025"
+    ],
+    [
+     "Tema 12 · segunda parte",
+     "951280",
+     "24 nov 2025"
+    ],
+    [
+     "Tema 14 · Tipos abstractos de datos",
+     "955524",
+     "1 dic 2025"
+    ],
+    [
+     "Tema 15",
+     "962880",
+     "15 dic 2025"
+    ],
+    [
+     "Orientaciones sobre la PEC4",
+     "966176",
+     "22 dic 2025"
+    ],
+    [
+     "Pinceladas del tema 13",
+     "967331",
+     "12 ene 2026"
+    ]
+   ]
+  },
+  "39058": {
+   "videos": [
+    [
+     "Introducción y temas 1 y 2",
+     "825381",
+     "7 oct 2024"
+    ],
+    [
+     "Temas 3 y 4",
+     "828873",
+     "14 oct 2024"
+    ],
+    [
+     "Temas 5 y 6",
+     "832826",
+     "21 oct 2024"
+    ],
+    [
+     "Ejercicios resueltos · tema 5 funciones y procedimientos",
+     "836679",
+     "28 oct 2024"
+    ],
+    [
+     "Temas 8 y 9",
+     "839615",
+     "4 nov 2024"
+    ],
+    [
+     "Tema 10 · ampliación de estructuras de control e iteración",
+     "843714",
+     "11 nov 2024"
+    ],
+    [
+     "Tema 11 y comienzo del tema 12",
+     "848537",
+     "19 nov 2024"
+    ],
+    [
+     "Tema 14",
+     "855847",
+     "2 dic 2024"
+    ],
+    [
+     "Tema 15 · Módulos",
+     "858945",
+     "9 dic 2024"
+    ],
+    [
+     "Tema 13 · Estructuras no acotadas",
+     "867821",
+     "13 ene 2025"
+    ]
+   ]
+  },
+  "53847": {
+   "videos": [
+    [
+     "Presentación · temas 1 y 2",
+     "1025387",
+     "5 oct 2026"
+    ],
+    [
+     "Temas 3 y 4",
+     "1032999",
+     "19 oct 2026"
+    ],
+    [
+     "Temas 5 y 6",
+     "1037425",
+     "~26 oct 2026"
+    ],
+    [
+     "Tema 7 · procedimientos y funciones",
+     "1046038",
+     "9 nov 2026"
+    ]
+   ]
+  }
+ },
+ "nuevas": []
+}
