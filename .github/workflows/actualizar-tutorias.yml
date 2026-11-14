@@ -1,5 +1,4 @@
 name: Actualizar tutorías guardadas
-name: Actualizar tutorías guardadas
 
 on:
   schedule:
