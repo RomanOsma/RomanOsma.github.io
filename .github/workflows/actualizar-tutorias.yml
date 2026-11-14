@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Leer el repositorio de contenidos digitales
-        run: python scripts/actualizar_tutorias.py
+        run: python actualizar_tutorias.py
       - name: Guardar los cambios
         run: |
           if [ -n "$(git status --porcelain data/tutorias.json)" ]; then
