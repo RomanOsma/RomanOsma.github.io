@@ -96,6 +96,10 @@ def limpiar_titulo(t):
     t = re.sub(r'^(Fundamentos de Programación|C[aá]lculo(?: para la IA)?)\s*[.\-·:]\s*', '', t, flags=re.I)
     return re.sub(r'\s+', ' ', t).strip(' .-·:')[:160]
 
+
+CORTES = ('<footer', '</main', '<nav', 'Subscribe to', 'class="pager', 'js-pager', 'item-list')
+
+
 def videos_de(pagina):
     """[[titulo, id, fecha], ...] de una página de listado (carpeta o búsqueda).
     Cada vídeo aparece como un encabezado con dos enlaces (la ruta /recurso/cadena-campus_ID y el título) seguido de su descripción."""
