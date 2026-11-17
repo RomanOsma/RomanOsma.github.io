@@ -27,9 +27,10 @@ jobs:
         run: |
           if [ -n "$(git status --porcelain data/tutorias.json)" ]; then
             git config user.name "actualizador-tutorias"
-            git config user.email "actions@users.noreply.github.com"
+            git config user.email "actions@://github.com"
             git add data/tutorias.json
             git commit -m "Actualiza las listas de tutorías guardadas"
+            git pull --rebase origin main
             git push
           else
             echo "Sin cambios en las tutorías"
