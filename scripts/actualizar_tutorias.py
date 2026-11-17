@@ -57,9 +57,12 @@ def pedir(url):
 
 
 def texto(fragmento):
-    fragmento = re.sub(r'<[^>]*$', '', fragmento)   # etiqueta cortada al final del trozo
-    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', fragmento))).strip()
-
+    fragmento = re.sub(r'<style[^>]*>.*?</style>', ' ', fragmento, flags=re.S | re.I)
+    fragmento = re.sub(r'<[^>]*$', '', fragmento)
+    t = html.unescape(re.sub(r'<[^>]+>', ' ', fragmento))
+    t = re.sub(r'\.fa-section-[^{]+\{[^}]+\}', ' ', t)
+    t = re.sub(r'\.layout-region-[^{]+\{[^}]+\}', ' ', t)
+    return re.sub(r'\s+', ' ', t).strip()
 
 def fecha_de(t):
     m = re.search(r'\b(20\d{2})(\d{2})(\d{2})(\d?)\b', t)
@@ -89,12 +92,9 @@ def fecha_de(t):
 def limpiar_titulo(t):
     t = t.replace('_', ' ')
     t = re.sub(r'\(\s*\d{1,2}[ /.]\d{1,2}[ /.]20\d{2}\s*\)', '', t)
-    t = re.sub(r'\b20\d{6,7}\b[.\s-]*', '', t)
-    return re.sub(r'\s+', ' ', t).strip(' .-·')[:160]
-
-
-CORTES = ('<footer', '</main', '<nav', 'Subscribe to', 'class="pager', 'js-pager', 'item-list')
-
+    t = re.sub(r'\b20\d{5,7}\b[.\s-]*', '', t)
+    t = re.sub(r'^(Fundamentos de Programación|C[aá]lculo(?: para la IA)?)\s*[.\-·:]\s*', '', t, flags=re.I)
+    return re.sub(r'\s+', ' ', t).strip(' .-·:')[:160]
 
 def videos_de(pagina):
     """[[titulo, id, fecha], ...] de una página de listado (carpeta o búsqueda).
