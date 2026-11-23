@@ -64,29 +64,59 @@ def texto(fragmento):
     t = re.sub(r'\.layout-region-[^{]+\{[^}]+\}', ' ', t)
     return re.sub(r'\s+', ' ', t).strip()
 
-def fecha_de(t):
-    m = re.search(r'\b(20\d{2})(\d{2})(\d{2})(\d?)\b', t)
-    if m:
+def fmt_fecha(d, aprox=False):
+    return f"{'~' if aprox else ''}{d.day} {MESES[d.month - 1]} {d.year}"
+
+
+def fechas_posibles(digitos):
+    """Fechas válidas que salen de corregir una errata de una cifra (sobra o falta un dígito)."""
+    if len(digitos) == 9:
+        cands = {digitos[:i] + digitos[i + 1:] for i in range(4, 9)}
+    elif len(digitos) == 7:
+        cands = {digitos[:i] + str(d) + digitos[i:] for i in range(4, 8) for d in range(10)}
+    else:
+        return []
+    out = set()
+    for c in cands:
         try:
-            d = datetime.date(int(m[1]), int(m[2]), int(m[3]))
-            return f"{'~' if m[4] else ''}{d.day} {MESES[d.month - 1]} {d.year}"   # «~»: el repositorio trae una errata en la fecha
+            out.add(datetime.date(int(c[:4]), int(c[4:6]), int(c[6:8])))
         except ValueError:
             pass
-    m = re.search(r'\b(\d{1,2})[_/.](\d{1,2})[_/.](20\d{2})\b', t)
+    return sorted(out)
+
+
+def fecha_cruda(t):
+    """('exacta', fecha) | ('dudosa', [fechas posibles]) | None."""
+    for patron, orden in ((r'\b(20\d{2})(\d{2})(\d{2})\b', 'ymd'), (r'\b(\d{1,2})[_/.](\d{1,2})[_/.](20\d{2})\b', 'dmy'), (r'\b(20\d{2})-(\d{2})-(\d{2})\b', 'ymd')):
+        m = re.search(patron, t)
+        if m:
+            y, mo, d = (m[1], m[2], m[3]) if orden == 'ymd' else (m[3], m[2], m[1])
+            try:
+                return 'exacta', datetime.date(int(y), int(mo), int(d))
+            except ValueError:
+                pass
+    m = re.search(r'\b(20\d{5}|20\d{7})\b', t)
     if m:
-        try:
-            d = datetime.date(int(m[3]), int(m[2]), int(m[1]))
-            return f'{d.day} {MESES[d.month - 1]} {d.year}'
-        except ValueError:
-            pass
-    m = re.search(r'\b(20\d{2})-(\d{2})-(\d{2})\b', t)
-    if m:
-        try:
-            d = datetime.date(int(m[1]), int(m[2]), int(m[3]))
-            return f'{d.day} {MESES[d.month - 1]} {d.year}'
-        except ValueError:
-            pass
-    return ''
+        cands = fechas_posibles(m[1])
+        if cands:
+            return 'dudosa', cands
+    return None
+
+
+def resolver_fechas(items, crudas):
+    """Pone la fecha de cada vídeo. Las erratas se corrigen con la cadencia semanal: se elige la fecha posible más cercana a una semana después del vídeo anterior."""
+    previa = None
+    for it in sorted(items, key=lambda v: int(v[1])):
+        c = crudas.get(it[1])
+        if not c:
+            continue
+        if c[0] == 'exacta':
+            d, aprox = c[1], False
+        else:
+            objetivo = previa + datetime.timedelta(days=7) if previa else None
+            d, aprox = (min(c[1], key=lambda x: abs((x - objetivo).days)) if objetivo else c[1][0]), True
+        previa = d
+        it[2] = fmt_fecha(d, aprox)
 
 
 def limpiar_titulo(t):
@@ -104,7 +134,7 @@ def videos_de(pagina):
     """[[titulo, id, fecha], ...] de una página de listado (carpeta o búsqueda).
     Cada vídeo aparece como un encabezado con dos enlaces (la ruta /recurso/cadena-campus_ID y el título) seguido de su descripción."""
     marcas = [(m.start(), m.group(1)) for m in re.finditer(r'cadena-campus_(\d+)', pagina)]
-    out, vistos = [], set()
+    out, vistos, crudas = [], set(), {}
     for i, (pos, vid) in enumerate(marcas):
         if vid in vistos:
             continue
@@ -118,10 +148,11 @@ def videos_de(pagina):
         cola = zona[enlaces[-1].end():] if enlaces else ''
         cortes = [cola.find(c) for c in CORTES if cola.find(c) >= 0]
         descripcion = texto(cola[:min(cortes)] if cortes else cola)[:160]
-        fecha = fecha_de(f'{titulo} {descripcion}')
+        crudas[vid] = fecha_cruda(f'{titulo} {descripcion}')
         limpio, desc = limpiar_titulo(titulo), limpiar_titulo(descripcion)
         etiqueta = f'{limpio} · {desc}' if limpio and desc and desc.lower() not in limpio.lower() and limpio.lower() not in desc.lower() else (desc or limpio)
-        out.append([etiqueta[:160] or f'Grabación {vid}', vid, fecha])
+        out.append([etiqueta[:160] or f'Grabación {vid}', vid, ''])
+    resolver_fechas(out, crudas)
     return out
 
 
